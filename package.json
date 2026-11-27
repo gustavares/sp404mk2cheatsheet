@@ -10,7 +10,9 @@
 		"prepare": "svelte-kit sync || echo ''",
 		"docs:ingest": "node scripts/ingest-pdf.mjs",
 		"validate:tips": "node scripts/validate-tips.mjs",
-		"check": "npm run validate:tips && svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"validate:lessons": "node scripts/validate-lessons.mjs",
+		"check:sense": "node --experimental-strip-types scripts/check-sense.ts",
+		"check": "npm run validate:tips && npm run validate:lessons && npm run check:sense && svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "prettier --check . && eslint .",
 		"format": "prettier --write ."

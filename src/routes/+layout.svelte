@@ -13,14 +13,21 @@
 		Share2,
 		X,
 		Menu,
-		ExternalLink
+		ExternalLink,
+		BookOpen
 	} from '@lucide/svelte';
 	import { asset, resolve } from '$app/paths';
 	import { browser, dev } from '$app/env';
 	import { pinnedStore } from '#lib/stores/pinned.svelte.js';
 	import { uiStore } from '#lib/stores/ui.svelte.js';
 	import { pwaStore } from '#lib/stores/pwa.svelte.js';
+	import { lessonProgress } from '#lib/stores/lessons.svelte.js';
+	import rawLessons from '#lib/data/lessons.json';
+	import type { Lesson } from '#lib/lessons/types.js';
 	import type { LayoutProps } from './$types';
+
+	const lessons = rawLessons as Lesson[];
+	const lessonsDone = $derived(lessonProgress.completedLessonCount(lessons));
 
 	let { children }: LayoutProps = $props();
 
@@ -35,6 +42,7 @@
 
 	$effect(() => {
 		if (browser) {
+			lessonProgress.init();
 			pwaStore.init();
 			if ('serviceWorker' in navigator) {
 				if (dev) {
@@ -63,13 +71,13 @@
 		operatingSystem: 'All',
 		browserRequirements: 'Requires JavaScript',
 		description:
-			'Fast interactive lookup table, 1:1 hardware faceplate filter, and desk cheat sheet builder for Roland SP-404MKII shortcuts (v5.50).',
+			'Fast interactive lookup table, 1:1 hardware faceplate filter, guided lessons, and desk cheat sheet builder for Roland SP-404MKII shortcuts (v5.50).',
 		author: {
 			'@type': 'Organization',
 			name: 'frstudios',
 			url: 'https://frstudios.co.ke'
 		},
-		license: 'https://github.com/cntrvsy/sp404mk2cheatsheet/blob/main/LICENSE'
+		license: 'https://github.com/gustavares/sp404mk2cheatsheet/blob/main/LICENSE'
 	});
 </script>
 
@@ -83,7 +91,7 @@
 	<title>Roland SP-404MKII Interactive Cheat Sheet & Button Lookup</title>
 	<meta
 		name="description"
-		content="Fast interactive shortcut finder and hardware button filter for Roland SP-404MKII shortcuts, hidden combos, and workflow tips. 100% verified against Roland v5.50 Reference Manual."
+		content="Fast interactive shortcut finder, hardware button filter, and hands-on lessons for the Roland SP-404MKII. Shortcuts verified against the Roland v5.50 Reference Manual."
 	/>
 	<meta
 		name="keywords"
@@ -97,7 +105,7 @@
 	<meta property="og:title" content="Roland SP-404MKII Interactive Cheat Sheet & Button Lookup" />
 	<meta
 		property="og:description"
-		content="Fast interactive shortcut finder and 1:1 hardware faceplate filter for Roland SP-404MKII. 101 shortcuts verified against Roland v5.50 Reference Manual."
+		content="Fast interactive shortcut finder, 1:1 hardware faceplate filter, and hands-on lessons for the Roland SP-404MKII. 101 shortcuts verified against the Roland v5.50 Reference Manual."
 	/>
 	<meta property="og:site_name" content="SP-404MKII Cheat Sheet" />
 
@@ -106,7 +114,7 @@
 	<meta name="twitter:title" content="Roland SP-404MKII Interactive Cheat Sheet" />
 	<meta
 		name="twitter:description"
-		content="Fast interactive shortcut finder and 1:1 hardware faceplate filter for Roland SP-404MKII. 101 shortcuts verified against Roland v5.50 Reference Manual."
+		content="Fast interactive shortcut finder, 1:1 hardware faceplate filter, and hands-on lessons for the Roland SP-404MKII. 101 shortcuts verified against the Roland v5.50 Reference Manual."
 	/>
 
 	<!-- Structured Data -->
@@ -170,6 +178,23 @@
 					<span class="view-tab__count view-tab__count--active">{pinnedStore.ids.length}</span>
 				{/if}
 			</button>
+
+			<button
+				type="button"
+				role="tab"
+				id="tab-lessons"
+				class="view-tab"
+				class:view-tab--active={uiStore.viewMode === 'lessons'}
+				aria-selected={uiStore.viewMode === 'lessons'}
+				aria-controls="main-content"
+				onclick={() => uiStore.setViewMode('lessons')}
+			>
+				<BookOpen size={12} />
+				<span>Lessons</span>
+				{#if lessonsDone > 0}
+					<span class="view-tab__count view-tab__count--active">{lessonsDone}</span>
+				{/if}
+			</button>
 		</div>
 
 		<!-- Right: Unified Studio Utilities & Status -->
@@ -212,7 +237,7 @@
 			</button>
 			<span class="footer-dot" aria-hidden="true">·</span>
 			<a
-				href="https://github.com/cntrvsy/sp404mk2cheatsheet"
+				href="https://github.com/gustavares/sp404mk2cheatsheet"
 				target="_blank"
 				rel="noopener noreferrer"
 				class="footer-link"
@@ -221,7 +246,7 @@
 			</a>
 			<span class="footer-dot" aria-hidden="true">·</span>
 			<a
-				href="https://github.com/cntrvsy/sp404mk2cheatsheet/blob/main/LICENSE"
+				href="https://github.com/gustavares/sp404mk2cheatsheet/blob/main/LICENSE"
 				target="_blank"
 				rel="noopener noreferrer"
 				class="footer-link"
@@ -230,9 +255,11 @@
 			</a>
 		</div>
 		<p class="footer-disclaimer">
-			Roland and SP-404MKII are registered trademarks of Roland Corporation. This project is an
-			independent educational cheatsheet verified against the official Roland v5.50 Reference
-			Manual.
+			Fork of
+			<a href="https://github.com/cntrvsy/sp404mk2cheatsheet">cntrvsy/sp404mk2cheatsheet</a>
+			by frstudios. Roland and SP-404MKII are registered trademarks of Roland Corporation. This project
+			is an independent educational cheatsheet. Shortcuts are verified against the official Roland v5.50
+			Reference Manual.
 		</p>
 	</div>
 </footer>
@@ -447,7 +474,7 @@
 					<p class="about-text">
 						Built for beatmakers and live performers. Preserves 1:1 hardware faceplate muscle memory
 						with 101 shortcuts strictly verified with verbatim citations against the official Roland
-						SP-404MKII Reference Manual.
+						SP-404MKII Reference Manual. Lessons mode walks a first DJ-mode set on the same drawing.
 					</p>
 					<p class="about-text">
 						Crafted with <Heart size={13} class="inline-heart" /> by
@@ -508,7 +535,7 @@
 				<div class="about-footer-row">
 					<div class="about-links">
 						<a
-							href="https://github.com/cntrvsy/sp404mk2cheatsheet"
+							href="https://github.com/gustavares/sp404mk2cheatsheet"
 							target="_blank"
 							rel="noopener noreferrer"
 							class="about-sublink"
@@ -533,7 +560,7 @@
 						</a>
 						<span class="about-dot">·</span>
 						<a
-							href="https://github.com/cntrvsy/sp404mk2cheatsheet/blob/main/LICENSE"
+							href="https://github.com/gustavares/sp404mk2cheatsheet/blob/main/LICENSE"
 							target="_blank"
 							rel="noopener noreferrer"
 							class="about-sublink"
@@ -542,8 +569,10 @@
 						</a>
 					</div>
 					<p class="about-disclaimer">
-						Roland and SP-404MKII are registered trademarks of Roland Corporation. This project is
-						an independent educational tool not affiliated with or endorsed by Roland.
+						Fork of
+						<a href="https://github.com/cntrvsy/sp404mk2cheatsheet">cntrvsy/sp404mk2cheatsheet</a>
+						by frstudios. Roland and SP-404MKII are registered trademarks of Roland Corporation. This
+						project is an independent educational tool not affiliated with or endorsed by Roland.
 					</p>
 				</div>
 			</div>
@@ -692,6 +721,10 @@
 	.view-tablist {
 		display: inline-flex;
 		align-items: center;
+		min-width: 0;
+		max-width: 100%;
+		overflow-x: auto;
+		scrollbar-width: none;
 		background: #090b0f;
 		border: 1px solid #1c222e;
 		border-radius: 999px;
@@ -704,6 +737,7 @@
 		display: inline-flex;
 		align-items: center;
 		gap: 0.35rem;
+		white-space: nowrap;
 		padding: 0.28rem 0.65rem;
 		font-size: 0.74rem;
 		font-weight: 700;
@@ -892,6 +926,15 @@
 		font-size: 0.75rem;
 		color: #64748b;
 		line-height: 1.45;
+	}
+
+	.footer-disclaimer a {
+		color: #fdba74;
+		text-decoration: none;
+	}
+
+	.footer-disclaimer a:hover {
+		text-decoration: underline;
 	}
 
 	/* PWA Install Modal */
@@ -1389,6 +1432,10 @@
 		font-size: 0.72rem;
 		color: #64748b;
 		line-height: 1.4;
+	}
+
+	.about-disclaimer a {
+		color: #fdba74;
 	}
 
 	@media print {

@@ -1,4 +1,4 @@
-export type MainViewMode = 'all' | 'pinned';
+export type MainViewMode = 'all' | 'pinned' | 'lessons';
 
 class UiStore {
 	viewMode = $state<MainViewMode>('all');

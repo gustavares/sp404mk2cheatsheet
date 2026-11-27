@@ -22,6 +22,12 @@
 	 */
 	import type { Tip } from '#lib/types.js';
 
+	interface LessonCue {
+		kicker: string;
+		headline: string;
+		detail: string;
+	}
+
 	interface Props {
 		activeButtons: string[];
 		selectedTip?: Tip | null;
@@ -29,6 +35,15 @@
 		onToggleButton: (buttonId: string) => void;
 		onClearButtons: () => void;
 		onClearSelectedTip?: () => void;
+		/** Lesson steps light controls without using them as a shortcut filter. */
+		lessonCue?: LessonCue | null;
+		guideLock?: boolean;
+		showShiftLabels?: boolean;
+		showDjLabels?: boolean;
+		/** Controls the SP just played, lit on top of the step highlight. */
+		liveButtons?: string[];
+		/** Manual steps: the highlighted controls don't report themselves over MIDI. */
+		hatchHighlights?: boolean;
 	}
 
 	let {
@@ -37,18 +52,55 @@
 		matchCount,
 		onToggleButton,
 		onClearButtons,
-		onClearSelectedTip
+		onClearSelectedTip,
+		lessonCue = null,
+		guideLock = false,
+		showShiftLabels = false,
+		showDjLabels = false,
+		liveButtons = [],
+		hatchHighlights = false
 	}: Props = $props();
 
 	const highlightedButtons = $derived(selectedTip ? selectedTip.buttons : activeButtons);
 
-	const isShiftActive = $derived(highlightedButtons.includes('SHIFT'));
+	const isShiftActive = $derived(showShiftLabels || highlightedButtons.includes('SHIFT'));
 	const isAnyPadActive = $derived(highlightedButtons.includes('PAD'));
 	const isDjModeActive = $derived(
-		highlightedButtons.includes('BANK D/I') && highlightedButtons.includes('BANK E/J')
+		showDjLabels ||
+			(highlightedButtons.includes('BANK D/I') && highlightedButtons.includes('BANK E/J'))
 	);
+	const isGuided = $derived(lessonCue !== null);
 
 	let isThumbZoom = $state(false);
+	let faceplateEl: HTMLElement | undefined = $state();
+
+	function press(id: string) {
+		if (guideLock) return;
+		onToggleButton(id);
+	}
+
+	function isLive(id: string): boolean {
+		return (
+			liveButtons.includes(id) ||
+			(id !== 'PAD' && liveButtons.includes('PAD') && id.startsWith('PAD '))
+		);
+	}
+
+	$effect(() => {
+		if (!isGuided || !faceplateEl) return;
+		const first = highlightedButtons.find((id) => id !== 'PAD') ?? 'PAD 1';
+		if (!first || typeof CSS === 'undefined' || typeof CSS.escape !== 'function') return;
+		const target = faceplateEl.querySelector<HTMLElement>(`[data-hw="${CSS.escape(first)}"]`);
+		if (!target) return;
+		const reduce =
+			typeof window !== 'undefined' &&
+			window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		target.scrollIntoView({
+			block: 'nearest',
+			inline: 'nearest',
+			behavior: reduce ? 'auto' : 'smooth'
+		});
+	});
 
 	// Zone 1 (Top): 4 Rotary Knobs (VOLUME, CTRL 1, CTRL 2, CTRL 3)
 	const topKnobs = [
@@ -151,7 +203,11 @@
 	class:faceplate--shift={isShiftActive}
 	class:faceplate--dj={isDjModeActive}
 	class:faceplate--thumb-zoom={isThumbZoom}
-	aria-label="Interactive SP-404MKII Hardware Panel"
+	class:faceplate--guide={isGuided}
+	bind:this={faceplateEl}
+	aria-label={isGuided
+		? 'SP-404MKII drawing with this lesson step highlighted'
+		: 'Interactive SP-404MKII Hardware Panel'}
 >
 	<div class="faceplate__branding">
 		<div class="brand-identity">
@@ -178,9 +234,12 @@
 			<button
 				type="button"
 				class="hw-knob"
+				data-hw={knob.id}
 				class:hw-knob--active={isSelected(knob.id)}
+				class:hw-knob--live={isLive(knob.id)}
+				class:hw-knob--hatch={hatchHighlights && isSelected(knob.id)}
 				aria-pressed={isSelected(knob.id)}
-				onclick={() => onToggleButton(knob.id)}
+				onclick={() => press(knob.id)}
 			>
 				<span class="hw-knob__label">{knob.label}</span>
 				<svg class="hw-knob__dial" viewBox="0 0 48 48" aria-hidden="true">
@@ -200,9 +259,12 @@
 				<button
 					type="button"
 					class="hw-btn hw-btn--fx hw-btn--fx-{btn.pos}"
+					data-hw={btn.id}
 					class:hw-btn--active={isSelected(btn.id)}
+					class:hw-btn--live={isLive(btn.id)}
+					class:hw-btn--hatch={hatchHighlights && isSelected(btn.id)}
 					aria-pressed={isSelected(btn.id)}
-					onclick={() => onToggleButton(btn.id)}
+					onclick={() => press(btn.id)}
 				>
 					<span class="hw-btn__led" aria-hidden="true"></span>
 					<span class="hw-btn__label">{btn.label}</span>
@@ -214,9 +276,11 @@
 		<div class="oled-bezel">
 			<div class="oled-screen" role="status" aria-live="polite">
 				<div class="oled-screen__topbar">
-					<span>{selectedTip ? 'CARD PREVIEW' : 'OLED'}</span>
+					<span>{lessonCue ? 'LESSON' : selectedTip ? 'CARD PREVIEW' : 'OLED'}</span>
 					<span>
-						{#if selectedTip}
+						{#if lessonCue}
+							{lessonCue.kicker}
+						{:else if selectedTip}
 							{selectedTip.category.toUpperCase()}
 						{:else}
 							{matchCount} {matchCount === 1 ? 'MATCH' : 'MATCHES'}
@@ -224,7 +288,12 @@
 					</span>
 				</div>
 				<div class="oled-screen__main">
-					{#if selectedTip}
+					{#if lessonCue}
+						<div class="oled-preview">
+							<div class="oled-combo">{lessonCue.headline}</div>
+							<div class="oled-action">{lessonCue.detail}</div>
+						</div>
+					{:else if selectedTip}
 						<div class="oled-preview">
 							<div class="oled-combo">{selectedTip.combo.join(' + ')}</div>
 							<div class="oled-action">{selectedTip.action}</div>
@@ -238,7 +307,9 @@
 					{/if}
 				</div>
 				<div class="oled-screen__footer">
-					{#if selectedTip}
+					{#if lessonCue}
+						<span>LIT CONTROLS ARE THIS STEP</span>
+					{:else if selectedTip}
 						<button type="button" class="oled-clear-btn" onclick={onClearSelectedTip}>
 							Clear card preview
 						</button>
@@ -258,9 +329,12 @@
 				<button
 					type="button"
 					class="hw-btn hw-btn--fx hw-btn--fx-{btn.pos}"
+					data-hw={btn.id}
 					class:hw-btn--active={isSelected(btn.id)}
+					class:hw-btn--live={isLive(btn.id)}
+					class:hw-btn--hatch={hatchHighlights && isSelected(btn.id)}
 					aria-pressed={isSelected(btn.id)}
-					onclick={() => onToggleButton(btn.id)}
+					onclick={() => press(btn.id)}
 				>
 					<span class="hw-btn__led" aria-hidden="true"></span>
 					<span class="hw-btn__label">{btn.label}</span>
@@ -280,9 +354,12 @@
 						<button
 							type="button"
 							class="hw-btn hw-btn--rect"
+							data-hw={btn.id}
 							class:hw-btn--active={isSelected(btn.id)}
+							class:hw-btn--live={isLive(btn.id)}
+							class:hw-btn--hatch={hatchHighlights && isSelected(btn.id)}
 							aria-pressed={isSelected(btn.id)}
-							onclick={() => onToggleButton(btn.id)}
+							onclick={() => press(btn.id)}
 						>
 							<span class="hw-btn__label">{btn.label}</span>
 							{#if btn.sub}
@@ -300,9 +377,12 @@
 						<button
 							type="button"
 							class="hw-btn hw-btn--rect"
+							data-hw={btn.id}
 							class:hw-btn--active={isSelected(btn.id)}
+							class:hw-btn--live={isLive(btn.id)}
+							class:hw-btn--hatch={hatchHighlights && isSelected(btn.id)}
 							aria-pressed={isSelected(btn.id)}
-							onclick={() => onToggleButton(btn.id)}
+							onclick={() => press(btn.id)}
 						>
 							<span class="hw-btn__label">{btn.label}</span>
 							{#if btn.sub}
@@ -319,9 +399,12 @@
 				<button
 					type="button"
 					class="hw-knob hw-knob--encoder"
+					data-hw="VALUE"
 					class:hw-knob--active={isSelected('VALUE')}
+					class:hw-knob--live={isLive('VALUE')}
+					class:hw-knob--hatch={hatchHighlights && isSelected('VALUE')}
 					aria-pressed={isSelected('VALUE')}
-					onclick={() => onToggleButton('VALUE')}
+					onclick={() => press('VALUE')}
 				>
 					<svg class="hw-knob__dial hw-knob__dial--encoder" viewBox="0 0 48 48" aria-hidden="true">
 						<circle cx="24" cy="24" r="20" class="dial-outer" />
@@ -345,9 +428,12 @@
 						<button
 							type="button"
 							class="hw-btn hw-btn--rect"
+							data-hw={btn.id}
 							class:hw-btn--active={isSelected(btn.id)}
+							class:hw-btn--live={isLive(btn.id)}
+							class:hw-btn--hatch={hatchHighlights && isSelected(btn.id)}
 							aria-pressed={isSelected(btn.id)}
-							onclick={() => onToggleButton(btn.id)}
+							onclick={() => press(btn.id)}
 						>
 							<span class="hw-btn__label">{btn.label}</span>
 							{#if btn.sub}
@@ -365,9 +451,12 @@
 						<button
 							type="button"
 							class="hw-btn hw-btn--rect"
+							data-hw={btn.id}
 							class:hw-btn--active={isSelected(btn.id)}
+							class:hw-btn--live={isLive(btn.id)}
+							class:hw-btn--hatch={hatchHighlights && isSelected(btn.id)}
 							aria-pressed={isSelected(btn.id)}
-							onclick={() => onToggleButton(btn.id)}
+							onclick={() => press(btn.id)}
 						>
 							<span class="hw-btn__label">{btn.label}</span>
 							{#if btn.sub}
@@ -388,9 +477,12 @@
 						<button
 							type="button"
 							class="hw-btn hw-btn--rect"
+							data-hw={btn.id}
 							class:hw-btn--active={isSelected(btn.id)}
+							class:hw-btn--live={isLive(btn.id)}
+							class:hw-btn--hatch={hatchHighlights && isSelected(btn.id)}
 							aria-pressed={isSelected(btn.id)}
-							onclick={() => onToggleButton(btn.id)}
+							onclick={() => press(btn.id)}
 						>
 							<span class="hw-btn__label">{btn.label}</span>
 							{#if btn.sub}
@@ -413,10 +505,13 @@
 						<button
 							type="button"
 							class="hw-btn hw-btn--rect hw-btn--bank"
+							data-hw={bank.id}
 							class:hw-btn--active={isSelected(bank.id)}
+							class:hw-btn--live={isLive(bank.id)}
+							class:hw-btn--hatch={hatchHighlights && isSelected(bank.id)}
 							aria-pressed={isSelected(bank.id)}
 							aria-label="Bank {bank.label}"
-							onclick={() => onToggleButton(bank.id)}
+							onclick={() => press(bank.id)}
 						>
 							<span class="hw-btn__label">{bank.label}</span>
 							<span class="hw-btn__shift">VOL</span>
@@ -426,9 +521,12 @@
 					<button
 						type="button"
 						class="hw-btn hw-btn--rect hw-btn--shift-key"
+						data-hw="SHIFT"
 						class:hw-btn--active={isSelected('SHIFT')}
+						class:hw-btn--live={isLive('SHIFT')}
+						class:hw-btn--hatch={hatchHighlights && isSelected('SHIFT')}
 						aria-pressed={isSelected('SHIFT')}
-						onclick={() => onToggleButton('SHIFT')}
+						onclick={() => press('SHIFT')}
 					>
 						<span class="hw-btn__label">SHIFT</span>
 					</button>
@@ -446,9 +544,10 @@
 		<button
 			type="button"
 			class="any-pad-btn"
+			data-hw="PAD"
 			class:any-pad-btn--active={isSelected('PAD')}
 			aria-pressed={isSelected('PAD')}
-			onclick={() => onToggleButton('PAD')}
+			onclick={() => press('PAD')}
 		>
 			Any [PAD]
 		</button>
@@ -461,10 +560,13 @@
 				<button
 					type="button"
 					class="hw-pad"
+					data-hw={pad.id}
 					class:hw-pad--active={isSelected(pad.id)}
+					class:hw-pad--live={isLive(pad.id)}
+					class:hw-pad--hatch={hatchHighlights && isSelected(pad.id)}
 					class:hw-pad--any-active={isAnyPadActive && !isSelected(pad.id)}
 					aria-pressed={isSelected(pad.id)}
-					onclick={() => onToggleButton(pad.id)}
+					onclick={() => press(pad.id)}
 				>
 					<div class="hw-pad__top">
 						<span class="hw-pad__num">{pad.num}</span>
@@ -481,9 +583,12 @@
 				<button
 					type="button"
 					class="hw-btn hw-btn--side"
+					data-hw={btn.id}
 					class:hw-btn--active={isSelected(btn.id)}
+					class:hw-btn--live={isLive(btn.id)}
+					class:hw-btn--hatch={hatchHighlights && isSelected(btn.id)}
 					aria-pressed={isSelected(btn.id)}
-					onclick={() => onToggleButton(btn.id)}
+					onclick={() => press(btn.id)}
 				>
 					<span class="hw-btn__label">{btn.label}</span>
 					<span class="hw-btn__shift">{btn.sub}</span>
@@ -1200,6 +1305,78 @@
 
 	.hw-pad--any-active .hw-pad__num {
 		color: #fdba74;
+	}
+
+	/* Lesson guide: dim everything except the step, and pulse the lit controls. */
+	.faceplate--guide .any-pad-btn {
+		display: none;
+	}
+
+	.faceplate--guide [data-hw] {
+		scroll-margin-top: 4.75rem;
+		scroll-margin-bottom: 5.75rem;
+	}
+
+	.faceplate--guide .hw-btn:not(.hw-btn--active):not(.hw-btn--live),
+	.faceplate--guide .hw-pad:not(.hw-pad--active):not(.hw-pad--any-active):not(.hw-pad--live),
+	.faceplate--guide .hw-knob:not(.hw-knob--active):not(.hw-knob--live) {
+		opacity: 0.38;
+	}
+
+	.faceplate--guide .hw-btn--live,
+	.faceplate--guide .hw-pad--live,
+	.faceplate--guide .hw-knob--live {
+		opacity: 1;
+		outline: 2px solid #fff7ed;
+		outline-offset: 2px;
+		background: #f97316 !important;
+		color: #fff !important;
+	}
+
+	.faceplate--guide .hw-btn--hatch.hw-btn--active,
+	.faceplate--guide .hw-pad--hatch.hw-pad--active,
+	.faceplate--guide .hw-knob--hatch.hw-knob--active {
+		animation: none;
+		background-color: #9a3412 !important;
+		background-image: repeating-linear-gradient(
+			-45deg,
+			rgba(255, 237, 213, 0.18) 0 3px,
+			transparent 3px 7px
+		) !important;
+		outline-style: dashed;
+	}
+
+	.faceplate--guide button {
+		cursor: default;
+	}
+
+	.faceplate--guide .hw-btn--active,
+	.faceplate--guide .hw-pad--active,
+	.faceplate--guide .hw-pad--any-active,
+	.faceplate--guide .hw-knob--active {
+		outline: 2px solid rgba(253, 186, 116, 0.45);
+		outline-offset: 2px;
+		animation: lesson-glow 1.7s ease-in-out infinite;
+	}
+
+	@keyframes lesson-glow {
+		0%,
+		100% {
+			outline-color: rgba(253, 186, 116, 0.25);
+		}
+
+		50% {
+			outline-color: rgba(255, 237, 213, 1);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.faceplate--guide .hw-btn--active,
+		.faceplate--guide .hw-pad--active,
+		.faceplate--guide .hw-pad--any-active,
+		.faceplate--guide .hw-knob--active {
+			animation: none;
+		}
 	}
 
 	/* Optional Thumb Zoom Mode: expands FX and Middle Function rows into full-width thumb-friendly rows */
