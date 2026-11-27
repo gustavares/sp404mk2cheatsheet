@@ -22,11 +22,8 @@
 	import { uiStore } from '#lib/stores/ui.svelte.js';
 	import { pwaStore } from '#lib/stores/pwa.svelte.js';
 	import { lessonProgress } from '#lib/stores/lessons.svelte.js';
-	import rawLessons from '#lib/data/lessons.json';
-	import type { Lesson } from '#lib/lessons/types.js';
+	import { lessons } from '#lib/lessons/catalog.js';
 	import type { LayoutProps } from './$types';
-
-	const lessons = rawLessons as Lesson[];
 	const lessonsDone = $derived(lessonProgress.completedLessonCount(lessons));
 
 	let { children }: LayoutProps = $props();
@@ -474,7 +471,8 @@
 					<p class="about-text">
 						Built for beatmakers and live performers. Preserves 1:1 hardware faceplate muscle memory
 						with 101 shortcuts strictly verified with verbatim citations against the official Roland
-						SP-404MKII Reference Manual. Lessons mode walks a first DJ-mode set on the same drawing.
+						SP-404MKII Reference Manual. Lessons has two paths on the same drawing: Normal mode for
+						making tracks, and DJ mode for playing a set.
 					</p>
 					<p class="about-text">
 						Crafted with <Heart size={13} class="inline-heart" /> by

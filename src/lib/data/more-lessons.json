@@ -1,0 +1,3483 @@
+[
+	{
+		"id": "pattern-chain",
+		"title": "Line them up",
+		"blurb": "Play two patterns in a row, as a chain. That is a song, at the smallest size.",
+		"bring": "Two patterns you already like. The loop from the pattern lesson is enough for one of them.",
+		"tracks": ["normal"],
+		"role": "core",
+		"chapter": "Patterns",
+		"order": 8,
+		"steps": [
+			{
+				"id": "open-chain",
+				"title": "Open a chain slot",
+				"action": "Press [PATTERN SELECT]. Hold [HOLD] and press an empty-looking pad. That pad number is the chain, 1 through 16. The screen should say PATTERN CHAIN.",
+				"listen": "Nothing plays yet. You are choosing which chain to write, not starting the song.",
+				"highlight": ["PATTERN SELECT", "HOLD", "PAD"],
+				"screen": "HOLD + a pad",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/06-pattern-sequencer.md",
+						"page": 74,
+						"quote": "Pattern chain is a function that lets you play back patterns you’ve created with the pattern sequencer, in a specified order."
+					},
+					{
+						"doc": "docs/reference/roland-v550/06-pattern-sequencer.md",
+						"page": 74,
+						"quote": "While holding down the [HOLD] button, press pads [1]–[16] to select the pattern chain number (1–16) to record."
+					}
+				]
+			},
+			{
+				"id": "add-two",
+				"title": "Drop in two patterns",
+				"action": "Press the pad of the first pattern, then the pad of the second. Press [EXIT] when the order looks right. The chain saves itself.",
+				"listen": "Still quiet, on purpose. You are writing the order, not performing it.",
+				"highlight": ["PAD", "EXIT"],
+				"screen": "Two pads, then EXIT",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/06-pattern-sequencer.md",
+						"page": 75,
+						"quote": "Press pads [1]–[16] to select the pattern you want to record to the pattern chain."
+					},
+					{
+						"doc": "docs/reference/roland-v550/06-pattern-sequencer.md",
+						"page": 75,
+						"quote": "When you finish recording to the pattern chain, press the [EXIT] button."
+					}
+				]
+			},
+			{
+				"id": "play-chain",
+				"title": "Let the chain play",
+				"action": "Hold [HOLD] and press that same chain pad again if you left the screen. Press [SUB PAD].",
+				"listen": "The first pattern, then the second, without you touching a pad in between. That handoff is the whole trick.",
+				"highlight": ["HOLD", "SUB PAD", "PAD"],
+				"screen": "SUB PAD plays the chain",
+				"sense": "audio",
+				"listenFor": {
+					"type": "sound",
+					"sustainMs": 700
+				},
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/06-pattern-sequencer.md",
+						"page": 75,
+						"quote": "Press the [SUB PAD] button."
+					},
+					{
+						"doc": "docs/reference/roland-v550/06-pattern-sequencer.md",
+						"page": 75,
+						"quote": "The selected pattern chain plays back."
+					}
+				]
+			}
+		]
+	},
+	{
+		"id": "keep-the-project",
+		"title": "Put it somewhere safe",
+		"blurb": "See which project you are in, then copy it to an SD card. You will not delete anything.",
+		"bring": "An SD card the SP has formatted, if you want the export step. You can stop after looking.",
+		"tracks": ["normal"],
+		"role": "core",
+		"chapter": "Inputs & projects",
+		"order": 9,
+		"steps": [
+			{
+				"id": "look",
+				"title": "Look, don’t switch",
+				"action": "Hold [SHIFT] and press [SUB PAD]. The SELECT PROJECT screen shows projects on pads. Press [EXIT] without pressing a pad.",
+				"listen": "No sound change. The lit pad is a project. Pressing a different pad would load it, so don’t.",
+				"highlight": ["SHIFT", "SUB PAD", "EXIT"],
+				"screen": "SHIFT + SUB PAD",
+				"showShiftLabels": true,
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/08-monitoring-inputs-projects.md",
+						"page": 104,
+						"quote": "Hold down the [SHIFT] button and press the [SUB PAD] button."
+					},
+					{
+						"doc": "docs/reference/roland-v550/08-monitoring-inputs-projects.md",
+						"page": 104,
+						"quote": "The SELECT PROJECT screen appears."
+					}
+				]
+			},
+			{
+				"id": "export",
+				"title": "Copy the project to a card",
+				"action": "Put the SD card in the side slot. Hold [SHIFT] and tap pad [13] for UTILITY. Turn [VALUE] until you can export the project, confirm, and let the screen finish. If you have no card, press [EXIT] and you are still done with this path.",
+				"listen": "The SP stays quiet. The card gets a copy. Do not pull the card while the screen says Working.",
+				"highlight": ["SHIFT", "PAD 13", "VALUE", "EXIT"],
+				"screen": "Export, or EXIT",
+				"showShiftLabels": true,
+				"offPanel": "SD card slot, on the side of the unit.",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/09-utility-and-sd-card.md",
+						"page": 129,
+						"quote": "You can export projects to an SD card if you want to use them on another SP-404MK2."
+					},
+					{
+						"doc": "docs/reference/roland-v550/09-utility-and-sd-card.md",
+						"page": 130,
+						"quote": "The selected projects are saved in the “EXPORT PROJECT” folder of the SD card"
+					},
+					{
+						"doc": "docs/reference/roland-v550/09-utility-and-sd-card.md",
+						"page": 126,
+						"quote": "Never turn off the power or remove the SD card while the screen indicates “Working...”."
+					}
+				]
+			},
+			{
+				"id": "back-home",
+				"title": "Back to the pads",
+				"action": "Press [EXIT] until the pads are orange again.",
+				"listen": "Your patterns and samples are still in the current project. Exporting copied them. It did not move them out.",
+				"highlight": ["EXIT", "PAD"],
+				"screen": "EXIT until orange",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/02-playing-back-samples.md",
+						"page": 19,
+						"quote": "When you turn on the SP-404MK2, the pads light up orange and the unit enters sample mode."
+					}
+				]
+			}
+		]
+	},
+	{
+		"id": "jacks-and-volume",
+		"title": "Plug in softly",
+		"blurb": "Volume down, then headphones and the outs. The drawing only shows the top.",
+		"bring": "The SP, headphones, and anything you are about to cable.",
+		"tracks": ["normal"],
+		"role": "side",
+		"chapter": "Panel",
+		"order": 1,
+		"steps": [
+			{
+				"id": "down",
+				"title": "Volume first",
+				"action": "Turn [VOLUME] down before you touch a cable.",
+				"listen": "Silence is the goal. You will bring it up after the plugs are in.",
+				"highlight": ["VOLUME"],
+				"screen": "VOLUME down",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/01-introduction-and-panel.md",
+						"page": 13,
+						"quote": "To prevent malfunction and equipment failure, always turn down the volume, and turn off all the units before making any connections."
+					}
+				],
+				"offPanel": "Rear LINE OUT, and the front PHONES jack."
+			},
+			{
+				"id": "phones",
+				"title": "Ears, then the room",
+				"action": "Plug headphones into the front PHONES jack. Speakers, if you use them, go to the rear LINE OUT.",
+				"listen": "With [VOLUME] still low, you should hear almost nothing. That is correct.",
+				"highlight": ["VOLUME"],
+				"screen": "PHONES, then outs",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/01-introduction-and-panel.md",
+						"page": 10,
+						"quote": "Connect your headphones or earphones here."
+					}
+				],
+				"offPanel": "PHONES is on the front. LINE OUT is on the rear."
+			},
+			{
+				"id": "up",
+				"title": "Bring it up",
+				"action": "Turn [VOLUME] until the headphones are comfortable, not hot.",
+				"listen": "A pad tap should be clear, not a blast.",
+				"highlight": ["VOLUME", "PAD"],
+				"screen": "VOLUME up",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/01-introduction-and-panel.md",
+						"page": 17,
+						"quote": "Adjust the volume of this unit with the [VOLUME] knob."
+					}
+				]
+			}
+		],
+		"parentId": "orientation"
+	},
+	{
+		"id": "bank-volume",
+		"title": "One bank, one loudness",
+		"blurb": "If bank B is quieter than bank A, the bank volume is the knob, not the samples.",
+		"bring": "Two banks that do not feel equally loud.",
+		"tracks": ["normal"],
+		"role": "side",
+		"chapter": "Playback",
+		"order": 2,
+		"steps": [
+			{
+				"id": "open",
+				"title": "Open bank volume",
+				"action": "Hold [SHIFT] and press the bank button for the bank that feels wrong.",
+				"listen": "The BANK VOLUME screen appears. The pads do not have to play yet.",
+				"highlight": ["SHIFT", "BANK A/F"],
+				"screen": "SHIFT + bank",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/02-playing-back-samples.md",
+						"page": 20,
+						"quote": "Hold down the [SHIFT] button and press the bank [A/F]–[E/J] buttons."
+					}
+				]
+			},
+			{
+				"id": "set",
+				"title": "Match them by ear",
+				"action": "Turn [VALUE] until this bank sits with the others. Press [EXIT].",
+				"listen": "The same pad, after you switch banks, should not jump in level.",
+				"highlight": ["VALUE", "EXIT"],
+				"screen": "VALUE, then EXIT",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/02-playing-back-samples.md",
+						"page": 20,
+						"quote": "Turn the [VALUE] knob to set the bank volume."
+					}
+				]
+			},
+			{
+				"id": "check",
+				"title": "A/B the banks",
+				"action": "Press the bank button, tap a pad, press the other bank, tap again.",
+				"listen": "You are listening for a level match, not a new sound.",
+				"highlight": ["BANK A/F", "PAD"],
+				"screen": "Tap, switch, tap",
+				"sense": "midi",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/02-playing-back-samples.md",
+						"page": 19,
+						"quote": "Each time you press the bank [A/F] button, the bank switches between A and F."
+					}
+				],
+				"listenFor": {
+					"type": "any-pad"
+				}
+			}
+		],
+		"parentId": "orientation"
+	},
+	{
+		"id": "one-shot",
+		"title": "Play it once",
+		"blurb": "One-shot ignores your finger until the sample finishes. Useful for a long backing, annoying for a drum.",
+		"bring": "A pad with a phrase on it.",
+		"tracks": ["normal"],
+		"role": "side",
+		"chapter": "Playback",
+		"order": 1,
+		"steps": [
+			{
+				"id": "set",
+				"title": "Hold VALUE, press GATE",
+				"action": "Hold the [VALUE] knob down and press [GATE]. [GATE] blinks slowly. [LOOP] goes dark.",
+				"listen": "You have not changed the audio yet. You changed how the pad answers.",
+				"highlight": ["VALUE", "GATE", "LOOP"],
+				"screen": "VALUE + GATE",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/02-playing-back-samples.md",
+						"page": 21,
+						"quote": "This sets the sample playback mode to “one-shot playback”."
+					},
+					{
+						"doc": "docs/reference/roland-v550/02-playing-back-samples.md",
+						"page": 21,
+						"quote": "The loop function turns off (and the [LOOP] button goes dark) when one-shot playback is on."
+					}
+				]
+			},
+			{
+				"id": "play",
+				"title": "One tap, all the way",
+				"action": "Tap the pad once. Tap it again while it is still going.",
+				"listen": "It should run to the end. The second tap does nothing until it finishes.",
+				"highlight": ["PAD", "GATE"],
+				"screen": "Tap once",
+				"sense": "midi",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/02-playing-back-samples.md",
+						"page": 21,
+						"quote": "When the sample playback mode is set to one-shot playback, the sample plays back once to the end when you press a pad."
+					}
+				],
+				"listenFor": {
+					"type": "any-pad"
+				}
+			},
+			{
+				"id": "back",
+				"title": "Leave it how you like",
+				"action": "Hold [VALUE] and press [GATE] again if you want gate or trigger back. Or leave the blink if you liked the one-shot.",
+				"listen": "You should recognize the old behavior when the blink stops.",
+				"highlight": ["VALUE", "GATE"],
+				"screen": "VALUE + GATE again",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/02-playing-back-samples.md",
+						"page": 20,
+						"quote": "Press the [GATE] button to switch the function on (the button is lit) and off (the button goes dark)."
+					}
+				]
+			}
+		],
+		"parentId": "gate-loop-reverse"
+	},
+	{
+		"id": "roll-it",
+		"title": "A little roll",
+		"blurb": "Roll repeats the sample in small steps while you hold the button.",
+		"bring": "Any short sample.",
+		"tracks": ["normal"],
+		"role": "side",
+		"chapter": "Playback",
+		"order": 2,
+		"steps": [
+			{
+				"id": "on",
+				"title": "Turn roll on",
+				"action": "Press [ROLL] so it lights. Tap a pad.",
+				"listen": "A stutter, not a single hit. That is the roll.",
+				"highlight": ["ROLL", "PAD"],
+				"screen": "ROLL on",
+				"sense": "midi",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/02-playing-back-samples.md",
+						"page": 22,
+						"quote": "You can use the roll function to repeatedly play back samples at a set interval."
+					}
+				],
+				"listenFor": {
+					"type": "any-pad"
+				}
+			},
+			{
+				"id": "size",
+				"title": "Change the size",
+				"action": "Hold [SHIFT] and press [ROLL] to step through the roll length. The manual lists this as the roll set.",
+				"listen": "The repeats get faster or slower. Pick a size you can nod to.",
+				"highlight": ["SHIFT", "ROLL"],
+				"screen": "SHIFT + ROLL",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/01-introduction-and-panel.md",
+						"page": 8,
+						"quote": "You can change the length of a sample (how fast the roll plays) by pressing the [ROLL] button while holding down the [SHIFT] button."
+					}
+				]
+			},
+			{
+				"id": "off",
+				"title": "Turn it off",
+				"action": "Press [ROLL] until it goes dark, then tap the pad.",
+				"listen": "One hit again. Roll is a performance move, not a new sample.",
+				"highlight": ["ROLL", "PAD"],
+				"screen": "ROLL off",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/02-playing-back-samples.md",
+						"page": 19,
+						"quote": "The corresponding samples play back."
+					}
+				]
+			}
+		],
+		"parentId": "gate-loop-reverse"
+	},
+	{
+		"id": "chromatic",
+		"title": "Play it up the pads",
+		"blurb": "Chromatic mode turns the 16 pads into a little keyboard for one sample.",
+		"bring": "A tonal sample: a bass note, a stab, a vocal.",
+		"tracks": ["normal"],
+		"role": "side",
+		"chapter": "Playback",
+		"order": 3,
+		"steps": [
+			{
+				"id": "enter",
+				"title": "SHIFT and pad 4",
+				"action": "Tap the sample, then hold [SHIFT] and press pad [4].",
+				"listen": "The pads are no longer sixteen different samples. They are pitches of the one you chose.",
+				"highlight": ["SHIFT", "PAD 4", "PAD"],
+				"screen": "SHIFT + PAD 4",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/02-playing-back-samples.md",
+						"page": 25,
+						"quote": "You can play back samples (changing their pitches) as a chromatic scale with the pads."
+					},
+					{
+						"doc": "docs/reference/roland-v550/02-playing-back-samples.md",
+						"page": 25,
+						"quote": "Hold down the [SHIFT] button and press the pad [4]."
+					},
+					{
+						"doc": "docs/reference/roland-v550/02-playing-back-samples.md",
+						"page": 25,
+						"quote": "The unit enters chromatic mode."
+					}
+				],
+				"showShiftLabels": true
+			},
+			{
+				"id": "play",
+				"title": "Walk up the pads",
+				"action": "Press a few pads from low to high. Turn [VALUE] if you want a different key range.",
+				"listen": "Each pad is the same sound, higher or lower. Channel 16 is what the chart says chromatic mode transmits.",
+				"highlight": ["PAD", "VALUE"],
+				"screen": "Pads are pitches",
+				"sense": "midi",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/02-playing-back-samples.md",
+						"page": 25,
+						"quote": "The pad position corresponds to the key displayed. The sample plays back in the key that matches the pad you press."
+					}
+				],
+				"listenFor": {
+					"type": "any-pad"
+				},
+				"unverified": [
+					"The chart lists chromatic notes as 36–60 on MIDI channel 16. It does not say which pad is which note, so the drawing does not light a specific pad for these."
+				]
+			},
+			{
+				"id": "leave",
+				"title": "EXIT",
+				"action": "Press [EXIT]. Tap two pads.",
+				"listen": "They should be different samples again.",
+				"highlight": ["EXIT", "PAD"],
+				"screen": "EXIT",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/02-playing-back-samples.md",
+						"page": 25,
+						"quote": "To exit chromatic mode, press the [EXIT] button."
+					}
+				]
+			}
+		],
+		"parentId": "gate-loop-reverse"
+	},
+	{
+		"id": "mute-groups",
+		"title": "Only one at a time",
+		"blurb": "A mute group is a choke. The last pad you hit wins. Open hats and closed hats like this.",
+		"bring": "Two pads you do not want stacked, such as two hats.",
+		"tracks": ["normal"],
+		"role": "side",
+		"chapter": "Playback",
+		"order": 4,
+		"steps": [
+			{
+				"id": "open",
+				"title": "SHIFT and pad 8",
+				"action": "Hold [SHIFT] and press pad [8]. Turn [VALUE] to pick a group, A through J.",
+				"listen": "The MUTE GROUP screen is a list, not a sound.",
+				"highlight": ["SHIFT", "PAD 8", "VALUE"],
+				"screen": "SHIFT + PAD 8",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/02-playing-back-samples.md",
+						"page": 28,
+						"quote": "The MUTE GROUP screen appears."
+					},
+					{
+						"doc": "docs/reference/roland-v550/02-playing-back-samples.md",
+						"page": 28,
+						"quote": "Turn the [VALUE] knob to select the group (A-J)."
+					}
+				],
+				"showShiftLabels": true
+			},
+			{
+				"id": "pick",
+				"title": "Add the two pads",
+				"action": "Press the two pads that should choke each other. Press [EXIT].",
+				"listen": "Nothing dramatic yet. You only marked them.",
+				"highlight": ["PAD", "EXIT"],
+				"screen": "Two pads, EXIT",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/02-playing-back-samples.md",
+						"page": 28,
+						"quote": "Press pads [1]–[16] to select the samples you want to include in the group."
+					}
+				]
+			},
+			{
+				"id": "hear",
+				"title": "Play both",
+				"action": "Hit one, then the other, quickly.",
+				"listen": "The second should cut the first. They should not ring together.",
+				"highlight": ["PAD"],
+				"screen": "Last pad wins",
+				"sense": "midi",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/02-playing-back-samples.md",
+						"page": 28,
+						"quote": "Out of the pads (samples) in the same group, sound is played back only for the last pad you play."
+					}
+				],
+				"listenFor": {
+					"type": "any-pad"
+				}
+			}
+		],
+		"parentId": "gate-loop-reverse"
+	},
+	{
+		"id": "stop-everything",
+		"title": "Hands off, sound off",
+		"blurb": "Four quick EXITs stop every sample and pattern. SHIFT + EXIT does it too.",
+		"bring": "Something looping, so you can hear it stop.",
+		"tracks": ["normal"],
+		"role": "side",
+		"chapter": "Playback",
+		"order": 5,
+		"steps": [
+			{
+				"id": "go",
+				"title": "Start a loop",
+				"action": "Press [LOOP] if you need to, and tap a pad so something is running.",
+				"listen": "You want a sound that will be obvious when it dies.",
+				"highlight": ["LOOP", "PAD"],
+				"screen": "Make some noise",
+				"sense": "midi",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/02-playing-back-samples.md",
+						"page": 21,
+						"quote": "Press the [LOOP] button to turn the loop on (the button lights up)."
+					}
+				],
+				"listenFor": {
+					"type": "any-pad"
+				}
+			},
+			{
+				"id": "four",
+				"title": "EXIT, four times",
+				"action": "Press [EXIT] quickly four times.",
+				"listen": "Everything that was playing should stop.",
+				"highlight": ["EXIT"],
+				"screen": "EXIT × 4",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/02-playing-back-samples.md",
+						"page": 28,
+						"quote": "Press the [EXIT] button quickly four times."
+					},
+					{
+						"doc": "docs/reference/roland-v550/02-playing-back-samples.md",
+						"page": 28,
+						"quote": "All samples and patterns that are playing back stop."
+					}
+				]
+			},
+			{
+				"id": "shift",
+				"title": "The other way",
+				"action": "Start the loop again. Hold [SHIFT] and press [EXIT] once.",
+				"listen": "Same silence, one combo. Use whichever your hand finds.",
+				"highlight": ["SHIFT", "EXIT", "PAD"],
+				"screen": "SHIFT + EXIT",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/02-playing-back-samples.md",
+						"page": 28,
+						"quote": "You can also press the [EXIT] button while holding down the [SHIFT] button to stop all samples and patterns that are playing back."
+					}
+				]
+			}
+		],
+		"parentId": "gate-loop-reverse"
+	},
+	{
+		"id": "sample-bpm",
+		"title": "Tell the sample its tempo",
+		"blurb": "BPM SYNC only works after the sample has a tempo. AUTO listens and guesses.",
+		"bring": "A loop with a clear pulse.",
+		"tracks": ["normal"],
+		"role": "side",
+		"chapter": "Sample edit",
+		"order": 1,
+		"steps": [
+			{
+				"id": "open",
+				"title": "PITCH/SPEED",
+				"action": "Press [PITCH/SPEED] and tap the sample.",
+				"listen": "The pitch/speed screen appears. You are not changing the file yet.",
+				"highlight": ["PITCH/SPEED", "PAD"],
+				"screen": "PITCH/SPEED",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/05-editing-samples.md",
+						"page": 56,
+						"quote": "Press the [PITCH/SPEED] button."
+					},
+					{
+						"doc": "docs/reference/roland-v550/05-editing-samples.md",
+						"page": 56,
+						"quote": "The pitch/speed settings screen appears."
+					}
+				]
+			},
+			{
+				"id": "auto",
+				"title": "Ask it to detect",
+				"action": "Turn [VALUE] to AUTO and press [VALUE]. Pick a BPM range near where you think the loop sits, then OK.",
+				"listen": "The screen works for a moment. The manual says some loops will not detect cleanly. If the number is silly, that is the sample, not you.",
+				"highlight": ["VALUE"],
+				"screen": "BPM SET AUTO",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/07-tempo-and-dj-mode.md",
+						"page": 90,
+						"quote": "Use the [VALUE] knob to change BPM SET to “AUTO,” and press the [VALUE] knob."
+					},
+					{
+						"doc": "docs/reference/roland-v550/07-tempo-and-dj-mode.md",
+						"page": 90,
+						"quote": "You may not be able to accurately detect the tempo (BPM) on some samples."
+					}
+				]
+			},
+			{
+				"id": "sync",
+				"title": "Turn sync on",
+				"action": "Press [EXIT], then [BPM SYNC], then the pad.",
+				"listen": "The loop should pull toward the bank or project tempo. If it sounds wrong, the detected BPM was wrong. MANUAL mode is the side door, same screen.",
+				"highlight": ["EXIT", "BPM SYNC", "PAD"],
+				"screen": "BPM SYNC",
+				"sense": "midi",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/02-playing-back-samples.md",
+						"page": 20,
+						"quote": "Press the [BPM SYNC] button."
+					},
+					{
+						"doc": "docs/reference/roland-v550/02-playing-back-samples.md",
+						"page": 20,
+						"quote": "To use BPM SYNC, you must first set the accurate tempo data for each sample."
+					}
+				],
+				"listenFor": {
+					"type": "any-pad"
+				}
+			}
+		],
+		"parentId": "trim-the-edges"
+	},
+	{
+		"id": "pitch-and-speed",
+		"title": "Key and speed, apart",
+		"blurb": "SPEED and PITCH are different knobs on this screen. You can change one and leave the other.",
+		"bring": "The same sample.",
+		"tracks": ["normal"],
+		"role": "side",
+		"chapter": "Sample edit",
+		"order": 2,
+		"steps": [
+			{
+				"id": "open",
+				"title": "Open the screen",
+				"action": "Press [PITCH/SPEED] and the pad.",
+				"listen": "You are about to hear the sample change as you turn.",
+				"highlight": ["PITCH/SPEED", "PAD"],
+				"screen": "PITCH/SPEED",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/05-editing-samples.md",
+						"page": 56,
+						"quote": "Here’s how to change the pitch (key) or playback speed of a sample."
+					}
+				]
+			},
+			{
+				"id": "speed",
+				"title": "Turn speed",
+				"action": "Turn [CTRL 1]. The manual calls this SPEED, 50–150 percent.",
+				"listen": "The sample gets longer or shorter. Listen for the chipmunk only if pitch follows. On this screen they can be independent.",
+				"highlight": ["CTRL 1"],
+				"screen": "CTRL 1 = SPEED",
+				"sense": "midi",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/05-editing-samples.md",
+						"page": 56,
+						"quote": "Sets the playback speed."
+					}
+				],
+				"listenFor": {
+					"type": "knob"
+				},
+				"unverified": [
+					"CTRL 1 on the pitch/speed screen is the SPEED parameter. The MIDI chart’s CC 16 is the effect Ctrl 1, and the manual does not say the pitch screen sends that CC."
+				]
+			},
+			{
+				"id": "leave",
+				"title": "EXIT",
+				"action": "Press [EXIT] when it sounds like the record you wanted.",
+				"listen": "The setting stays with the sample.",
+				"highlight": ["EXIT"],
+				"screen": "EXIT",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/05-editing-samples.md",
+						"page": 49,
+						"quote": "Once you’ve confirmed the start/end point, press the [EXIT] button."
+					}
+				]
+			}
+		],
+		"parentId": "trim-the-edges"
+	},
+	{
+		"id": "copy-or-delete",
+		"title": "Copy, or back out of delete",
+		"blurb": "Copy is safe. Delete is not. This lesson opens delete and then cancels.",
+		"bring": "A pad you can copy onto an empty one. Do not delete a keeper.",
+		"tracks": ["normal"],
+		"role": "side",
+		"chapter": "Sample edit",
+		"order": 3,
+		"steps": [
+			{
+				"id": "copy",
+				"title": "Copy to an empty pad",
+				"action": "Press [COPY]. Press the source pad, then an empty pad. Press [VALUE] or [COPY] to finish.",
+				"listen": "Tap both pads. They should sound the same.",
+				"highlight": ["COPY", "PAD", "VALUE"],
+				"screen": "COPY, two pads",
+				"sense": "midi",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/05-editing-samples.md",
+						"page": 60,
+						"quote": "Press the [COPY] button."
+					},
+					{
+						"doc": "docs/reference/roland-v550/05-editing-samples.md",
+						"page": 60,
+						"quote": "The COPY PAD screen appears."
+					}
+				],
+				"listenFor": {
+					"type": "any-pad"
+				}
+			},
+			{
+				"id": "almost-delete",
+				"title": "Open delete, then cancel",
+				"action": "Press [DEL]. Press a pad you do NOT want to lose. Then press [EXIT] before you confirm.",
+				"listen": "The sample should still play. EXIT is the undo for a delete you have not confirmed.",
+				"highlight": ["DEL", "PAD", "EXIT"],
+				"screen": "DEL, then EXIT",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/05-editing-samples.md",
+						"page": 62,
+						"quote": "The SELECT PAD screen appears."
+					},
+					{
+						"doc": "docs/reference/roland-v550/05-editing-samples.md",
+						"page": 62,
+						"quote": "If you decide to cancel deleting, press the [EXIT] button."
+					}
+				]
+			},
+			{
+				"id": "still-there",
+				"title": "Check the pad",
+				"action": "Tap the pad you almost deleted.",
+				"listen": "It is still there. Deleting only happens after you confirm with [VALUE] or [DEL].",
+				"highlight": ["PAD"],
+				"screen": "Still there",
+				"sense": "midi",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/05-editing-samples.md",
+						"page": 62,
+						"quote": "Deleting the sample from a pad"
+					}
+				],
+				"listenFor": {
+					"type": "any-pad"
+				}
+			}
+		],
+		"parentId": "trim-the-edges"
+	},
+	{
+		"id": "count-in-snap",
+		"title": "A count, and a clean end",
+		"blurb": "Count-in gives you a bar before sampling starts. END SNAP trims the take to the beat.",
+		"bring": "The same cable setup as Catch a sound, or skip the take and just set the switches.",
+		"tracks": ["normal"],
+		"role": "side",
+		"chapter": "Sampling",
+		"order": 1,
+		"steps": [
+			{
+				"id": "count",
+				"title": "Set a one-bar count",
+				"action": "While you are about to sample, hold [SHIFT] and press pad [10] until the screen says a one-measure count-in.",
+				"listen": "You will hear the metronome count if Metronome:REC is on. The take has not started.",
+				"highlight": ["SHIFT", "PAD 10"],
+				"screen": "SHIFT + PAD 10",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/04-sampling-looper-soundgen.md",
+						"page": 38,
+						"quote": "Adds a one-measure count-in before sampling."
+					},
+					{
+						"doc": "docs/reference/roland-v550/04-sampling-looper-soundgen.md",
+						"page": 38,
+						"quote": "Hold down the [SHIFT] button and press the pad [10]."
+					}
+				],
+				"showShiftLabels": true
+			},
+			{
+				"id": "snap",
+				"title": "END SNAP",
+				"action": "From sampling standby, press [START/END] so the screen says END Snap ON.",
+				"listen": "The end of the take will sit on a beat instead of wherever your finger landed.",
+				"highlight": ["START/END", "REC"],
+				"screen": "END SNAP",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/04-sampling-looper-soundgen.md",
+						"page": 39,
+						"quote": "END Snap is enabled."
+					}
+				]
+			},
+			{
+				"id": "or-not",
+				"title": "Turn it off if you want the whole take",
+				"action": "Press [START/END] again for END Snap OFF, and press [EXIT] if you are not recording right now.",
+				"listen": "Either setting is fine. This lesson is the switch, not a new recording.",
+				"highlight": ["START/END", "EXIT"],
+				"screen": "Snap off, or leave it",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/04-sampling-looper-soundgen.md",
+						"page": 39,
+						"quote": "To disable END Snap, press the [START/END] button again."
+					}
+				]
+			}
+		],
+		"parentId": "catch-a-sound"
+	},
+	{
+		"id": "skip-back",
+		"title": "Grab what you just played",
+		"blurb": "Skip-back keeps the last few seconds even if you were not recording. [MARK] is the time machine.",
+		"bring": "Play something, a pad or the input, before you press MARK.",
+		"tracks": ["normal"],
+		"role": "side",
+		"chapter": "Sampling",
+		"order": 2,
+		"steps": [
+			{
+				"id": "play",
+				"title": "Make a sound first",
+				"action": "Play a pad or the input for a few seconds. [MARK] blinks when skip-back memory is rolling.",
+				"listen": "If [MARK] is dark, there is nothing to grab yet.",
+				"highlight": ["PAD", "MARK"],
+				"screen": "Play until MARK blinks",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/04-sampling-looper-soundgen.md",
+						"page": 41,
+						"quote": "When the unit detects an audio level at or above a certain level, the unit begins recording to skip-back memory"
+					}
+				]
+			},
+			{
+				"id": "mark",
+				"title": "Press MARK, then REC",
+				"action": "Press [MARK]. When the waveform shows, press [REC]. Empty pads blink red.",
+				"listen": "You are looking at the past, not recording a new pass.",
+				"highlight": ["MARK", "REC"],
+				"screen": "MARK, then REC",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/04-sampling-looper-soundgen.md",
+						"page": 42,
+						"quote": "After “SKIP BACK...” appears, the waveform of the audio in skip-back memory is displayed."
+					}
+				]
+			},
+			{
+				"id": "save",
+				"title": "Save it to a pad",
+				"action": "Press an empty red pad.",
+				"listen": "Tap that pad. It should be what you just played, not a new take.",
+				"highlight": ["PAD"],
+				"screen": "Empty pad saves it",
+				"sense": "midi",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/04-sampling-looper-soundgen.md",
+						"page": 42,
+						"quote": "Now the audio from skip-back memory is assigned to the pad."
+					}
+				],
+				"listenFor": {
+					"type": "any-pad"
+				}
+			}
+		],
+		"parentId": "catch-a-sound"
+	},
+	{
+		"id": "the-looper",
+		"title": "Loop what is already playing",
+		"blurb": "The looper records what you hear into a looping sample. It cannot run at the same time as skip-back.",
+		"bring": "A pattern or pad you can leave running.",
+		"tracks": ["normal"],
+		"role": "side",
+		"chapter": "Sampling",
+		"order": 3,
+		"steps": [
+			{
+				"id": "switch",
+				"title": "Flip MARK to looper",
+				"action": "Hold [SHIFT] and press [VALUE] until the looper is the MARK function, then press [MARK].",
+				"listen": "You have changed what [MARK] does. Skip-back is off while the looper is on.",
+				"highlight": ["SHIFT", "VALUE", "MARK"],
+				"screen": "SHIFT + VALUE, then MARK",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/04-sampling-looper-soundgen.md",
+						"page": 44,
+						"quote": "Hold down the [SHIFT] button, and press the [VALUE] knob to switch between skip-back sampling and the looper function."
+					},
+					{
+						"doc": "docs/reference/roland-v550/04-sampling-looper-soundgen.md",
+						"page": 44,
+						"quote": "Press the [MARK] button to switch to looper mode."
+					}
+				]
+			},
+			{
+				"id": "length",
+				"title": "Pick a length",
+				"action": "Turn [CTRL 1] to 1, 2, or 4 measures, not Free, so it stops itself.",
+				"listen": "Free means you have to stop it by hand. A short measure count is kinder.",
+				"highlight": ["CTRL 1"],
+				"screen": "CTRL 1 = measures",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/04-sampling-looper-soundgen.md",
+						"page": 44,
+						"quote": "Sets the sample length (number of measures)."
+					}
+				]
+			},
+			{
+				"id": "hear",
+				"title": "Let it loop",
+				"action": "Start the looper recording the way the screen asks, then listen when it plays back. Press [EXIT] if you want out.",
+				"listen": "A repeating phrase of what was already coming out of the SP.",
+				"highlight": ["MARK", "EXIT"],
+				"screen": "The loop comes back",
+				"sense": "audio",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/04-sampling-looper-soundgen.md",
+						"page": 44,
+						"quote": "This unit has a looper, which lets you record the sound that’s currently playing back as a sample."
+					}
+				],
+				"listenFor": {
+					"type": "sound",
+					"sustainMs": 800
+				}
+			}
+		],
+		"parentId": "catch-a-sound"
+	},
+	{
+		"id": "sound-generator",
+		"title": "A synth inside the box",
+		"blurb": "The SP can make a simple bass or noise without a sample. You can play it on the pads.",
+		"bring": "Nothing extra. This is internal.",
+		"tracks": ["normal"],
+		"role": "side",
+		"chapter": "Sampling",
+		"order": 4,
+		"steps": [
+			{
+				"id": "enter",
+				"title": "SHIFT + RECORD SETTING",
+				"action": "Hold [SHIFT] and press [RECORD SETTING].",
+				"listen": "You are in the sound generator, not sampling yet.",
+				"highlight": ["SHIFT", "RECORD SETTING"],
+				"screen": "Sound generator",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/04-sampling-looper-soundgen.md",
+						"page": 46,
+						"quote": "Hold down the [SHIFT] button, and press the [RECORD SETTING] button."
+					},
+					{
+						"doc": "docs/reference/roland-v550/04-sampling-looper-soundgen.md",
+						"page": 46,
+						"quote": "This enters the sound generator mode."
+					}
+				]
+			},
+			{
+				"id": "wave",
+				"title": "Pick a wave",
+				"action": "Turn [CTRL 1] through the types until you like one. Saw and sine are the obvious first tries.",
+				"listen": "The screen names the wave. You may not hear it until you press a pad.",
+				"highlight": ["CTRL 1"],
+				"screen": "CTRL 1 = type",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/04-sampling-looper-soundgen.md",
+						"page": 46,
+						"quote": "Selects the synthesizer waveform (oscillator)."
+					}
+				]
+			},
+			{
+				"id": "pads",
+				"title": "Play the pads",
+				"action": "Press a few pads. Press [EXIT] when you have heard enough. Saving to a pad is a later press of [REC], and this lesson does not require it.",
+				"listen": "Pitches of that wave. The manual says a MIDI keyboard can play this mode. It does not say the pads transmit notes back out.",
+				"highlight": ["PAD", "EXIT"],
+				"screen": "Pads play the synth",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/04-sampling-looper-soundgen.md",
+						"page": 46,
+						"quote": "The synthesizer plays."
+					}
+				],
+				"unverified": [
+					"The sound-generator page says an external keyboard can play the synth. It does not say the SP’s own pads transmit note-ons in this mode, so this step stays manual."
+				]
+			}
+		],
+		"parentId": "catch-a-sound"
+	},
+	{
+		"id": "input-fx",
+		"title": "Effects on the way in",
+		"blurb": "Input FX touch only the jacks, before the sample exists. Vocoder and Auto Pitch live here, not on the bus buttons.",
+		"bring": "A mic, guitar, or the S-1, if you want to hear it. You can still open the screen without one.",
+		"tracks": ["normal"],
+		"role": "side",
+		"chapter": "Sampling",
+		"order": 5,
+		"steps": [
+			{
+				"id": "screen",
+				"title": "Open input settings",
+				"action": "Press [REC], then [RECORD SETTING], so the input setting screen is up. Press [VALUE].",
+				"listen": "The INPUT FX screen is a different list from the six bus buttons.",
+				"highlight": ["REC", "RECORD SETTING", "VALUE"],
+				"screen": "VALUE for INPUT FX",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/04-sampling-looper-soundgen.md",
+						"page": 36,
+						"quote": "The INPUT FX (input effects) are effects used only for the input jacks."
+					},
+					{
+						"doc": "docs/reference/roland-v550/04-sampling-looper-soundgen.md",
+						"page": 37,
+						"quote": "The INPUT FX Setting screen appears."
+					}
+				]
+			},
+			{
+				"id": "type",
+				"title": "Pick Bypass or something gentle",
+				"action": "Move to EFX Type, press [VALUE], and choose Bypass if you do not want to print an effect. Chorus is a safe first listen.",
+				"listen": "Bypass means the cable is dry. The starred types in the list are input-only.",
+				"highlight": ["VALUE"],
+				"screen": "EFX Type",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/04-sampling-looper-soundgen.md",
+						"page": 37,
+						"quote": "Effects marked with an (*) are for INPUT FX only."
+					}
+				]
+			},
+			{
+				"id": "leave",
+				"title": "EXIT",
+				"action": "Press [EXIT] until you are out. You do not have to record.",
+				"listen": "The effect choice waits for the next sample. It did not change your old pads.",
+				"highlight": ["EXIT"],
+				"screen": "EXIT",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/01-introduction-and-panel.md",
+						"page": 7,
+						"quote": "Press this to return to the previous screen or to undo an operation."
+					}
+				]
+			}
+		],
+		"parentId": "catch-a-sound"
+	},
+	{
+		"id": "tr-rec",
+		"title": "Draw the hits",
+		"blurb": "TR-REC is the grid. You place sounds on steps instead of playing them in time.",
+		"bring": "A kick-like pad and a hat-like pad. Real-time recording can wait.",
+		"tracks": ["normal"],
+		"role": "side",
+		"chapter": "Patterns",
+		"order": 1,
+		"steps": [
+			{
+				"id": "arm",
+				"title": "REMAIN until it blinks",
+				"action": "Press [PATTERN SELECT], [REC], and an empty red pattern pad. Press [REMAIN] until it blinks. Blinking is TR-REC. Lit is real-time.",
+				"listen": "You are choosing the method. Nothing is written yet.",
+				"highlight": ["PATTERN SELECT", "REC", "REMAIN", "PAD"],
+				"screen": "REMAIN blinks",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/06-pattern-sequencer.md",
+						"page": 67,
+						"quote": "Press the [REMAIN] button, and switch the pattern recording method to “TR-REC”."
+					},
+					{
+						"doc": "docs/reference/roland-v550/06-pattern-sequencer.md",
+						"page": 67,
+						"quote": "The [REMAIN] button blinks at this time."
+					}
+				]
+			},
+			{
+				"id": "start",
+				"title": "Start the grid",
+				"action": "Set a short LENGTH with [CTRL 2] if you want, then press [REC].",
+				"listen": "The steps are running. Hold [SUB PAD] and press a pad to choose which sample you are writing, then tap steps.",
+				"highlight": ["REC", "CTRL 2", "SUB PAD", "PAD"],
+				"screen": "REC starts TR-REC",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/06-pattern-sequencer.md",
+						"page": 68,
+						"quote": "TR-REC pattern recording begins."
+					},
+					{
+						"doc": "docs/reference/roland-v550/06-pattern-sequencer.md",
+						"page": 68,
+						"quote": "Press pads [1]–[16] while holding down the [SUB PAD] button to select the sample."
+					}
+				]
+			},
+			{
+				"id": "stop",
+				"title": "EXIT when the grid looks right",
+				"action": "Press [EXIT] once to leave recording, and again if the pattern is still playing.",
+				"listen": "A simple drum loop, placed rather than performed. The timing is the grid’s, not your fingers’.",
+				"highlight": ["EXIT"],
+				"screen": "EXIT",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/06-pattern-sequencer.md",
+						"page": 66,
+						"quote": "Press the [EXIT] button once to finish recording. The recorded pattern is automatically saved to the pad. Press twice to stop pattern playback."
+					}
+				]
+			}
+		],
+		"parentId": "nod-loop"
+	},
+	{
+		"id": "erase-and-undo",
+		"title": "Take a hit back",
+		"blurb": "Undo removes the last pass. Erase rubs out one pad while the pattern loops.",
+		"bring": "A pattern you can afford to mess up. Copy it first if you love it.",
+		"tracks": ["normal"],
+		"role": "side",
+		"chapter": "Patterns",
+		"order": 2,
+		"steps": [
+			{
+				"id": "undo",
+				"title": "SHIFT + PATTERN SELECT",
+				"action": "While the pattern is recording, hold [SHIFT] and press [PATTERN SELECT].",
+				"listen": "The last thing you recorded should disappear. Older passes stay.",
+				"highlight": ["SHIFT", "PATTERN SELECT"],
+				"screen": "Undo the last pass",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/06-pattern-sequencer.md",
+						"page": 66,
+						"quote": "While the pattern is recording, press the [PATTERN SELECT] button while holding down the [SHIFT] button to undo the data you just inputted (recorded)."
+					}
+				]
+			},
+			{
+				"id": "erase",
+				"title": "DEL, then hold the pad",
+				"action": "Press [DEL] while recording. Hold the pad whose hits you want gone, for the beats they occupy. Press [DEL] again to leave erase.",
+				"listen": "That sound drops out of the loop and the others stay.",
+				"highlight": ["DEL", "PAD"],
+				"screen": "Erase one pad",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/06-pattern-sequencer.md",
+						"page": 66,
+						"quote": "Press the [DEL] button while recording a pattern to enter erase mode"
+					}
+				]
+			},
+			{
+				"id": "keep",
+				"title": "EXIT",
+				"action": "Press [EXIT] until recording stops.",
+				"listen": "The pattern that remains is saved. Undo is not a full history. One step back.",
+				"highlight": ["EXIT"],
+				"screen": "EXIT",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/06-pattern-sequencer.md",
+						"page": 66,
+						"quote": "The recorded pattern is automatically saved to the pad."
+					}
+				]
+			}
+		],
+		"parentId": "nod-loop"
+	},
+	{
+		"id": "length-and-shuffle",
+		"title": "How long, how swung",
+		"blurb": "Length is the loop size. Shuffle slides the off-beats. Set them before you record when you can.",
+		"bring": "A pattern, or an empty pad you are about to record.",
+		"tracks": ["normal"],
+		"role": "side",
+		"chapter": "Patterns",
+		"order": 3,
+		"steps": [
+			{
+				"id": "length",
+				"title": "LENGTH before record",
+				"action": "On the record-setting screen, turn [CTRL 2]. That is LENGTH, in measures.",
+				"listen": "A 1-bar loop is easier to hear than a 16-bar one. You cannot change length in the middle of recording.",
+				"highlight": ["CTRL 2", "REC"],
+				"screen": "CTRL 2 = length",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/06-pattern-sequencer.md",
+						"page": 67,
+						"quote": "Sets the length of the pattern."
+					},
+					{
+						"doc": "docs/reference/roland-v550/06-pattern-sequencer.md",
+						"page": 70,
+						"quote": "These parameters need to be edited before you record the pattern."
+					}
+				]
+			},
+			{
+				"id": "shuffle",
+				"title": "A little shuffle",
+				"action": "In TR-REC, [CTRL 3] is SHUFFLE. Turn it a small amount, around the +10 the manual calls pleasant, or leave it at 0.",
+				"listen": "The off-beats drag. Zero is straight. Too much is a limp.",
+				"highlight": ["CTRL 3"],
+				"screen": "CTRL 3 = shuffle",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/06-pattern-sequencer.md",
+						"page": 67,
+						"quote": "You can set how much to slide the timing of the upbeats"
+					}
+				]
+			},
+			{
+				"id": "hear",
+				"title": "Play it",
+				"action": "Press [REC] if you are recording, or play the pattern pad.",
+				"listen": "You should hear the length you chose, and the shuffle only if you turned it up.",
+				"highlight": ["PATTERN SELECT", "PAD"],
+				"screen": "Hear the size",
+				"sense": "audio",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/06-pattern-sequencer.md",
+						"page": 64,
+						"quote": "This plays back the pattern."
+					}
+				],
+				"listenFor": {
+					"type": "sound",
+					"sustainMs": 700
+				}
+			}
+		],
+		"parentId": "nod-loop"
+	},
+	{
+		"id": "tap-tempo",
+		"title": "Tempo from your finger",
+		"blurb": "Tap [SUB PAD] in time. The project or bank tempo follows your taps.",
+		"bring": "A song in your head, or a loop you want the tempo to match.",
+		"tracks": ["normal"],
+		"role": "side",
+		"chapter": "Tempo",
+		"order": 1,
+		"steps": [
+			{
+				"id": "ready",
+				"title": "Get to tap tempo",
+				"action": "From the tempo screen, or when [SUB PAD] is blinking orange, you can tap.",
+				"listen": "The blink means tap will set tempo. If it is not blinking, you are not in tap tempo.",
+				"highlight": ["SUB PAD"],
+				"screen": "SUB PAD blinks",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/07-tempo-and-dj-mode.md",
+						"page": 92,
+						"quote": "The tap tempo function is enabled when the [SUB PAD] button is blinking orange."
+					}
+				]
+			},
+			{
+				"id": "tap",
+				"title": "Tap the pulse",
+				"action": "Tap [SUB PAD] several times with the beat you want.",
+				"listen": "The screen shows a BPM. It should be near the speed you tapped, not a random number.",
+				"highlight": ["SUB PAD"],
+				"screen": "Tap the beat",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/07-tempo-and-dj-mode.md",
+						"page": 92,
+						"quote": "Tap the [SUB PAD] button several times in time with the beat."
+					}
+				]
+			},
+			{
+				"id": "keep",
+				"title": "EXIT",
+				"action": "Press [EXIT] to leave tap tempo.",
+				"listen": "The tempo you tapped stays for the project or the bank, whichever screen you were on.",
+				"highlight": ["EXIT"],
+				"screen": "EXIT",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/07-tempo-and-dj-mode.md",
+						"page": 92,
+						"quote": "This exits the tap tempo screen. This tempo is set for the project or bank."
+					}
+				]
+			}
+		],
+		"parentId": "nod-loop"
+	},
+	{
+		"id": "bounce-dry",
+		"title": "Print it without the effects",
+		"blurb": "Bounce converts the whole pattern in silence, and it does not print the effects. Resample is the one that does.",
+		"bring": "The pattern from the core loop lesson.",
+		"tracks": ["normal"],
+		"role": "side",
+		"chapter": "Patterns",
+		"order": 4,
+		"steps": [
+			{
+				"id": "know",
+				"title": "Know which print you want",
+				"action": "If you want the filter in the file, use resample, the core lesson. Bounce is the dry, silent one.",
+				"listen": "No sound during a bounce. If you hear the pattern, you are resampling.",
+				"highlight": ["RESAMPLE", "PATTERN SELECT"],
+				"screen": "Bounce is silent",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/06-pattern-sequencer.md",
+						"page": 72,
+						"quote": "No sound is heard while the sample is being converted."
+					},
+					{
+						"doc": "docs/reference/roland-v550/06-pattern-sequencer.md",
+						"page": 72,
+						"quote": "The pattern is converted into a sample without applying effects."
+					}
+				]
+			},
+			{
+				"id": "where",
+				"title": "Read the screen",
+				"action": "The bounce steps live under pattern copy in the manual. If you are not sure you are in bounce, press [EXIT]. Doing nothing is a fine result.",
+				"listen": "You should not hear a countdown. Silence means bounce. Music means resample.",
+				"highlight": ["EXIT"],
+				"screen": "EXIT if unsure",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/06-pattern-sequencer.md",
+						"page": 72,
+						"quote": "Converts the entire selected pattern into a sample."
+					}
+				]
+			},
+			{
+				"id": "why",
+				"title": "Leave resample for the color",
+				"action": "Go back to Print the loop when you want the effects in the pad.",
+				"listen": "Two different files can exist: a dry bounce and a colored resample.",
+				"highlight": ["RESAMPLE"],
+				"screen": "Resample keeps FX",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/06-pattern-sequencer.md",
+						"page": 72,
+						"quote": "With resampling, you can convert the pattern with effects applied."
+					}
+				]
+			}
+		],
+		"parentId": "print-the-loop"
+	},
+	{
+		"id": "chain-repeat",
+		"title": "Loop the song, or play it once",
+		"blurb": "REMAIN on the chain screen cycles repeat: all, current pattern, or once.",
+		"bring": "The chain from Line them up.",
+		"tracks": ["normal"],
+		"role": "side",
+		"chapter": "Patterns",
+		"order": 5,
+		"steps": [
+			{
+				"id": "open",
+				"title": "Open the chain",
+				"action": "Press [PATTERN SELECT], hold [HOLD], and press the chain’s pad.",
+				"listen": "You are on the chain screen, not a single pattern.",
+				"highlight": ["PATTERN SELECT", "HOLD", "PAD"],
+				"screen": "Open the chain",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/06-pattern-sequencer.md",
+						"page": 75,
+						"quote": "While holding down the [HOLD] button, press pads [1]–[16] to select the pattern chain number to play back."
+					}
+				]
+			},
+			{
+				"id": "repeat",
+				"title": "Press REMAIN",
+				"action": "Press [REMAIN] and watch the repeat line change.",
+				"listen": "All means the whole chain loops. Current means one pattern loops. Off means one pass.",
+				"highlight": ["REMAIN"],
+				"screen": "REMAIN cycles repeat",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/06-pattern-sequencer.md",
+						"page": 75,
+						"quote": "Press the [REMAIN] button to set the pattern chain to play back repeatedly."
+					}
+				]
+			},
+			{
+				"id": "play",
+				"title": "SUB PAD",
+				"action": "Press [SUB PAD] and listen to whether it comes back around.",
+				"listen": "You should be able to tell loop from one-pass. Press [EXIT] when you know.",
+				"highlight": ["SUB PAD", "EXIT"],
+				"screen": "Hear the repeat",
+				"sense": "audio",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/06-pattern-sequencer.md",
+						"page": 75,
+						"quote": "The selected pattern chain plays back."
+					}
+				],
+				"listenFor": {
+					"type": "sound",
+					"sustainMs": 700
+				}
+			}
+		],
+		"parentId": "pattern-chain"
+	},
+	{
+		"id": "bus-assign",
+		"title": "Send a pad to a bus",
+		"blurb": "Orange, green, and white are the factory colors for BUS 1, BUS 2, and dry.",
+		"bring": "A pattern or pad you can hear, and the effects lesson already done is helpful.",
+		"tracks": ["normal"],
+		"role": "side",
+		"chapter": "Effects",
+		"order": 1,
+		"steps": [
+			{
+				"id": "look",
+				"title": "Hold REMAIN",
+				"action": "Hold [REMAIN] and look at the pad colors. Do not press a pad yet.",
+				"listen": "You are only reading the routing.",
+				"highlight": ["REMAIN", "PAD"],
+				"screen": "Hold REMAIN",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/03-using-effects.md",
+						"page": 34,
+						"quote": "When using the factory settings, orange indicates BUS 1, green indicates BUS 2, and white indicates output to DRY."
+					}
+				]
+			},
+			{
+				"id": "move",
+				"title": "Press a pad to move it",
+				"action": "Keep holding [REMAIN] and press one pad. [BUS FX] chooses whether you are toggling BUS 1 or BUS 2 against dry.",
+				"listen": "That pad jumps color. The others stay.",
+				"highlight": ["REMAIN", "PAD", "BUS FX"],
+				"screen": "One pad changes",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/03-using-effects.md",
+						"page": 34,
+						"quote": "Each press of a pad toggles the output destination between the bus that’s selected by the [BUS FX] button (BUS 1/BUS 2) and DRY."
+					}
+				]
+			},
+			{
+				"id": "hear",
+				"title": "Let go and play",
+				"action": "Release [REMAIN]. Turn on [FILTER+DRIVE] and play the pad you moved, then a pad you did not.",
+				"listen": "Only the pad on the bus should take the filter.",
+				"highlight": ["FILTER+DRIVE", "PAD"],
+				"screen": "One pad filters",
+				"sense": "midi",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/03-using-effects.md",
+						"page": 34,
+						"quote": "The BUS 1 and BUS 2 effects are not applied to samples that are assigned to DRY."
+					}
+				],
+				"listenFor": {
+					"type": "any-pad"
+				}
+			}
+		],
+		"parentId": "bus-knobs"
+	},
+	{
+		"id": "side-chain",
+		"title": "The pump",
+		"blurb": "Side chain ducks one bus when another bus gets loud. The kick is the usual source.",
+		"bring": "A beat with a kick, and something else on another bus.",
+		"tracks": ["normal"],
+		"role": "side",
+		"chapter": "Effects",
+		"order": 2,
+		"steps": [
+			{
+				"id": "open",
+				"title": "EFX SET, side chain",
+				"action": "Hold [SHIFT] and tap pad [13]. Choose EFX SET with [VALUE]. Turn [CTRL 3] to SIDE CHAIN.",
+				"listen": "You are in a menu. No pump yet.",
+				"highlight": ["SHIFT", "PAD 13", "VALUE", "CTRL 3"],
+				"screen": "SIDE CHAIN tab",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/09-utility-and-sd-card.md",
+						"page": 118,
+						"quote": "Turn the [CTRL 3] knob to select “SIDE CHAIN”."
+					}
+				],
+				"showShiftLabels": true
+			},
+			{
+				"id": "buses",
+				"title": "Source and target",
+				"action": "Set SOURCE to the bus the kick is on, and TARGET to the bus you want to duck. Leave TARGET on OFF if you only wanted to see the screen, then [EXIT].",
+				"listen": "If you set a real target, the other bus should dip when the kick hits.",
+				"highlight": ["VALUE", "EXIT"],
+				"screen": "SOURCE and TARGET",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/09-utility-and-sd-card.md",
+						"page": 117,
+						"quote": "This uses the bus set in “SOURCE”"
+					},
+					{
+						"doc": "docs/reference/roland-v550/09-utility-and-sd-card.md",
+						"page": 117,
+						"quote": "you can make the bus volume change dynamically to express a unique kind of groove."
+					}
+				]
+			},
+			{
+				"id": "out",
+				"title": "EXIT home",
+				"action": "Press [EXIT] until the pads are back.",
+				"listen": "The setting stays. You can turn the target off later on this same screen.",
+				"highlight": ["EXIT"],
+				"screen": "EXIT",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/09-utility-and-sd-card.md",
+						"page": 111,
+						"quote": "Press the [EXIT] button to return to the UTILITY MENU screen."
+					}
+				]
+			}
+		],
+		"parentId": "bus-knobs"
+	},
+	{
+		"id": "isolator",
+		"title": "Three bands",
+		"blurb": "Isolator is a DJ-style EQ: low, mid, and high, down to silence.",
+		"bring": "Any loop.",
+		"tracks": ["normal"],
+		"role": "side",
+		"chapter": "Effects",
+		"order": 3,
+		"steps": [
+			{
+				"id": "on",
+				"title": "Press ISOLATOR",
+				"action": "With [BUS FX] lit for the bus your loop uses, press [ISOLATOR].",
+				"listen": "The effect screen names LOW, MID, and HIGH.",
+				"highlight": ["BUS FX", "ISOLATOR"],
+				"screen": "ISOLATOR",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/10-appendix-parameters-mfx.md",
+						"page": 144,
+						"quote": "This effect lets you cut off sounds in a specified frequency range."
+					}
+				]
+			},
+			{
+				"id": "cut",
+				"title": "Turn a band down",
+				"action": "Turn [CTRL 1], [CTRL 2], or [CTRL 3] until one band thins out.",
+				"listen": "The kick, the body, or the hiss should leave, not the whole loop.",
+				"highlight": ["CTRL 1", "CTRL 2", "CTRL 3"],
+				"screen": "One band down",
+				"sense": "midi",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/10-appendix-parameters-mfx.md",
+						"page": 144,
+						"quote": "Adjusts the amount of boost/cut in the low-frequency range."
+					}
+				],
+				"listenFor": {
+					"type": "knob"
+				},
+				"unverified": [
+					"The isolator parameters are listed as LOW, MID, and HIGH. The chart’s CC 16–18 are Ctrl 1–3, but the manual does not print which knob is which band. The effect screen is the label that counts."
+				]
+			},
+			{
+				"id": "back",
+				"title": "Bring it back",
+				"action": "Return the knobs toward the middle, or press [ISOLATOR] again to turn it off.",
+				"listen": "The loop should sound like it did.",
+				"highlight": ["ISOLATOR"],
+				"screen": "ISOLATOR off",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/03-using-effects.md",
+						"page": 32,
+						"quote": "The effect turns off when you press an effect button that’s lit/blinking."
+					}
+				]
+			}
+		],
+		"parentId": "bus-knobs"
+	},
+	{
+		"id": "sync-delay",
+		"title": "Echoes on the grid",
+		"blurb": "Sync Delay repeats in musical times, not milliseconds, when it is the delay on the button.",
+		"bring": "A dry loop on the bus.",
+		"tracks": ["normal"],
+		"role": "side",
+		"chapter": "Effects",
+		"order": 4,
+		"steps": [
+			{
+				"id": "on",
+				"title": "Press DELAY",
+				"action": "Press [DELAY]. If the screen is not a tempo delay, hold [MFX] and turn [VALUE] to Sync Delay instead, then let go.",
+				"listen": "You want repeats that land on beats.",
+				"highlight": ["DELAY", "MFX", "VALUE"],
+				"screen": "DELAY or Sync Delay",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/10-appendix-parameters-mfx.md",
+						"page": 144,
+						"quote": "Gives an echo effect in sync with the tempo."
+					}
+				]
+			},
+			{
+				"id": "time",
+				"title": "Turn the time",
+				"action": "Turn [CTRL 1]–[CTRL 3] and listen. The screen shows TIME, FEEDBACK, and LEVEL for Sync Delay.",
+				"listen": "A short slap, then more repeats if feedback is up. Too much feedback becomes a howl. Ease it back.",
+				"highlight": ["CTRL 1", "CTRL 2", "CTRL 3"],
+				"screen": "Time and feedback",
+				"sense": "midi",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/10-appendix-parameters-mfx.md",
+						"page": 144,
+						"quote": "Sets the sound delay time."
+					}
+				],
+				"listenFor": {
+					"type": "knob"
+				}
+			},
+			{
+				"id": "off",
+				"title": "Press the button again",
+				"action": "Press the lit effect button so the echo stops.",
+				"listen": "The loop should dry out. The tail may ring for a moment. That is the feedback emptying.",
+				"highlight": ["DELAY"],
+				"screen": "Delay off",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/03-using-effects.md",
+						"page": 34,
+						"quote": "For instance, if reverb or delay was turned on for that bus, only the reverberations or delay sound are heard."
+					}
+				]
+			}
+		],
+		"parentId": "bus-knobs"
+	},
+	{
+		"id": "djfx-looper-effect",
+		"title": "The looper effect, not DJ mode",
+		"blurb": "DJFX Looper is an effect button. It grabs a sliver of sound and repeats it. It is not the two-deck mixer.",
+		"bring": "A loop already playing.",
+		"tracks": ["normal"],
+		"role": "side",
+		"chapter": "Effects",
+		"order": 5,
+		"steps": [
+			{
+				"id": "on",
+				"title": "Press DJFX LOOPER",
+				"action": "Press [DJFX LOOPER]. Stay out of DJ mode for this one. Do not press the two bank buttons.",
+				"listen": "A tiny loop of whatever was just playing.",
+				"highlight": ["DJFX LOOPER"],
+				"screen": "DJFX LOOPER",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/10-appendix-parameters-mfx.md",
+						"page": 144,
+						"quote": "This effect loops the sound in short cycles."
+					}
+				]
+			},
+			{
+				"id": "speed",
+				"title": "Turn speed",
+				"action": "Turn the knobs. SPEED can run the sliver backward when it is negative, and stop it at zero.",
+				"listen": "Forward stutter, freeze, or backward stutter.",
+				"highlight": ["CTRL 1", "CTRL 2", "CTRL 3"],
+				"screen": "Speed and length",
+				"sense": "midi",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/10-appendix-parameters-mfx.md",
+						"page": 144,
+						"quote": "Sets the playback direction and playback speed."
+					}
+				],
+				"listenFor": {
+					"type": "knob"
+				}
+			},
+			{
+				"id": "off",
+				"title": "Let the loop go",
+				"action": "Press [DJFX LOOPER] again.",
+				"listen": "The original loop returns.",
+				"highlight": ["DJFX LOOPER"],
+				"screen": "Button off",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/03-using-effects.md",
+						"page": 32,
+						"quote": "The effect turns off when you press an effect button that’s lit/blinking."
+					}
+				]
+			}
+		],
+		"parentId": "bus-knobs"
+	},
+	{
+		"id": "resonator",
+		"title": "A little string inside",
+		"blurb": "Resonator rings the sound through tuned strings. It is easy to overdo.",
+		"bring": "A drum loop or a noisy pad.",
+		"tracks": ["normal"],
+		"role": "side",
+		"chapter": "Effects",
+		"order": 6,
+		"steps": [
+			{
+				"id": "on",
+				"title": "Press RESONATOR",
+				"action": "Press [RESONATOR].",
+				"listen": "A metallic, stringy tail on the hits.",
+				"highlight": ["RESONATOR"],
+				"screen": "RESONATOR",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/10-appendix-parameters-mfx.md",
+						"page": 143,
+						"quote": "This effect uses “Karplus-Strong synthesis”"
+					}
+				]
+			},
+			{
+				"id": "tune",
+				"title": "Turn the root",
+				"action": "Turn [CTRL 1]–[CTRL 3] until the ring sits in key with the loop, or sounds pleasantly wrong.",
+				"listen": "You are tuning a resonator, not the sample’s pitch screen.",
+				"highlight": ["CTRL 1", "CTRL 2", "CTRL 3"],
+				"screen": "Tune the ring",
+				"sense": "midi",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/10-appendix-parameters-mfx.md",
+						"page": 143,
+						"quote": "Sets the reference pitch (root note)."
+					}
+				],
+				"listenFor": {
+					"type": "knob"
+				}
+			},
+			{
+				"id": "off",
+				"title": "Press it off",
+				"action": "Press [RESONATOR] again when the ring has made its point.",
+				"listen": "The dry loop returns.",
+				"highlight": ["RESONATOR"],
+				"screen": "Off",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/03-using-effects.md",
+						"page": 32,
+						"quote": "The effect turns off when you press an effect button that’s lit/blinking."
+					}
+				]
+			}
+		],
+		"parentId": "bus-knobs"
+	},
+	{
+		"id": "bus-3-4",
+		"title": "The master effects",
+		"blurb": "BUS 3 and BUS 4 sit after BUS 1 and 2. They are the master color, set from EFX SET, not from the six buttons.",
+		"bring": "A loop you can leave playing.",
+		"tracks": ["normal"],
+		"role": "side",
+		"chapter": "Effects",
+		"order": 7,
+		"steps": [
+			{
+				"id": "where",
+				"title": "Know where they sit",
+				"action": "The six buttons and the knobs perform BUS 1 and BUS 2. BUS 3 and 4 are later in the chain.",
+				"listen": "You will not see them as extra buttons. They are a menu.",
+				"highlight": ["BUS FX", "MFX"],
+				"screen": "After the six buttons",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/03-using-effects.md",
+						"page": 30,
+						"quote": "With BUS 3 and BUS 4, which are placed later in the signal chain, you can mainly use the effects as master effects"
+					}
+				]
+			},
+			{
+				"id": "open",
+				"title": "EFX SET",
+				"action": "Hold [SHIFT] and tap pad [13], choose EFX SET, and turn [CTRL 3] to the BUS 3 or BUS 4 page.",
+				"listen": "You can pick an effect type for that bus. Bypass is a fine choice if you only came to look.",
+				"highlight": ["SHIFT", "PAD 13", "VALUE", "CTRL 3"],
+				"screen": "EFX SET",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/09-utility-and-sd-card.md",
+						"page": 117,
+						"quote": "In modes such as sample mode, press the [BUS FX] button while holding down the [VALUE] knob to turn the BUS 3 and BUS 4 effects off."
+					}
+				],
+				"showShiftLabels": true
+			},
+			{
+				"id": "exit",
+				"title": "EXIT",
+				"action": "Press [EXIT] until you are home. Holding [VALUE] and pressing [BUS FX] mutes BUS 3 and 4 without wiping the favorite.",
+				"listen": "The loop should sound as it did if you left the types on Bypass.",
+				"highlight": ["EXIT", "VALUE", "BUS FX"],
+				"screen": "EXIT",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/09-utility-and-sd-card.md",
+						"page": 117,
+						"quote": "This operation has no effect on the “FAVORITE” parameter values."
+					}
+				]
+			}
+		],
+		"parentId": "bus-knobs"
+	},
+	{
+		"id": "vocoder",
+		"title": "A talking synth",
+		"blurb": "Vocoder is an input effect. It needs a voice in the input and a tone to talk through. It is not a bus button.",
+		"bring": "A mic in the front INPUT, and a pad or the sound generator as the tone if you have one.",
+		"tracks": ["normal"],
+		"role": "side",
+		"chapter": "Effects",
+		"order": 8,
+		"steps": [
+			{
+				"id": "where",
+				"title": "Input only",
+				"action": "Vocoder is marked input-only in the MFX list. Open INPUT FX the way the input-FX lesson does, and choose Vocoder.",
+				"listen": "You will not find it by pressing [MFX] on the bus and expecting the mic to talk.",
+				"highlight": ["VALUE", "REC", "RECORD SETTING"],
+				"screen": "INPUT FX, Vocoder",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/10-appendix-parameters-mfx.md",
+						"page": 156,
+						"quote": "Changes the voice to a vocoder voice."
+					},
+					{
+						"doc": "docs/reference/roland-v550/10-appendix-parameters-mfx.md",
+						"page": 156,
+						"quote": "This is enabled with INPUT FX."
+					}
+				],
+				"offPanel": "Mic into the front INPUT jack. Set the MIC/GUITAR switch for a mic, not a guitar."
+			},
+			{
+				"id": "note",
+				"title": "The tone",
+				"action": "The vocoder’s note can follow a MIDI keyboard on channel 11. The manual is specific: channel 11, not the pad channel.",
+				"listen": "Speak. If a keyboard is on channel 11, the vowels should follow those notes. Pads are not that channel.",
+				"highlight": ["EXT SOURCE"],
+				"screen": "Channel 11 for notes",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/10-appendix-parameters-mfx.md",
+						"page": 156,
+						"quote": "set the MIDI channel on your external device to “11”."
+					}
+				],
+				"unverified": [
+					"The vocoder note follows incoming MIDI on channel 11. The chart does not say the SP’s pads transmit that channel, so this step does not auto-advance."
+				]
+			},
+			{
+				"id": "out",
+				"title": "Bypass when you are done",
+				"action": "Set EFX Type back to Bypass if you do not want the next sample to be a vocoder print. Press [EXIT].",
+				"listen": "The input should sound like a mic again.",
+				"highlight": ["VALUE", "EXIT"],
+				"screen": "Back to Bypass",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/04-sampling-looper-soundgen.md",
+						"page": 37,
+						"quote": "Effects marked with an (*) are for INPUT FX only."
+					}
+				]
+			}
+		],
+		"parentId": "bus-knobs"
+	},
+	{
+		"id": "auto-pitch",
+		"title": "A tuned voice",
+		"blurb": "Auto Pitch is also input-only. It pulls a voice toward a scale. It is not a pad effect.",
+		"bring": "A mic, if you want to hear it work. The screen is worth opening either way.",
+		"tracks": ["normal"],
+		"role": "side",
+		"chapter": "Effects",
+		"order": 9,
+		"steps": [
+			{
+				"id": "open",
+				"title": "Choose Auto Pitch",
+				"action": "On the INPUT FX screen, set EFX Type to Auto Pitch.",
+				"listen": "The list includes it next to Vocoder, both starred as input-only.",
+				"highlight": ["VALUE"],
+				"screen": "Auto Pitch",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/10-appendix-parameters-mfx.md",
+						"page": 155,
+						"quote": "Processes the human voice to create a variety of characters."
+					},
+					{
+						"doc": "docs/reference/roland-v550/10-appendix-parameters-mfx.md",
+						"page": 155,
+						"quote": "This is enabled with INPUT FX."
+					}
+				]
+			},
+			{
+				"id": "amount",
+				"title": "Turn pitch and formant",
+				"action": "Use [CTRL 1]–[CTRL 3] for the parameters the screen shows. PITCH goes up or down an octave. FORMANT changes the size of the voice.",
+				"listen": "Your voice should step toward notes, or get larger and smaller.",
+				"highlight": ["CTRL 1", "CTRL 2", "CTRL 3"],
+				"screen": "Pitch and formant",
+				"sense": "midi",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/10-appendix-parameters-mfx.md",
+						"page": 155,
+						"quote": "Sets the pitch of the voice. You can change the pitch up and down one octave."
+					}
+				],
+				"listenFor": {
+					"type": "knob"
+				},
+				"unverified": [
+					"Input-FX knobs may share the Ctrl 1–3 CCs. The chart lists those CCs on the input channel, but this screen has not been confirmed on hardware."
+				]
+			},
+			{
+				"id": "bypass",
+				"title": "Back to Bypass",
+				"action": "Set the type to Bypass and press [EXIT] if you do not want it printed onto the next sample.",
+				"listen": "The voice should sound untreated.",
+				"highlight": ["VALUE", "EXIT"],
+				"screen": "Bypass",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/04-sampling-looper-soundgen.md",
+						"page": 36,
+						"quote": "The INPUT FX (input effects) are effects used only for the input jacks."
+					}
+				]
+			}
+		],
+		"parentId": "bus-knobs"
+	},
+	{
+		"id": "import-a-sample",
+		"title": "Bring a file in from the card",
+		"blurb": "Samples you made on a computer go in the card’s IMPORT folder, then onto a pad.",
+		"bring": "An SD card with a WAV already in IMPORT, or stop after you see the menu.",
+		"tracks": ["normal"],
+		"role": "side",
+		"chapter": "Utility & SD",
+		"order": 1,
+		"steps": [
+			{
+				"id": "menu",
+				"title": "Open import",
+				"action": "Hold [SHIFT] and press pad [14]. That is the import/export menu. You can also get there from UTILITY.",
+				"listen": "A menu, not a sound.",
+				"highlight": ["SHIFT", "PAD 14"],
+				"screen": "SHIFT + PAD 14",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/09-utility-and-sd-card.md",
+						"page": 124,
+						"quote": "You can import commercially available audio material or audio material created on your computer from an SD card."
+					},
+					{
+						"doc": "docs/reference/roland-v550/09-utility-and-sd-card.md",
+						"page": 125,
+						"quote": "From the top screen, you can also make this screen appear by pressing pad [14] while holding down the [SHIFT] button."
+					}
+				],
+				"showShiftLabels": true,
+				"offPanel": "SD card slot."
+			},
+			{
+				"id": "sample",
+				"title": "Choose SAMPLE",
+				"action": "Turn [VALUE] to import from the card, then SAMPLE, and pick a file if one is there. Press [EXIT] if the folder is empty.",
+				"listen": "An empty folder is a fine ending. You saw the door.",
+				"highlight": ["VALUE", "EXIT"],
+				"screen": "SAMPLE, or EXIT",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/09-utility-and-sd-card.md",
+						"page": 125,
+						"quote": "Use the [VALUE] knob to select “SAMPLE”, and press the [VALUE] knob."
+					}
+				]
+			},
+			{
+				"id": "pad",
+				"title": "Play it if it landed",
+				"action": "If a sample loaded onto a pad, tap that pad. If not, tap any pad and you are done.",
+				"listen": "The new file should sound like itself, not like a factory hit.",
+				"highlight": ["PAD"],
+				"screen": "Tap the new pad",
+				"sense": "midi",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/02-playing-back-samples.md",
+						"page": 19,
+						"quote": "The corresponding samples play back."
+					}
+				],
+				"listenFor": {
+					"type": "any-pad"
+				}
+			}
+		],
+		"parentId": "keep-the-project"
+	},
+	{
+		"id": "multipad-export",
+		"title": "One file per pad",
+		"blurb": "Multipad export writes a WAV of each pad’s part in a pattern. The manual calls those files stems. It does not split a finished mix into drums, bass, and vocals.",
+		"bring": "A pattern, and an SD card.",
+		"tracks": ["normal"],
+		"role": "side",
+		"chapter": "Utility & SD",
+		"order": 2,
+		"steps": [
+			{
+				"id": "menu",
+				"title": "Import/export",
+				"action": "Hold [SHIFT] and press pad [14]. Choose export to the SD card, then MULTIPAD.",
+				"listen": "You are about to render, not to separate a stereo file.",
+				"highlight": ["SHIFT", "PAD 14", "VALUE"],
+				"screen": "MULTIPAD",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/09-utility-and-sd-card.md",
+						"page": 131,
+						"quote": "You can convert phrases that are recorded in a pattern to audio for individual pads (MULTIPAD EXPORT)."
+					}
+				],
+				"showShiftLabels": true,
+				"offPanel": "SD card slot."
+			},
+			{
+				"id": "pattern",
+				"title": "Pick the pattern",
+				"action": "Press the pattern’s pad and confirm with [VALUE]. Wait until Working is gone.",
+				"listen": "One WAV per pad lands in the card’s EXPORT folder.",
+				"highlight": ["PAD", "VALUE"],
+				"screen": "Pad, then VALUE",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/09-utility-and-sd-card.md",
+						"page": 131,
+						"quote": "The stem (.WAV file) for each pad is exported to the “EXPORT” folder of the SD card."
+					},
+					{
+						"doc": "docs/reference/roland-v550/09-utility-and-sd-card.md",
+						"page": 131,
+						"quote": "Never turn off the power or remove the SD card while the screen indicates “Working...”."
+					}
+				]
+			},
+			{
+				"id": "not-ai",
+				"title": "What this is not",
+				"action": "Press [EXIT] home. Those files are the pattern’s pads, bounced separately. The v5.50 manual has no control that splits a mixed sample into instruments.",
+				"listen": "Your pattern still plays on the SP. The card has the copies.",
+				"highlight": ["EXIT"],
+				"screen": "EXIT",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/09-utility-and-sd-card.md",
+						"page": 131,
+						"quote": "The stem (.WAV file) for each pad is exported"
+					}
+				],
+				"unverified": [
+					"There is no documented stem-separation effect that pulls drums, bass, or vocals out of a mixed recording. Multipad export is the feature the manual calls stems."
+				]
+			}
+		],
+		"parentId": "print-the-loop"
+	},
+	{
+		"id": "usb-audio",
+		"title": "The computer as an input",
+		"blurb": "USB audio lets a computer or phone play into the SP. You still have to turn [EXT SOURCE] on.",
+		"bring": "A USB cable to a computer or phone.",
+		"tracks": ["normal"],
+		"role": "side",
+		"chapter": "Inputs & projects",
+		"order": 1,
+		"steps": [
+			{
+				"id": "cable",
+				"title": "Plug in USB",
+				"action": "Connect the computer. On the computer, choose the SP as the output if you want the computer’s sound in the SP.",
+				"listen": "The SP may not make a sound yet. EXT SOURCE is still off.",
+				"highlight": ["EXT SOURCE"],
+				"screen": "USB cable",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/08-monitoring-inputs-projects.md",
+						"page": 103,
+						"quote": "The SP-404MK2 can receive audio input from a computer or mobile device"
+					}
+				],
+				"offPanel": "USB port on the rear."
+			},
+			{
+				"id": "on",
+				"title": "EXT SOURCE",
+				"action": "Press [EXT SOURCE] so it lights. Play something on the computer.",
+				"listen": "You should hear the computer through the SP. If the button blinks red, the computer is too loud.",
+				"highlight": ["EXT SOURCE"],
+				"screen": "EXT SOURCE on",
+				"sense": "audio",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/08-monitoring-inputs-projects.md",
+						"page": 103,
+						"quote": "Press the [EXT SOURCE] button on the SP-404MK2."
+					},
+					{
+						"doc": "docs/reference/roland-v550/08-monitoring-inputs-projects.md",
+						"page": 102,
+						"quote": "The [EXT SOURCE] button blinks red if the level of the input signal is too high."
+					}
+				],
+				"listenFor": {
+					"type": "sound",
+					"sustainMs": 600
+				}
+			},
+			{
+				"id": "off",
+				"title": "Press it off",
+				"action": "Press [EXT SOURCE] again when you have heard it.",
+				"listen": "The computer drops out of the mix. The cable can stay.",
+				"highlight": ["EXT SOURCE"],
+				"screen": "EXT SOURCE off",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/08-monitoring-inputs-projects.md",
+						"page": 102,
+						"quote": "To stop the audio input from the connected device, press the [EXT SOURCE] button."
+					}
+				]
+			}
+		],
+		"parentId": "catch-a-sound"
+	},
+	{
+		"id": "midi-and-sync",
+		"title": "Notes out, clock out",
+		"blurb": "Pad notes leave only when PAD Note Out is on, and the manual names the MIDI OUT jack. Clock leaves only when MIDI Sync Out is on.",
+		"bring": "The USB cable, if you want the browser’s Connect button to see anything.",
+		"tracks": ["normal"],
+		"role": "side",
+		"chapter": "Utility & SD",
+		"order": 3,
+		"steps": [
+			{
+				"id": "menu",
+				"title": "SYSTEM",
+				"action": "Hold [SHIFT] and tap pad [13]. Choose SYSTEM with [VALUE]. Turn [CTRL 3] through the tabs until you see PAD Note Out and MIDI Mode.",
+				"listen": "You are reading switches. Do not change a value you do not recognize.",
+				"highlight": ["SHIFT", "PAD 13", "VALUE", "CTRL 3"],
+				"screen": "SYSTEM MIDI",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/10-appendix-parameters-mfx.md",
+						"page": 138,
+						"quote": "When this is set to “ON”, note numbers corresponding to the pads are output via"
+					},
+					{
+						"doc": "docs/reference/roland-v550/10-appendix-parameters-mfx.md",
+						"page": 138,
+						"quote": "Changes the note number assignment according to the mode you’ve selected."
+					}
+				],
+				"showShiftLabels": true
+			},
+			{
+				"id": "on",
+				"title": "Pad notes on",
+				"action": "If PAD Note Out is off, turn it on and confirm. Leave MIDI Mode on A unless you know you want B.",
+				"listen": "Mode A is the note map these lessons decode: one channel per bank, notes 36–51.",
+				"highlight": ["VALUE", "CTRL 3"],
+				"screen": "PAD Note Out",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/12-appendix-specs-midi.md",
+						"page": 167,
+						"quote": "35–51 (B1–E³3, MIDI mode A)"
+					},
+					{
+						"doc": "docs/reference/roland-v550/10-appendix-parameters-mfx.md",
+						"page": 138,
+						"quote": "This setting is enabled when “MIDI Mode” is set to “B”."
+					}
+				]
+			},
+			{
+				"id": "clock",
+				"title": "Sync out, if you want clock",
+				"action": "MIDI Sync Out, on the same system pages, is what allows clock and realtime commands to be transmitted. Turn it on only if another box should follow the SP. Press [EXIT] home.",
+				"listen": "The chart does not say a pattern start sends clock. Clock is tied to Sync Out, and only when no other device is already feeding tempo.",
+				"highlight": ["EXIT"],
+				"screen": "EXIT",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/12-appendix-specs-midi.md",
+						"page": 168,
+						"quote": "Output when MIDI Sync Out is “ON” and when there is no tempo input from an external device."
+					}
+				],
+				"unverified": [
+					"The chart transmits realtime commands when Sync Out is on. It does not say those commands are the pattern’s start and stop, so pattern play is not auto-detected from MIDI clock."
+				]
+			}
+		],
+		"parentId": "nod-loop"
+	},
+	{
+		"id": "system-peek",
+		"title": "Look at the system, change nothing",
+		"blurb": "Utility is where the SP keeps its habits. This visit is a look. Factory reset is on that menu and it wipes data. Do not confirm it.",
+		"bring": "Nothing but the SP.",
+		"tracks": ["normal"],
+		"role": "side",
+		"chapter": "Utility & SD",
+		"order": 4,
+		"steps": [
+			{
+				"id": "open",
+				"title": "SHIFT + pad 13",
+				"action": "Hold [SHIFT] and tap pad [13].",
+				"listen": "UTILITY MENU. Import, system, backup, and factory live near each other. Read before you press.",
+				"highlight": ["SHIFT", "PAD 13"],
+				"screen": "UTILITY",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/09-utility-and-sd-card.md",
+						"page": 111,
+						"quote": "Hold down the [SHIFT] button and press the pad [13]."
+					},
+					{
+						"doc": "docs/reference/roland-v550/09-utility-and-sd-card.md",
+						"page": 111,
+						"quote": "The UTILITY MENU screen appears."
+					}
+				],
+				"showShiftLabels": true
+			},
+			{
+				"id": "system",
+				"title": "Open SYSTEM, turn the tabs",
+				"action": "Choose SYSTEM and press [VALUE]. Turn [CTRL 3] to see the tabs. Do not press [VALUE] on a value you do not mean to edit.",
+				"listen": "Version is the tab at the clockwise end. The other tabs are click, MIDI, gain, and general.",
+				"highlight": ["VALUE", "CTRL 3"],
+				"screen": "CTRL 3 changes tabs",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/09-utility-and-sd-card.md",
+						"page": 111,
+						"quote": "Turn the [CTRL 3] knob to select a tab."
+					}
+				]
+			},
+			{
+				"id": "leave",
+				"title": "EXIT, and skip factory",
+				"action": "Press [EXIT] until you are home. If you see a factory-reset confirmation, choose cancel or press [EXIT]. Do not choose OK.",
+				"listen": "Your samples are still there. Looking is not a reset.",
+				"highlight": ["EXIT"],
+				"screen": "EXIT, do not reset",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/09-utility-and-sd-card.md",
+						"page": 133,
+						"quote": "Restoring the factory settings (FACTORY RESET)"
+					}
+				]
+			}
+		],
+		"parentId": "orientation"
+	},
+	{
+		"id": "bend-and-nudge",
+		"title": "Bend it, nudge the tempo",
+		"blurb": "In DJ mode the top pads are a pitch bend and a tempo nudge, like a hand on a record.",
+		"bring": "DJ mode, with a loop already playing on CH1.",
+		"tracks": ["dj"],
+		"role": "side",
+		"chapter": "DJ mode",
+		"order": 1,
+		"steps": [
+			{
+				"id": "bend",
+				"title": "Hold bend",
+				"action": "With the deck playing, hold pad [1] (bend up) or pad [5] (bend down) for CH1.",
+				"listen": "The pitch and the speed move together, like a turntable, then settle when you let go.",
+				"highlight": ["PAD 1", "PAD 5"],
+				"screen": "BEND + or BEND -",
+				"sense": "midi",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/07-tempo-and-dj-mode.md",
+						"page": 94,
+						"quote": "The pitch goes up while you hold down the pad."
+					}
+				],
+				"listenFor": {
+					"type": "dj-bend"
+				},
+				"showDjLabels": true
+			},
+			{
+				"id": "bpm",
+				"title": "Nudge BPM",
+				"action": "Tap pad [2] to speed CH1 up, or pad [6] to slow it.",
+				"listen": "The loop drifts faster or slower and stays there. This is not bend. Bend springs back.",
+				"highlight": ["PAD 2", "PAD 6"],
+				"screen": "BPM + or BPM -",
+				"sense": "midi",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/07-tempo-and-dj-mode.md",
+						"page": 94,
+						"quote": "Speeds up the tempo."
+					},
+					{
+						"doc": "docs/reference/roland-v550/07-tempo-and-dj-mode.md",
+						"page": 94,
+						"quote": "Slows down the tempo."
+					}
+				],
+				"listenFor": {
+					"type": "dj-bpm"
+				},
+				"showDjLabels": true
+			},
+			{
+				"id": "reset",
+				"title": "Back to the original tempo",
+				"action": "Hold [DEL] and press pad [2] or pad [6].",
+				"listen": "The tempo jumps back to the sample’s own BPM.",
+				"highlight": ["DEL", "PAD 2", "PAD 6"],
+				"screen": "DEL + BPM pad",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+						"page": 164,
+						"quote": "Resets the tempo to the default value."
+					}
+				],
+				"showDjLabels": true
+			}
+		],
+		"parentId": "two-decks"
+	},
+	{
+		"id": "reverse-and-roll-dj",
+		"title": "Spin it back, or roll it",
+		"blurb": "Reverse and roll exist inside DJ mode, on top of the decks.",
+		"bring": "A deck already playing.",
+		"tracks": ["dj"],
+		"role": "side",
+		"chapter": "DJ mode",
+		"order": 2,
+		"steps": [
+			{
+				"id": "which",
+				"title": "Pick the deck for reverse",
+				"action": "Press [BPM SYNC] to choose which deck [REVERSE] will flip.",
+				"listen": "You are choosing a channel, not reversing yet.",
+				"highlight": ["BPM SYNC", "REVERSE"],
+				"screen": "BPM SYNC picks the deck",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/07-tempo-and-dj-mode.md",
+						"page": 95,
+						"quote": "Selects the channel (CH1/CH2) used to control reverse playback ([REVERSE] button)."
+					}
+				],
+				"showDjLabels": true
+			},
+			{
+				"id": "flip",
+				"title": "Press REVERSE",
+				"action": "Press [REVERSE].",
+				"listen": "The playing deck runs backward from where it is, not from the start of the file.",
+				"highlight": ["REVERSE"],
+				"screen": "REVERSE",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/07-tempo-and-dj-mode.md",
+						"page": 95,
+						"quote": "Starts reverse playback immediately from the playback position of the current sample."
+					}
+				],
+				"showDjLabels": true
+			},
+			{
+				"id": "roll",
+				"title": "ROLL plus the play pad",
+				"action": "Before the roll, hold [SHIFT] and press [ROLL] to set the size: 1/4, 1/2, 1, or 2 measures. Then hold [ROLL] and press pad [13] for CH1, or pad [15] for CH2. While it rolls, [ROLL] plus pads [1]–[4] changes the size. Patterns cannot be rolled.",
+				"listen": "A repeating slice of the sample. Let go and the deck continues. A pattern on the deck will not roll.",
+				"highlight": ["SHIFT", "ROLL", "PAD 13", "PAD 15", "PAD 1"],
+				"screen": "ROLL + play",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/07-tempo-and-dj-mode.md",
+						"page": 94,
+						"quote": "Sets the roll interval (1/4, 1/2, 1 or 2 measures)."
+					},
+					{
+						"doc": "docs/reference/roland-v550/07-tempo-and-dj-mode.md",
+						"page": 94,
+						"quote": "Repeats the sample playback in more detailed intervals"
+					},
+					{
+						"doc": "docs/reference/roland-v550/07-tempo-and-dj-mode.md",
+						"page": 95,
+						"quote": "Patterns cannot be rolled when"
+					}
+				],
+				"showDjLabels": true
+			}
+		],
+		"parentId": "two-decks"
+	},
+	{
+		"id": "fader-curve",
+		"title": "How the crossfade feels",
+		"blurb": "The crossfade can be a fast cut or a long curve. RESAMPLE plus VALUE cycles the shapes.",
+		"bring": "DJ mode, so CTRL 3 is the crossfade.",
+		"tracks": ["dj"],
+		"role": "side",
+		"chapter": "DJ mode",
+		"order": 3,
+		"steps": [
+			{
+				"id": "xfade",
+				"title": "Make sure CTRL 3 is the fade",
+				"action": "Press [START/END] until the screen says X-FADE, and turn [CTRL 3] once so you know which way is which deck.",
+				"listen": "One loop gives way to the other.",
+				"highlight": ["START/END", "CTRL 3"],
+				"screen": "X-FADE",
+				"sense": "midi",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/07-tempo-and-dj-mode.md",
+						"page": 94,
+						"quote": "Crossfades between CH1 and CH2."
+					}
+				],
+				"listenFor": {
+					"type": "dj-xfade"
+				},
+				"showDjLabels": true
+			},
+			{
+				"id": "curve",
+				"title": "Cycle the curve",
+				"action": "Hold [RESAMPLE] and press [VALUE]. Each press changes the curve: fast cut, linear, square, cubic, then around again.",
+				"listen": "The same knob travel should jump or glide, depending on the curve.",
+				"highlight": ["RESAMPLE", "VALUE", "CTRL 3"],
+				"screen": "RESAMPLE + VALUE",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/11-appendix-shortcut-keys.md",
+						"page": 164,
+						"quote": "Selects the volume curve characteristics used for each slider"
+					}
+				],
+				"showDjLabels": true
+			},
+			{
+				"id": "pick",
+				"title": "Leave the one you like",
+				"action": "Stop when the fade feels like your hand. You do not have to remember the name.",
+				"listen": "Play the fade once more. It should match the curve you stopped on.",
+				"highlight": ["CTRL 3"],
+				"screen": "Fade again",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/07-tempo-and-dj-mode.md",
+						"page": 94,
+						"quote": "You can make CH2 fade in while CH1 is fading out, or the opposite."
+					}
+				],
+				"showDjLabels": true
+			}
+		],
+		"parentId": "two-decks"
+	},
+	{
+		"id": "patterns-on-decks",
+		"title": "A pattern on the deck",
+		"blurb": "DJ mode can play a pattern you made, on the same play pad as a sample.",
+		"bring": "A pattern, and DJ mode.",
+		"tracks": ["dj"],
+		"role": "side",
+		"chapter": "DJ mode",
+		"order": 4,
+		"steps": [
+			{
+				"id": "pick",
+				"title": "Choose the pattern",
+				"action": "Press [PATTERN SELECT] and a pattern pad, then [PATTERN SELECT] again, then [PATTERN EDIT] so it blinks.",
+				"listen": "You have pointed at a pattern. It may not be playing yet.",
+				"highlight": ["PATTERN SELECT", "PAD", "PATTERN EDIT"],
+				"screen": "Point at a pattern",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/07-tempo-and-dj-mode.md",
+						"page": 96,
+						"quote": "In DJ mode, you can play back the patterns that you created."
+					}
+				],
+				"showDjLabels": true
+			},
+			{
+				"id": "play",
+				"title": "Pad 13",
+				"action": "Press pad [13].",
+				"listen": "The pattern plays through the deck controls. [CTRL 1] is still the level.",
+				"highlight": ["PAD 13", "CTRL 1"],
+				"screen": "PAD 13 plays it",
+				"sense": "audio",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/07-tempo-and-dj-mode.md",
+						"page": 96,
+						"quote": "This plays back the pattern."
+					}
+				],
+				"listenFor": {
+					"type": "sound",
+					"sustainMs": 700
+				},
+				"showDjLabels": true
+			},
+			{
+				"id": "mix",
+				"title": "Ride it like a record",
+				"action": "Turn [CTRL 3] if it is the crossfade, or [CTRL 1] for level.",
+				"listen": "The pattern is just another record. It ducks and returns.",
+				"highlight": ["CTRL 3", "CTRL 1"],
+				"screen": "Level or fade",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/07-tempo-and-dj-mode.md",
+						"page": 96,
+						"quote": "Use the [CTRL 1]–[CTRL 3] knobs and press pads [1]–[16] to mix the sound, as with the samples."
+					}
+				],
+				"showDjLabels": true
+			}
+		],
+		"parentId": "two-decks"
+	},
+	{
+		"id": "cue-markers",
+		"title": "Seven bookmarks",
+		"blurb": "Markers are bookmarks in a deck’s sample. DJ mode only keeps the first seven.",
+		"bring": "A long sample on a deck, headphones if you want to place them quietly.",
+		"tracks": ["dj"],
+		"role": "side",
+		"chapter": "DJ mode",
+		"order": 5,
+		"steps": [
+			{
+				"id": "add",
+				"title": "SHIFT + MARK while it plays",
+				"action": "Start the deck. Hold [SHIFT] and press [MARK] where you want a bookmark. You can place up to seven.",
+				"listen": "The sound does not have to change. You planted a point.",
+				"highlight": ["SHIFT", "MARK", "PAD 13"],
+				"screen": "SHIFT + MARK",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/07-tempo-and-dj-mode.md",
+						"page": 97,
+						"quote": "You can add markers while playing samples in DJ mode."
+					},
+					{
+						"doc": "docs/reference/roland-v550/07-tempo-and-dj-mode.md",
+						"page": 97,
+						"quote": "You can add up to seven markers."
+					}
+				],
+				"showDjLabels": true
+			},
+			{
+				"id": "jump",
+				"title": "SHIFT + a pad",
+				"action": "Hold [SHIFT] and press a pad. The chart of which pad is which marker is in the manual: pad 1 is the start of CH1, pad 2 is marker 1, and so on.",
+				"listen": "The deck jumps. It should not be a new sample, just a new place in this one.",
+				"highlight": ["SHIFT", "PAD"],
+				"screen": "Jump to a marker",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/07-tempo-and-dj-mode.md",
+						"page": 96,
+						"quote": "The samples play back from the marker positions set for the samples."
+					}
+				],
+				"showDjLabels": true
+			},
+			{
+				"id": "clear",
+				"title": "Delete one if you cluttered it",
+				"action": "Hold [SHIFT] and [DEL], then press the pad for the marker you want gone. Pads 1 and 3 are the start of each sample, not markers, so they stay.",
+				"listen": "The later bookmarks slide forward to fill the gap. If you like the set of points, skip this and press Done.",
+				"highlight": ["SHIFT", "DEL", "PAD"],
+				"screen": "SHIFT + DEL + pad",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/07-tempo-and-dj-mode.md",
+						"page": 98,
+						"quote": "Hold down the [SHIFT] and [DEL] buttons, and press pads [1]–[16]."
+					},
+					{
+						"doc": "docs/reference/roland-v550/07-tempo-and-dj-mode.md",
+						"page": 98,
+						"quote": "As pads [1] and [3] are at the start of the sample, they can’t be deleted (these are not markers)."
+					}
+				],
+				"showDjLabels": true
+			}
+		],
+		"parentId": "two-decks"
+	},
+	{
+		"id": "edit-while-djing",
+		"title": "Trim without leaving the mix",
+		"blurb": "Open the deck’s own editor for start, loop, and end, without leaving DJ mode.",
+		"bring": "A deck with a sample you are willing to trim.",
+		"tracks": ["dj"],
+		"role": "side",
+		"chapter": "DJ mode",
+		"order": 6,
+		"steps": [
+			{
+				"id": "open",
+				"title": "CH1 EDIT or CH2 EDIT",
+				"action": "Press [VALUE]. Choose CH1 EDIT or CH2 EDIT and press [VALUE] again.",
+				"listen": "The sample edit screen for that deck. You are still in DJ mode.",
+				"highlight": ["VALUE"],
+				"screen": "CH1 EDIT",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/07-tempo-and-dj-mode.md",
+						"page": 99,
+						"quote": "Use the [VALUE] knob to select “CH1 EDIT” or “CH2 EDIT,” and press the [VALUE] knob."
+					},
+					{
+						"doc": "docs/reference/roland-v550/07-tempo-and-dj-mode.md",
+						"page": 99,
+						"quote": "The sample edit screen appears."
+					}
+				],
+				"showDjLabels": true
+			},
+			{
+				"id": "points",
+				"title": "Start, loop, and end",
+				"action": "Turn [CTRL 1] for the start and [CTRL 3] for the end. When the loop is on, [CTRL 2] moves the loop point. Make a small move. [DEL] resets start and end, and it asks you to confirm, so leave [DEL] alone unless you want that reset.",
+				"listen": "The deck’s phrase gets tighter, or the loop restarts in a new place. If [CTRL 2] does nothing, the loop is off. This page does not say how to turn it on from here.",
+				"highlight": ["CTRL 1", "CTRL 2", "CTRL 3"],
+				"screen": "CTRL 2 is the loop",
+				"sense": "manual",
+				"unverified": [
+					"The DJ edit page says [CTRL 2] moves the loop point when the loop is on. It does not say whether the [LOOP] button toggles that from this screen."
+				],
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/07-tempo-and-dj-mode.md",
+						"page": 99,
+						"quote": "Moves the start point."
+					},
+					{
+						"doc": "docs/reference/roland-v550/07-tempo-and-dj-mode.md",
+						"page": 99,
+						"quote": "Moves the loop point."
+					},
+					{
+						"doc": "docs/reference/roland-v550/07-tempo-and-dj-mode.md",
+						"page": 99,
+						"quote": "Moves the end point."
+					}
+				],
+				"showDjLabels": true
+			},
+			{
+				"id": "peek",
+				"title": "Hear the tail, then leave",
+				"action": "Hold [ROLL] to preview a few seconds before the end point, then press [EXIT] until the mixer is back.",
+				"listen": "A short look at the end of the phrase, then the decks again.",
+				"highlight": ["ROLL", "EXIT"],
+				"screen": "ROLL, then EXIT",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/07-tempo-and-dj-mode.md",
+						"page": 99,
+						"quote": "While this button is pressed, you can preview the sound several seconds before the end point."
+					}
+				],
+				"showDjLabels": true
+			}
+		],
+		"parentId": "two-decks"
+	},
+	{
+		"id": "import-on-the-decks",
+		"title": "Load a file without leaving DJ mode",
+		"blurb": "The DJ pages can import a sample that was saved for DJ mode on the card.",
+		"bring": "An SD card, if you have a file. Otherwise open the menu and leave.",
+		"tracks": ["dj"],
+		"role": "side",
+		"chapter": "DJ mode",
+		"order": 7,
+		"steps": [
+			{
+				"id": "in",
+				"title": "Be in the mixer",
+				"action": "Press bank [D/I] and [E/J] together if you left.",
+				"listen": "DJ MIXER mode.",
+				"highlight": ["BANK D/I", "BANK E/J"],
+				"screen": "D/I + E/J",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/07-tempo-and-dj-mode.md",
+						"page": 99,
+						"quote": "Press the bank [D/I] button and the [E/J] button simultaneously to enter DJ MIXER mode."
+					}
+				],
+				"showDjLabels": true
+			},
+			{
+				"id": "menu",
+				"title": "VALUE, then import",
+				"action": "Press [VALUE], turn to IMPORT SAMPLE, and press [VALUE]. Pick a file and a pad if you have a card. If you have no card, press [EXIT].",
+				"listen": "A menu inside DJ mode, not the sample-mode import.",
+				"highlight": ["VALUE", "EXIT"],
+				"screen": "VALUE menu",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/07-tempo-and-dj-mode.md",
+						"page": 99,
+						"quote": "You can import samples that were saved in DJ mode to an SD card."
+					},
+					{
+						"doc": "docs/reference/roland-v550/07-tempo-and-dj-mode.md",
+						"page": 99,
+						"quote": "Turn the [VALUE] knob to select “IMPORT SAMPLE”, and press the [VALUE] knob."
+					}
+				],
+				"showDjLabels": true,
+				"offPanel": "SD card slot."
+			},
+			{
+				"id": "done",
+				"title": "Back to the decks",
+				"action": "Press [EXIT] until play and cue mean something again.",
+				"listen": "The decks behave as they did. Import is optional.",
+				"highlight": ["EXIT", "PAD 13"],
+				"screen": "EXIT",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/07-tempo-and-dj-mode.md",
+						"page": 93,
+						"quote": "The unit enters DJ MIXER mode."
+					}
+				],
+				"showDjLabels": true
+			}
+		],
+		"parentId": "two-decks"
+	},
+	{
+		"id": "skip-back-from-dj",
+		"title": "Grab a moment from pad mode",
+		"blurb": "Firmware 5.00 says skip-back works in DJ pad mode. The v5.50 DJ chapter never shows those steps, so this lesson uses the sample-mode skip-back gesture after you flip to pad mode.",
+		"bring": "DJ mode, and something playing.",
+		"tracks": ["dj"],
+		"role": "side",
+		"chapter": "DJ mode",
+		"order": 8,
+		"steps": [
+			{
+				"id": "pad-mode",
+				"title": "HOLD flips the pads",
+				"action": "Press [HOLD]. The pads go back to sample-style layout while the mixer is still underneath.",
+				"listen": "Orange-blinking pads are already used by the decks. Leave those alone.",
+				"highlight": ["HOLD", "PAD"],
+				"screen": "HOLD = pad mode",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/07-tempo-and-dj-mode.md",
+						"page": 96,
+						"quote": "This switches between DJ mode and pad mode."
+					}
+				],
+				"showDjLabels": false
+			},
+			{
+				"id": "grab",
+				"title": "MARK, if it is blinking",
+				"action": "If [MARK] blinks, press it, then [REC], then an empty pad, the same way as skip-back in sample mode.",
+				"listen": "You get a pad of what just happened. If MARK is not the skip-back function, you still have the looper switch from the sampling chapter.",
+				"highlight": ["MARK", "REC", "PAD"],
+				"screen": "MARK then REC",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/04-sampling-looper-soundgen.md",
+						"page": 42,
+						"quote": "Now the audio from skip-back memory is assigned to the pad."
+					},
+					{
+						"doc": "docs/reference/roland-sp404mk2-sys-5.52.md",
+						"quote": "SKIP BACK SAMPLING can now be used in DJ MODE (PAD Mode)."
+					}
+				],
+				"unverified": [
+					"The v5.50 DJ chapter does not list the skip-back button sequence. The firmware note only says skip-back can be used in DJ pad mode. Treat a quiet MARK button as ‘not this mode’, and use Done / Next."
+				]
+			},
+			{
+				"id": "back",
+				"title": "HOLD again",
+				"action": "Press [HOLD] to return to the deck pads.",
+				"listen": "Play and cue are back on pads 13 and 15.",
+				"highlight": ["HOLD", "PAD 13"],
+				"screen": "Back to decks",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/07-tempo-and-dj-mode.md",
+						"page": 96,
+						"quote": "This switches between DJ mode and pad mode."
+					}
+				],
+				"showDjLabels": true
+			}
+		],
+		"parentId": "little-set"
+	},
+	{
+		"id": "print-the-mix",
+		"title": "Record the mix you can hear",
+		"blurb": "The DJ chapter has no separate record-the-set button. Resample, with routing Mix, records whatever is playing, effects included. That is the closest documented print.",
+		"bring": "A deck playing, and an empty sample pad.",
+		"tracks": ["dj"],
+		"role": "side",
+		"chapter": "DJ mode",
+		"order": 9,
+		"steps": [
+			{
+				"id": "resample",
+				"title": "RESAMPLE, routing Mix",
+				"action": "Press [RESAMPLE], open [RECORD SETTING], and set routing to Mix with [CTRL 2]. Press [EXIT].",
+				"listen": "Mix means the sound you hear is in the recording. ExtIn would skip the decks.",
+				"highlight": ["RESAMPLE", "RECORD SETTING", "CTRL 2", "EXIT"],
+				"screen": "ROUTING Mix",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/06-pattern-sequencer.md",
+						"page": 72,
+						"quote": "Use the [CTRL 2] knob to set ROUTING to “Mix”."
+					},
+					{
+						"doc": "docs/reference/roland-v550/06-pattern-sequencer.md",
+						"page": 72,
+						"quote": "With resampling, you can convert the pattern with effects applied."
+					}
+				],
+				"unverified": [
+					"These resample steps are written for patterns and samples. The DJ chapter does not repeat them for a live mix, so if the screen refuses, press EXIT and use Done / Next."
+				]
+			},
+			{
+				"id": "go",
+				"title": "Empty pad, then play",
+				"action": "Press a red empty pad, then let the decks play. Press [REC] when you have enough.",
+				"listen": "You should hear the mix while it prints. Silence means you are bouncing, not resampling.",
+				"highlight": ["PAD", "REC"],
+				"screen": "Hear it while it prints",
+				"sense": "audio",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/06-pattern-sequencer.md",
+						"page": 72,
+						"quote": "The selected pattern plays back once it is converted into a sample."
+					}
+				],
+				"listenFor": {
+					"type": "sound",
+					"sustainMs": 700
+				}
+			},
+			{
+				"id": "pad",
+				"title": "Play the print",
+				"action": "Leave DJ mode with [EXIT] if you need sample mode, and tap the new pad.",
+				"listen": "One pad of the mix you just heard.",
+				"highlight": ["EXIT", "PAD"],
+				"screen": "The mix on a pad",
+				"sense": "midi",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/06-pattern-sequencer.md",
+						"page": 73,
+						"quote": "To exit sampling, press the [REC] button again."
+					}
+				],
+				"listenFor": {
+					"type": "any-pad"
+				}
+			}
+		],
+		"parentId": "little-set"
+	},
+	{
+		"id": "effects-on-the-decks",
+		"title": "Effects on a deck",
+		"blurb": "Each deck can sit on BUS 1, BUS 2, or dry. MARK flips between the effect view and the mixer view.",
+		"bring": "DJ mode, and a bus effect you already like. Bypass is fine if you only want to see the switch.",
+		"tracks": ["dj"],
+		"role": "side",
+		"chapter": "DJ mode",
+		"order": 10,
+		"parentId": "two-decks",
+		"steps": [
+			{
+				"id": "bus",
+				"title": "REMAIN plus the cue pad",
+				"action": "Hold [REMAIN] and press pad [14] for CH1, or pad [16] for CH2. Each press moves that deck through BUS 1, BUS 2, and DRY.",
+				"listen": "If that bus has an effect, the deck picks it up. DRY is the deck with no bus effect. The other deck stays where it was.",
+				"highlight": ["REMAIN", "PAD 14", "PAD 16"],
+				"screen": "BUS 1, BUS 2, or DRY",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/07-tempo-and-dj-mode.md",
+						"page": 94,
+						"quote": "You can set the bus to which the CH1/CH2 sample playback is sent (meaning which effects are used)."
+					},
+					{
+						"doc": "docs/reference/roland-v550/07-tempo-and-dj-mode.md",
+						"page": 94,
+						"quote": "this switches the effect to use as follows"
+					}
+				],
+				"showDjLabels": true
+			},
+			{
+				"id": "screen",
+				"title": "MARK flips the screen",
+				"action": "Press [MARK].",
+				"listen": "The display swaps between the effect view and the mixer view. The sound does not have to change.",
+				"highlight": ["MARK"],
+				"screen": "EFX or MIXER",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/07-tempo-and-dj-mode.md",
+						"page": 95,
+						"quote": "Switches between the EFX and MIXER screen views."
+					}
+				],
+				"showDjLabels": true
+			},
+			{
+				"id": "back",
+				"title": "Leave the mixer in front",
+				"action": "Press [MARK] again if the mixer view is the one you want to play from.",
+				"listen": "Levels and the crossfade should be the thing on screen when you go back to the set.",
+				"highlight": ["MARK", "CTRL 1"],
+				"screen": "Mixer view",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/07-tempo-and-dj-mode.md",
+						"page": 95,
+						"quote": "Switches between the EFX and MIXER screen views."
+					}
+				],
+				"showDjLabels": true
+			}
+		]
+	},
+	{
+		"id": "mute-and-restart",
+		"title": "Mute it, or drop the needle",
+		"blurb": "One gesture mutes a playing deck. Another sends it back to the start.",
+		"bring": "A deck already playing on CH1.",
+		"tracks": ["dj"],
+		"role": "side",
+		"chapter": "DJ mode",
+		"order": 11,
+		"parentId": "two-decks",
+		"steps": [
+			{
+				"id": "mute",
+				"title": "Mute the deck",
+				"action": "Hold [SHIFT] and [REVERSE], and press pad [13]. For CH2, use pad [15] instead.",
+				"listen": "That deck goes quiet. The other one keeps going.",
+				"highlight": ["SHIFT", "REVERSE", "PAD 13", "PAD 15"],
+				"screen": "SHIFT + REVERSE + play",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/07-tempo-and-dj-mode.md",
+						"page": 95,
+						"quote": "Mutes the sample that’s playing back."
+					}
+				],
+				"showDjLabels": true
+			},
+			{
+				"id": "top",
+				"title": "Back to the start",
+				"action": "Press pad [9] for CH1, or pad [11] for CH2.",
+				"listen": "The phrase jumps to its beginning. It does not load a different sample.",
+				"highlight": ["PAD 9", "PAD 11"],
+				"screen": "PAD 9 or PAD 11",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/07-tempo-and-dj-mode.md",
+						"page": 94,
+						"quote": "Returns to the playback start position."
+					}
+				],
+				"showDjLabels": true
+			},
+			{
+				"id": "again",
+				"title": "Play it",
+				"action": "Press pad [13] if the deck is paused.",
+				"listen": "CH1 from the top, in the mix.",
+				"highlight": ["PAD 13"],
+				"screen": "PAD 13",
+				"sense": "midi",
+				"listenFor": {
+					"type": "dj-play",
+					"channel": 1
+				},
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/07-tempo-and-dj-mode.md",
+						"page": 94,
+						"quote": "Switches between play/pause."
+					}
+				],
+				"showDjLabels": true
+			}
+		]
+	},
+	{
+		"id": "nudge-a-marker",
+		"title": "Move a bookmark",
+		"blurb": "Markers can be slid while the deck is playing. This is the edit screen, not a new sample.",
+		"bring": "A deck with at least one marker.",
+		"tracks": ["dj"],
+		"role": "side",
+		"chapter": "DJ mode",
+		"order": 12,
+		"parentId": "two-decks",
+		"steps": [
+			{
+				"id": "play",
+				"title": "Keep the deck running",
+				"action": "Press pad [13] so CH1 is playing.",
+				"listen": "The sample you want to edit, in motion.",
+				"highlight": ["PAD 13"],
+				"screen": "PAD 13",
+				"sense": "midi",
+				"listenFor": {
+					"type": "dj-play",
+					"channel": 1
+				},
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/07-tempo-and-dj-mode.md",
+						"page": 97,
+						"quote": "You can edit markers while playing samples in DJ mode."
+					}
+				],
+				"showDjLabels": true
+			},
+			{
+				"id": "open",
+				"title": "SHIFT + START/END",
+				"action": "Hold [SHIFT] and press [START/END].",
+				"listen": "The marker edit screen. [MARK] on this screen adds a marker.",
+				"highlight": ["SHIFT", "START/END", "MARK"],
+				"screen": "Marker edit",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/07-tempo-and-dj-mode.md",
+						"page": 97,
+						"quote": "Hold down the [SHIFT] button and press the [START/END] button."
+					},
+					{
+						"doc": "docs/reference/roland-v550/07-tempo-and-dj-mode.md",
+						"page": 97,
+						"quote": "The marker edit screen appears."
+					}
+				],
+				"showDjLabels": true
+			},
+			{
+				"id": "slide",
+				"title": "CTRL 2 slides it",
+				"action": "Turn [CTRL 2] to move the marker, and [CTRL 3] if you need a different one. Press [EXIT] when it sits where you want.",
+				"listen": "The jump point moves. The sample itself does not get a new start and end unless you meant to edit those on the other screen.",
+				"highlight": ["CTRL 2", "CTRL 3", "EXIT"],
+				"screen": "CTRL 2 moves the marker",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/07-tempo-and-dj-mode.md",
+						"page": 97,
+						"quote": "Moves the marker."
+					}
+				],
+				"showDjLabels": true
+			}
+		]
+	},
+	{
+		"id": "dj-pitch-settings",
+		"title": "How DJ pitch behaves",
+		"blurb": "Two DJ settings live outside the mixer: how many BPM digits you see, and whether speed takes the pitch with it.",
+		"bring": "DJ mode for the digits. The pitch type is in UTILITY, so you will leave the mixer and come back.",
+		"tracks": ["dj"],
+		"role": "side",
+		"chapter": "DJ mode",
+		"order": 13,
+		"parentId": "two-decks",
+		"steps": [
+			{
+				"id": "digits",
+				"title": "More or fewer BPM digits",
+				"action": "In DJ mode, press [PITCH/SPEED]. Each press changes the BPM display: whole numbers, two decimals, one decimal, then around again.",
+				"listen": "The number gets finer or coarser. The loop’s speed does not have to change.",
+				"highlight": ["PITCH/SPEED"],
+				"screen": "PITCH/SPEED",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/07-tempo-and-dj-mode.md",
+						"page": 95,
+						"quote": "Changes the number of digits shown for the BPM."
+					}
+				],
+				"showDjLabels": true
+			},
+			{
+				"id": "type",
+				"title": "Vinyl, or pitch stays put",
+				"action": "Hold [SHIFT] and press pad [13]. Choose SYSTEM and press [VALUE]. Turn [CTRL 3] until you find DJ Mode TS type. VINYL moves speed and pitch together. BACKING and ENSEMBLE change speed and leave pitch alone. Bend Sens, on the same list, is how fast bend moves. Change one only if you mean to, then press [VALUE] to keep it.",
+				"listen": "A setting, not a sound. VINYL is the turntable behavior. The other two are time-stretch.",
+				"highlight": ["SHIFT", "PAD 13", "VALUE", "CTRL 3"],
+				"screen": "DJ Mode TS type",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/09-utility-and-sd-card.md",
+						"page": 111,
+						"quote": "Use the [VALUE] knob to select “SYSTEM”, and press the [VALUE] knob."
+					},
+					{
+						"doc": "docs/reference/roland-v550/10-appendix-parameters-mfx.md",
+						"page": 136,
+						"quote": "This lets you change how the audio is processed when changing the playback speed of a sample in DJ mode."
+					},
+					{
+						"doc": "docs/reference/roland-v550/10-appendix-parameters-mfx.md",
+						"page": 136,
+						"quote": "Changes the playback speed and pitch at the same time, like an analog record."
+					},
+					{
+						"doc": "docs/reference/roland-v550/10-appendix-parameters-mfx.md",
+						"page": 136,
+						"quote": "Sets how quickly the pitch of a sample changes when you press the [BEND-] and [BEND+] pads."
+					}
+				],
+				"showShiftLabels": true
+			},
+			{
+				"id": "home",
+				"title": "EXIT back to the decks",
+				"action": "Press [EXIT] until DJ mode is back, then hold a bend pad once.",
+				"listen": "VINYL bends pitch and speed together. BACKING or ENSEMBLE should bend less like a record. If you did not change the type, it sounds the way it did before you looked.",
+				"highlight": ["EXIT", "PAD 1"],
+				"screen": "Back, then a bend",
+				"sense": "manual",
+				"citations": [
+					{
+						"doc": "docs/reference/roland-v550/09-utility-and-sd-card.md",
+						"page": 111,
+						"quote": "Press the [EXIT] button to return to the UTILITY MENU screen."
+					}
+				],
+				"showDjLabels": true
+			}
+		]
+	}
+]

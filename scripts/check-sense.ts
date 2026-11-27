@@ -36,6 +36,8 @@ check('CC20 ch1 play', decodeMessage([0xb0, 20, 127])?.kind === 'dj-play');
 check('CC20 pause is not play', decodeMessage([0xb0, 20, 0])?.kind !== 'dj-play');
 check('CC22 ch2 sync', matchesListen({ type: 'dj-sync' }, decodeMessage([0xb1, 22, 127])!));
 check('program change is ignored', decodeMessage([0xc0, 4, 0]) === null);
+check('chromatic ch16 counts as a pad', decodeMessage(noteOn(16, 40))?.kind === 'pad');
+check('bend pad matches', matchesListen({ type: 'dj-bend' }, decodeMessage([0xb0, 24, 127])!));
 check('clock is clock', decodeMessage([0xf8])?.kind === 'clock');
 
 check('steady onsets hint 120', tempoHint([0, 500, 1000, 1500, 2000, 2500]) === 120);

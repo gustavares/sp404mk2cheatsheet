@@ -42,12 +42,25 @@ export type ListenFor =
 	| { type: 'dj-sync' }
 	| { type: 'dj-cue' }
 	| { type: 'dj-xfade' }
+	| { type: 'dj-bend' }
+	| { type: 'dj-bpm' }
 	| { type: 'sound'; sustainMs?: number };
 
 export interface SpHit {
 	/** Faceplate ids to light. Empty when the chart cannot name one control. */
 	controls: string[];
-	kind: 'pad' | 'ext' | 'knob' | 'dj-play' | 'dj-sync' | 'dj-cue' | 'dj-xfade' | 'clock' | 'other';
+	kind:
+		| 'pad'
+		| 'ext'
+		| 'knob'
+		| 'dj-play'
+		| 'dj-sync'
+		| 'dj-cue'
+		| 'dj-xfade'
+		| 'dj-bend'
+		| 'dj-bpm'
+		| 'clock'
+		| 'other';
 	pad?: number;
 	bank?: string;
 	channel: number;
@@ -68,7 +81,19 @@ function padId(pad: number): string {
 
 /** Mode A note-on. Returns null for velocity 0 (the chart does not transmit note-off). */
 export function decodeModeA(channel: number, note: number, velocity: number): SpHit | null {
-	if (velocity <= 0 || channel < 1 || channel > 10) return null;
+	if (velocity <= 0) return null;
+	// Chromatic mode transmits notes 36–60 on channel 16. The chart does not name which pad is which key.
+	if (channel === 16 && note >= 36 && note <= 60) {
+		return {
+			controls: [],
+			kind: 'pad',
+			channel,
+			note,
+			value: velocity,
+			label: `chromatic note ${note}`
+		};
+	}
+	if (channel < 1 || channel > 10) return null;
 	const bank = MODE_A_BANKS[channel - 1];
 	if (note === 35) {
 		return {
@@ -180,14 +205,16 @@ function decodeCC(channel: number, cc: number, value: number): SpHit | null {
 	// Other DJ pads (bend, bpm, cue-return). Light them; lessons don't auto-advance on these.
 	const djPad = djPadFor(channel, cc, value);
 	if (djPad) {
+		const bend = cc === 24 || cc === 25;
+		const bpm = cc === 26 || cc === 27;
 		return {
 			controls: [padId(djPad)],
-			kind: 'other',
+			kind: bend ? 'dj-bend' : bpm ? 'dj-bpm' : 'other',
 			pad: djPad,
 			channel,
 			cc,
 			value,
-			label: `DJ pad ${djPad}`
+			label: bend ? 'pitch bend' : bpm ? 'BPM nudge' : `DJ pad ${djPad}`
 		};
 	}
 
@@ -269,6 +296,10 @@ export function matchesListen(listenFor: ListenFor, hit: SpHit): boolean {
 			return hit.kind === 'dj-cue';
 		case 'dj-xfade':
 			return hit.kind === 'dj-xfade';
+		case 'dj-bend':
+			return hit.kind === 'dj-bend';
+		case 'dj-bpm':
+			return hit.kind === 'dj-bpm';
 		default:
 			return false;
 	}
