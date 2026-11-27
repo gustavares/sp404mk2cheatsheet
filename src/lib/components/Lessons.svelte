@@ -1,0 +1,859 @@
+<script lang="ts">
+	import rawLessons from '#lib/data/lessons.json';
+	import type { Lesson, LessonCitation } from '#lib/lessons/types.js';
+	import { lessonProgress } from '#lib/stores/lessons.svelte.js';
+	import Faceplate from '#lib/components/Faceplate.svelte';
+	import {
+		BookOpen,
+		Check,
+		ChevronLeft,
+		ChevronRight,
+		Headphones,
+		Info,
+		RotateCcw
+	} from '@lucide/svelte';
+
+	const lessons = rawLessons as Lesson[];
+
+	let stepIndex = $state(0);
+	let phase = $state<'step' | 'finished'>('step');
+	let syncedLessonId = $state<string | null>(null);
+
+	const openLesson = $derived(
+		lessons.find((lesson) => lesson.id === lessonProgress.openLessonId) ?? null
+	);
+	const step = $derived(openLesson && phase === 'step' ? openLesson.steps[stepIndex] : null);
+	const doneCount = $derived(lessonProgress.completedLessonCount(lessons));
+
+	$effect(() => {
+		const lesson = openLesson;
+		if (!lesson) {
+			syncedLessonId = null;
+			return;
+		}
+		if (syncedLessonId === lesson.id) return;
+		stepIndex = lessonProgress.resumeIndex(lesson);
+		phase = 'step';
+		syncedLessonId = lesson.id;
+	});
+
+	function openLessonAt(lesson: Lesson) {
+		stepIndex = lessonProgress.resumeIndex(lesson);
+		phase = 'step';
+		syncedLessonId = lesson.id;
+		lessonProgress.open(lesson.id);
+	}
+
+	function closeLesson() {
+		lessonProgress.close();
+	}
+
+	function goBack() {
+		if (!openLesson) return;
+		if (phase === 'finished') {
+			phase = 'step';
+			stepIndex = openLesson.steps.length - 1;
+			return;
+		}
+		if (stepIndex <= 0) {
+			closeLesson();
+			return;
+		}
+		stepIndex -= 1;
+		lessonProgress.setStep(openLesson.id, stepIndex);
+	}
+
+	function doneNext() {
+		if (!openLesson || !step) return;
+		lessonProgress.markDone(openLesson.id, step.id);
+		if (stepIndex < openLesson.steps.length - 1) {
+			stepIndex += 1;
+			lessonProgress.setStep(openLesson.id, stepIndex);
+		} else {
+			lessonProgress.setStep(openLesson.id, stepIndex);
+			phase = 'finished';
+		}
+	}
+
+	function resetThisLesson() {
+		if (!openLesson || typeof window === 'undefined') return;
+		const ok = window.confirm(
+			`Start “${openLesson.title}” over? Checkmarks for this lesson will clear on this device.`
+		);
+		if (!ok) return;
+		lessonProgress.resetLesson(openLesson.id);
+		stepIndex = 0;
+		phase = 'step';
+	}
+
+	function resetEverything() {
+		if (typeof window === 'undefined') return;
+		const ok = window.confirm('Clear saved lesson progress on this device?');
+		if (!ok) return;
+		lessonProgress.resetAll();
+		phase = 'step';
+		stepIndex = 0;
+	}
+
+	function nextLesson(): Lesson | null {
+		if (!openLesson) return null;
+		const index = lessons.findIndex((lesson) => lesson.id === openLesson.id);
+		return lessons[index + 1] ?? null;
+	}
+
+	function sourceLabel(citation: LessonCitation): string {
+		if (citation.doc.includes('sys-5.52')) {
+			return 'Roland system program 5.52 notes';
+		}
+		const page = citation.page ? `, p. ${citation.page}` : '';
+		return `Reference Manual v5.50${page}`;
+	}
+
+	function statusLabel(lesson: Lesson): string {
+		if (lessonProgress.isLessonComplete(lesson)) return 'Finished';
+		const done = lessonProgress.doneCount(lesson);
+		if (done > 0 || (lessonProgress.stepByLesson[lesson.id] ?? 0) > 0) return 'In progress';
+		return 'Not started';
+	}
+</script>
+
+<main id="main-content" class="container lessons" tabindex="-1">
+	{#if !openLesson}
+		<header class="lessons-intro">
+			<div class="lessons-intro__mark" aria-hidden="true">
+				<BookOpen size={22} />
+			</div>
+			<div>
+				<p class="lessons-kicker">Lessons</p>
+				<h2>A first set, one button at a time</h2>
+				<p class="lessons-lead">
+					Nine short sessions for a dance floor you play yourself: a house or techno bed, a liquid
+					loop that’s yours, and a synth on the inputs. The drawing lights the control. You press it
+					on the real SP and listen. Progress stays on this device. There is no streak and no score.
+				</p>
+				<p class="lessons-meta">
+					{doneCount} of {lessons.length} finished
+					<span aria-hidden="true">·</span>
+					Saved in this browser
+				</p>
+			</div>
+		</header>
+
+		<ol class="lesson-list">
+			{#each lessons as lesson, index (lesson.id)}
+				{@const done = lessonProgress.doneCount(lesson)}
+				{@const complete = lessonProgress.isLessonComplete(lesson)}
+				<li>
+					<article class="lesson-card" class:lesson-card--done={complete}>
+						<div class="lesson-card__index" aria-hidden="true">{index + 1}</div>
+						<div class="lesson-card__body">
+							<div class="lesson-card__title-row">
+								<h3>{lesson.title}</h3>
+								<span class="status-pill" class:status-pill--done={complete}>
+									{#if complete}
+										<Check size={12} />
+									{/if}
+									{statusLabel(lesson)}
+								</span>
+							</div>
+							<p>{lesson.blurb}</p>
+							<p class="lesson-card__meta">
+								{lesson.steps.length} steps
+								{#if done > 0 && !complete}
+									<span aria-hidden="true">·</span>
+									{done} done
+								{/if}
+							</p>
+							<button type="button" class="lesson-open" onclick={() => openLessonAt(lesson)}>
+								{complete ? 'Play again' : done > 0 ? 'Continue' : 'Start'}
+								<ChevronRight size={16} />
+							</button>
+						</div>
+					</article>
+				</li>
+			{/each}
+		</ol>
+
+		<p class="lessons-footnote">
+			Steps are checked against the Roland SP-404MKII Reference Manual v5.50 in this repo. Roland’s
+			system program as of June 2026 is 5.52, which Roland says does not change specifications.
+			Anything a step could not confirm is marked on that step.
+		</p>
+		{#if doneCount > 0}
+			<button type="button" class="text-reset" onclick={resetEverything}>
+				Clear saved lesson progress
+			</button>
+		{/if}
+	{:else}
+		{@const lesson = openLesson}
+		{@const following = nextLesson()}
+		<div class="player">
+			<div class="player__column">
+				<div class="player__steps">
+					<div class="player__toolbar">
+						<button type="button" class="text-back" onclick={closeLesson}>All lessons</button>
+						<p class="player__count">
+							Lesson {lessons.findIndex((item) => item.id === lesson.id) + 1} of {lessons.length}
+						</p>
+					</div>
+					<h2>{lesson.title}</h2>
+					<p class="player__bring">{lesson.bring}</p>
+
+					{#if phase === 'finished'}
+						<section class="finish-card" aria-labelledby="lesson-finished-title">
+							<p class="lessons-kicker">That’s the lesson</p>
+							<h3 id="lesson-finished-title">You walked the whole thing.</h3>
+							<p>
+								It stays marked on this device. The SP remembers the sounds. Come back and play it
+								again whenever, or keep going.
+							</p>
+							<div class="finish-card__actions">
+								{#if following}
+									<button
+										type="button"
+										class="btn btn--primary"
+										onclick={() => openLessonAt(following)}
+									>
+										Next: {following.title}
+										<ChevronRight size={16} />
+									</button>
+								{/if}
+								<button type="button" class="btn btn--ghost" onclick={closeLesson}>
+									Back to all lessons
+								</button>
+							</div>
+						</section>
+					{:else if step}
+						<article id="lesson-step" class="step-card" aria-live="polite">
+							<div class="step-card__progress" aria-hidden="true">
+								{#each lesson.steps as dot, dotIndex (dot.id)}
+									<span
+										class="step-dot"
+										class:step-dot--done={lessonProgress.isStepDone(lesson.id, dot.id)}
+										class:step-dot--now={dotIndex === stepIndex}
+									></span>
+								{/each}
+							</div>
+							<p class="step-card__count">
+								Step {stepIndex + 1} of {lesson.steps.length}
+							</p>
+							<h3>{step.title}</h3>
+
+							<div class="callout callout--do">
+								<p class="callout__label">Press this</p>
+								<p>{step.action}</p>
+							</div>
+						</article>
+					{/if}
+				</div>
+
+				{#if step}
+					<div class="player__listen">
+						<div class="callout callout--listen">
+							<p class="callout__label">
+								<Headphones size={14} />
+								Listen for
+							</p>
+							<p>{step.listen}</p>
+						</div>
+
+						{#if step.note}
+							<p class="step-note">{step.note}</p>
+						{/if}
+
+						{#if step.offPanel}
+							<div class="callout callout--off">
+								<p class="callout__label">
+									<Info size={14} />
+									On the machine, not on this drawing
+								</p>
+								<p>{step.offPanel}</p>
+							</div>
+						{/if}
+
+						{#if step.unverified && step.unverified.length > 0}
+							<div class="callout callout--unverified">
+								<p class="callout__label">Could not verify</p>
+								<ul>
+									{#each step.unverified as note (note)}
+										<li>{note}</li>
+									{/each}
+								</ul>
+							</div>
+						{/if}
+
+						<details class="sources">
+							<summary>Where this step comes from</summary>
+							<ul>
+								{#each step.citations as citation (`${citation.doc}-${citation.page ?? ''}-${citation.quote}`)}
+									<li>
+										<p class="sources__label">{sourceLabel(citation)}</p>
+										<blockquote>{citation.quote}</blockquote>
+									</li>
+								{/each}
+							</ul>
+						</details>
+					</div>
+				{/if}
+			</div>
+
+			<aside class="player__panel" aria-label="Highlighted SP-404MKII controls">
+				{#if step}
+					<Faceplate
+						activeButtons={step.highlight}
+						selectedTip={null}
+						matchCount={0}
+						onToggleButton={() => {}}
+						onClearButtons={() => {}}
+						guideLock={true}
+						showShiftLabels={step.showShiftLabels === true}
+						showDjLabels={step.showDjLabels === true}
+						lessonCue={{
+							kicker: `STEP ${stepIndex + 1}/${lesson.steps.length}`,
+							headline: step.screen,
+							detail: step.title
+						}}
+					/>
+				{:else}
+					<Faceplate
+						activeButtons={[]}
+						selectedTip={null}
+						matchCount={0}
+						onToggleButton={() => {}}
+						onClearButtons={() => {}}
+						lessonCue={{
+							kicker: 'DONE',
+							headline: lesson.title,
+							detail: 'The whole lesson'
+						}}
+					/>
+				{/if}
+			</aside>
+		</div>
+
+		<div class="lesson-dock">
+			<button type="button" class="btn btn--ghost" onclick={goBack}>
+				<ChevronLeft size={16} />
+				Back
+			</button>
+			<button type="button" class="btn btn--ghost" onclick={resetThisLesson}>
+				<RotateCcw size={15} />
+				Reset
+			</button>
+			{#if phase === 'step' && step}
+				<button type="button" class="btn btn--primary" onclick={doneNext}>
+					{stepIndex < lesson.steps.length - 1 ? 'Done / Next' : 'Done'}
+					<ChevronRight size={16} />
+				</button>
+			{:else if following}
+				<button type="button" class="btn btn--primary" onclick={() => openLessonAt(following)}>
+					Next lesson
+					<ChevronRight size={16} />
+				</button>
+			{:else}
+				<button type="button" class="btn btn--primary" onclick={closeLesson}>All lessons</button>
+			{/if}
+		</div>
+	{/if}
+</main>
+
+<style>
+	.lessons {
+		padding-block: 1rem 3rem;
+	}
+
+	.lessons-intro {
+		display: flex;
+		gap: 0.9rem;
+		align-items: flex-start;
+		padding: 1.1rem 1.2rem;
+		margin-bottom: 1.1rem;
+		background: linear-gradient(135deg, rgba(234, 88, 12, 0.14), rgba(19, 22, 28, 0.4));
+		border: 1px solid rgba(234, 88, 12, 0.35);
+		border-radius: 0.8rem;
+	}
+
+	.lessons-intro__mark {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 2.4rem;
+		height: 2.4rem;
+		flex-shrink: 0;
+		border-radius: 0.55rem;
+		color: #fdba74;
+		background: rgba(234, 88, 12, 0.12);
+		border: 1px solid rgba(234, 88, 12, 0.35);
+	}
+
+	.lessons-kicker {
+		margin: 0 0 0.2rem;
+		font-size: 0.72rem;
+		font-weight: 800;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: #fdba74;
+	}
+
+	.lessons-intro h2,
+	.player h2 {
+		margin: 0 0 0.35rem;
+		font-size: 1.25rem;
+		font-weight: 800;
+		color: #f8fafc;
+		letter-spacing: -0.02em;
+	}
+
+	.lessons-lead,
+	.player__bring,
+	.lessons-footnote {
+		margin: 0;
+		color: #cbd5e1;
+		font-size: 0.9rem;
+		line-height: 1.5;
+		max-width: 68ch;
+	}
+
+	.lessons-meta {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.4rem;
+		margin: 0.7rem 0 0;
+		font-size: 0.78rem;
+		font-weight: 700;
+		color: #94a3b8;
+	}
+
+	.lesson-list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+		gap: 0.75rem;
+	}
+
+	.lesson-card {
+		display: flex;
+		gap: 0.75rem;
+		height: 100%;
+		padding: 0.9rem;
+		background: #13161c;
+		border: 1px solid #222731;
+		border-radius: 0.75rem;
+	}
+
+	.lesson-card--done {
+		border-color: rgba(234, 88, 12, 0.45);
+	}
+
+	.lesson-card__index {
+		font-size: 1.35rem;
+		font-weight: 800;
+		color: #ea580c;
+		line-height: 1;
+		min-width: 1.4rem;
+	}
+
+	.lesson-card__body {
+		display: flex;
+		flex-direction: column;
+		gap: 0.35rem;
+		min-width: 0;
+		flex: 1;
+	}
+
+	.lesson-card__title-row {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.35rem 0.6rem;
+	}
+
+	.lesson-card h3,
+	.step-card h3,
+	.finish-card h3 {
+		margin: 0;
+		font-size: 1rem;
+		font-weight: 800;
+		color: #f8fafc;
+	}
+
+	.lesson-card p,
+	.callout p,
+	.step-note,
+	.finish-card p,
+	.sources li {
+		margin: 0;
+		color: #cbd5e1;
+		font-size: 0.84rem;
+		line-height: 1.45;
+	}
+
+	.lesson-card__meta {
+		font-size: 0.75rem !important;
+		font-weight: 700;
+		color: #94a3b8 !important;
+	}
+
+	.status-pill {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.25rem;
+		padding: 0.12rem 0.45rem;
+		border-radius: 999px;
+		border: 1px solid #2e3748;
+		background: #171b22;
+		color: #94a3b8;
+		font-size: 0.68rem;
+		font-weight: 800;
+		letter-spacing: 0.02em;
+	}
+
+	.status-pill--done {
+		color: #ffedd5;
+		background: rgba(234, 88, 12, 0.18);
+		border-color: rgba(234, 88, 12, 0.5);
+	}
+
+	.lesson-open {
+		margin-top: auto;
+		align-self: flex-start;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.2rem;
+		padding: 0.38rem 0.7rem;
+		border-radius: 0.45rem;
+		border: 1px solid #ea580c;
+		background: #ea580c;
+		color: #fff;
+		font-size: 0.8rem;
+		font-weight: 800;
+		cursor: pointer;
+	}
+
+	.lesson-open:hover {
+		background: #f97316;
+	}
+
+	.lessons-footnote {
+		margin-top: 1rem;
+		font-size: 0.78rem;
+		color: #94a3b8;
+	}
+
+	.text-reset,
+	.text-back {
+		margin-top: 0.75rem;
+		padding: 0;
+		border: 0;
+		background: none;
+		color: #fdba74;
+		font-size: 0.78rem;
+		font-weight: 700;
+		cursor: pointer;
+		text-decoration: underline;
+		text-underline-offset: 0.15rem;
+	}
+
+	.player {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		gap: 1rem;
+		align-items: start;
+		padding-bottom: 5.5rem;
+	}
+
+	.player__toolbar {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.75rem;
+		margin-bottom: 0.35rem;
+	}
+
+	.player__count {
+		margin: 0;
+		font-size: 0.75rem;
+		font-weight: 800;
+		color: #94a3b8;
+	}
+
+	.player__bring {
+		margin-bottom: 0.85rem;
+		font-size: 0.82rem;
+		color: #94a3b8;
+	}
+
+	.step-card,
+	.finish-card {
+		display: flex;
+		flex-direction: column;
+		gap: 0.7rem;
+		padding: 0.95rem 1rem;
+		background: #13161c;
+		border: 1px solid #222731;
+		border-radius: 0.75rem;
+	}
+
+	.step-card__progress {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.3rem;
+	}
+
+	.step-dot {
+		width: 0.55rem;
+		height: 0.55rem;
+		border-radius: 999px;
+		background: #1e2430;
+		border: 1px solid #334155;
+	}
+
+	.step-dot--done {
+		background: #9a3412;
+		border-color: #ea580c;
+	}
+
+	.step-dot--now {
+		background: #fb923c;
+		border-color: #ffedd5;
+	}
+
+	.step-card__count {
+		margin: 0;
+		font-size: 0.72rem;
+		font-weight: 800;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: #fdba74;
+	}
+
+	.callout {
+		padding: 0.75rem 0.85rem;
+		border-radius: 0.55rem;
+		background: #0f131a;
+		border: 1px solid #262c38;
+	}
+
+	.callout--do {
+		border-left: 3px solid #ea580c;
+	}
+
+	.callout--listen {
+		border-left: 3px solid #38bdf8;
+	}
+
+	.callout--off {
+		border-left: 3px solid #a78bfa;
+	}
+
+	.callout--unverified {
+		border-left: 3px solid #fbbf24;
+		background: rgba(251, 191, 36, 0.06);
+	}
+
+	.callout__label {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35rem;
+		margin-bottom: 0.25rem !important;
+		font-size: 0.72rem !important;
+		font-weight: 800;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: #fdba74 !important;
+	}
+
+	.callout--listen .callout__label {
+		color: #7dd3fc !important;
+	}
+
+	.callout--off .callout__label {
+		color: #c4b5fd !important;
+	}
+
+	.callout--unverified .callout__label {
+		color: #fcd34d !important;
+	}
+
+	.callout ul {
+		margin: 0.35rem 0 0;
+		padding-left: 1.1rem;
+	}
+
+	.callout li {
+		margin: 0.2rem 0;
+		color: #e2e8f0;
+		font-size: 0.82rem;
+	}
+
+	.step-note {
+		color: #94a3b8;
+	}
+
+	.sources {
+		color: #94a3b8;
+		font-size: 0.78rem;
+	}
+
+	.sources summary {
+		cursor: pointer;
+		font-weight: 700;
+		color: #cbd5e1;
+	}
+
+	.sources ul {
+		list-style: none;
+		padding: 0.6rem 0 0;
+		margin: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 0.65rem;
+	}
+
+	.sources__label {
+		margin: 0 0 0.2rem;
+		font-size: 0.7rem;
+		font-weight: 800;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		color: #64748b;
+	}
+
+	.sources blockquote {
+		margin: 0;
+		padding-left: 0.65rem;
+		border-left: 2px solid #334155;
+		color: #cbd5e1;
+	}
+
+	.player__listen {
+		display: flex;
+		flex-direction: column;
+		gap: 0.7rem;
+	}
+
+	.lesson-dock {
+		position: fixed;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 40;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: flex-end;
+		gap: 0.45rem;
+		padding: 0.65rem clamp(0.75rem, 2.5vw, 1.5rem) calc(0.65rem + env(safe-area-inset-bottom));
+		background: rgba(13, 15, 19, 0.94);
+		border-top: 1px solid #222731;
+		backdrop-filter: blur(8px);
+	}
+
+	.btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.3rem;
+		padding: 0.5rem 0.85rem;
+		border-radius: 0.45rem;
+		font-size: 0.82rem;
+		font-weight: 800;
+		cursor: pointer;
+		border: 1px solid transparent;
+	}
+
+	.btn--primary {
+		background: #ea580c;
+		border-color: #f97316;
+		color: #fff;
+	}
+
+	.btn--primary:hover {
+		background: #f97316;
+	}
+
+	.btn--ghost {
+		background: #141822;
+		border-color: #273042;
+		color: #cbd5e1;
+	}
+
+	.btn--ghost:hover {
+		border-color: #ea580c;
+		color: #fff;
+	}
+
+	.finish-card__actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+	}
+
+	.player__column {
+		display: flex;
+		flex-direction: column;
+		gap: 0.85rem;
+		min-width: 0;
+	}
+
+	@media (min-width: 860px) {
+		.player {
+			grid-template-columns: minmax(0, 1fr) minmax(340px, 420px);
+			align-items: start;
+			padding-bottom: 5.5rem;
+		}
+
+		.player__panel {
+			position: sticky;
+			top: 4.5rem;
+			max-height: calc(100dvh - 10rem);
+			overflow-y: auto;
+			scrollbar-width: thin;
+		}
+	}
+
+	@media (max-width: 859px) {
+		.player__column {
+			display: contents;
+		}
+
+		.player__steps {
+			order: 1;
+		}
+
+		.player__panel {
+			order: 2;
+		}
+
+		.player__listen {
+			order: 3;
+		}
+
+		.step-card {
+			position: sticky;
+			top: 3.15rem;
+			z-index: 30;
+		}
+	}
+
+	@media (pointer: coarse) {
+		.btn,
+		.lesson-open {
+			min-height: 2.6rem;
+		}
+	}
+
+	@media print {
+		.lesson-dock,
+		.lesson-open,
+		.text-reset {
+			display: none !important;
+		}
+
+		.player {
+			padding-bottom: 0;
+		}
+	}
+</style>

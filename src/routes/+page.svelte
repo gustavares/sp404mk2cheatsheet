@@ -12,6 +12,7 @@
 		type TipTier
 	} from '#lib/types.js';
 	import Faceplate from '#lib/components/Faceplate.svelte';
+	import Lessons from '#lib/components/Lessons.svelte';
 	import TipCard from '#lib/components/TipCard.svelte';
 	import Keycap from '#lib/components/Keycap.svelte';
 	import { pinnedStore } from '#lib/stores/pinned.svelte.js';
@@ -251,408 +252,379 @@
 	);
 </script>
 
-<main id="main-content" class="container main-layout" tabindex="-1">
-	<!-- Dedicated "My Studio Sheet" Builder Banner when in Pinned Mode -->
-	{#if isPinnedView}
-		<section class="mysheet-banner" aria-labelledby="mysheet-banner-title">
-			<div class="mysheet-banner__content">
-				<div class="mysheet-banner__header">
-					<Star size={24} class="mysheet-banner__badge star-icon--filled" />
-					<div>
-						<h2 id="mysheet-banner-title" class="mysheet-banner__title">
-							My Custom Studio Sheet ({pinnedStore.ids.length}
-							{pinnedStore.ids.length === 1 ? 'shortcut' : 'shortcuts'})
-						</h2>
-						<p class="mysheet-banner__subtitle">
-							Your curated studio desk reference. Click <strong>Pinned</strong> on any card to remove
-							it, or print a clean 1–2 page PDF for your gear setup.
-						</p>
+{#if uiStore.viewMode === 'lessons'}
+	<Lessons />
+{:else}
+	<main id="main-content" class="container main-layout" tabindex="-1">
+		<!-- Dedicated "My Studio Sheet" Builder Banner when in Pinned Mode -->
+		{#if isPinnedView}
+			<section class="mysheet-banner" aria-labelledby="mysheet-banner-title">
+				<div class="mysheet-banner__content">
+					<div class="mysheet-banner__header">
+						<Star size={24} class="mysheet-banner__badge star-icon--filled" />
+						<div>
+							<h2 id="mysheet-banner-title" class="mysheet-banner__title">
+								My Custom Studio Sheet ({pinnedStore.ids.length}
+								{pinnedStore.ids.length === 1 ? 'shortcut' : 'shortcuts'})
+							</h2>
+							<p class="mysheet-banner__subtitle">
+								Your curated studio desk reference. Click <strong>Pinned</strong> on any card to remove
+								it, or print a clean 1–2 page PDF for your gear setup.
+							</p>
+						</div>
 					</div>
-				</div>
 
-				<div class="mysheet-banner__actions">
-					<button
-						type="button"
-						class="mysheet-btn mysheet-btn--primary"
-						disabled={pinnedStore.ids.length === 0}
-						onclick={executePrint}
-					>
-						<Printer size={15} />
-						<span>Print / Save as PDF</span>
-					</button>
-
-					{#if pinnedStore.ids.length > 0}
+					<div class="mysheet-banner__actions">
 						<button
 							type="button"
-							class="mysheet-btn mysheet-btn--danger"
-							onclick={handleClearPinned}
+							class="mysheet-btn mysheet-btn--primary"
+							disabled={pinnedStore.ids.length === 0}
+							onclick={executePrint}
 						>
-							Clear All
+							<Printer size={15} />
+							<span>Print / Save as PDF</span>
 						</button>
-					{/if}
 
-					<button
-						type="button"
-						class="mysheet-btn mysheet-btn--secondary"
-						onclick={() => uiStore.setViewMode('all')}
-					>
-						<Layers size={14} />
-						<span>Back to All 101 Shortcuts</span>
-					</button>
+						{#if pinnedStore.ids.length > 0}
+							<button
+								type="button"
+								class="mysheet-btn mysheet-btn--danger"
+								onclick={handleClearPinned}
+							>
+								Clear All
+							</button>
+						{/if}
+
+						<button
+							type="button"
+							class="mysheet-btn mysheet-btn--secondary"
+							onclick={() => uiStore.setViewMode('all')}
+						>
+							<Layers size={14} />
+							<span>Back to All 101 Shortcuts</span>
+						</button>
+					</div>
 				</div>
+			</section>
+		{/if}
+
+		<!-- Search & Category Tabs Bar -->
+		<search class="search-panel" aria-label="Filter shortcuts by intent, category, or button">
+			<div class="search-input-row">
+				<label for="shortcut-search" class="visually-hidden">
+					Search shortcuts by goal, button, or community slang
+				</label>
+				<input
+					id="shortcut-search"
+					type="search"
+					placeholder={isPinnedView
+						? "Search to filter or add to your sheet (e.g. 'stems', 'resample', 'vinyl sim')..."
+						: "Search shortcuts (e.g. 'stems', 'choke', 'one shot', 'tr-rec', 'dj mode')..."}
+					bind:value={searchQuery}
+					autocomplete="off"
+				/>
+				{#if hasActiveFilters}
+					<button type="button" class="reset-btn" onclick={clearAllFilters}> Reset Filters </button>
+				{/if}
+
+				<button
+					type="button"
+					class="faceplate-toggle-btn"
+					class:faceplate-toggle-btn--active={uiStore.showFaceplate}
+					onclick={() => uiStore.toggleFaceplate()}
+					aria-pressed={uiStore.showFaceplate}
+					aria-label={uiStore.showFaceplate ? 'Hide hardware faceplate' : 'Show hardware faceplate'}
+				>
+					<SlidersHorizontal size={14} />
+					<span>{uiStore.showFaceplate ? 'Hide Faceplate' : 'Show Faceplate'}</span>
+				</button>
 			</div>
-		</section>
-	{/if}
 
-	<!-- Search & Category Tabs Bar -->
-	<search class="search-panel" aria-label="Filter shortcuts by intent, category, or button">
-		<div class="search-input-row">
-			<label for="shortcut-search" class="visually-hidden">
-				Search shortcuts by goal, button, or community slang
-			</label>
-			<input
-				id="shortcut-search"
-				type="search"
-				placeholder={isPinnedView
-					? "Search to filter or add to your sheet (e.g. 'stems', 'resample', 'vinyl sim')..."
-					: "Search shortcuts (e.g. 'stems', 'choke', 'one shot', 'tr-rec', 'dj mode')..."}
-				bind:value={searchQuery}
-				autocomplete="off"
-			/>
-			{#if hasActiveFilters}
-				<button type="button" class="reset-btn" onclick={clearAllFilters}> Reset Filters </button>
-			{/if}
-
-			<button
-				type="button"
-				class="faceplate-toggle-btn"
-				class:faceplate-toggle-btn--active={uiStore.showFaceplate}
-				onclick={() => uiStore.toggleFaceplate()}
-				aria-pressed={uiStore.showFaceplate}
-				aria-label={uiStore.showFaceplate ? 'Hide hardware faceplate' : 'Show hardware faceplate'}
-			>
-				<SlidersHorizontal size={14} />
-				<span>{uiStore.showFaceplate ? 'Hide Faceplate' : 'Show Faceplate'}</span>
-			</button>
-		</div>
-
-		<!-- Category Filter Tabs -->
-		<div class="category-bar" role="group" aria-label="Filter by workflow category">
-			<button
-				type="button"
-				class="cat-pill"
-				class:cat-pill--active={selectedCategory === 'ALL'}
-				aria-pressed={selectedCategory === 'ALL'}
-				onclick={() => (selectedCategory = 'ALL')}
-			>
-				All ({tips.length})
-			</button>
-			{#each CATEGORIES as cat (cat)}
+			<!-- Category Filter Tabs -->
+			<div class="category-bar" role="group" aria-label="Filter by workflow category">
 				<button
 					type="button"
 					class="cat-pill"
-					class:cat-pill--active={selectedCategory === cat}
-					aria-pressed={selectedCategory === cat}
-					onclick={() => (selectedCategory = selectedCategory === cat ? 'ALL' : cat)}
+					class:cat-pill--active={selectedCategory === 'ALL'}
+					aria-pressed={selectedCategory === 'ALL'}
+					onclick={() => (selectedCategory = 'ALL')}
 				>
-					{cat}
+					All ({tips.length})
 				</button>
-			{/each}
-		</div>
-
-		<!-- Active Hardware Button Filter Bar -->
-		{#if activeButtons.length > 0}
-			<div class="active-hw-bar">
-				<span class="active-hw-bar__label">Hardware filter:</span>
-				<div class="active-hw-bar__chips">
-					{#each activeButtons as btn (btn)}
-						<Keycap label="{btn} ✕" active={true} onclick={() => toggleHardwareButton(btn)} />
-					{/each}
-				</div>
-				<button type="button" class="clear-hw-link" onclick={() => (activeButtons = [])}>
-					Clear buttons
-				</button>
-			</div>
-		{/if}
-	</search>
-
-	<!-- Dedicated Print-Only Sheet Header -->
-	<div class="print-sheet-header" aria-hidden="true">
-		<h1 class="print-sheet-header__title">
-			{#if isPinnedView}
-				ROLAND SP-404MKII — CUSTOM STUDIO CHEAT SHEET
-			{:else if selectedCategory !== 'ALL'}
-				ROLAND SP-404MKII — {selectedCategory} CHEAT SHEET
-			{:else}
-				ROLAND SP-404MKII — MASTER WORKFLOW CHEAT SHEET
-			{/if}
-		</h1>
-		<div class="print-sheet-header__meta">
-			<span>Firmware v5.50</span>
-			<span>•</span>
-			<span>{filteredTips.length} Shortcuts</span>
-			<span>•</span>
-			<span>Verified Roland Hardware Spec</span>
-			<span>•</span>
-			<span>frstudios.co.ke</span>
-		</div>
-	</div>
-
-	<!-- Dedicated Studio Paper Quick Reference Table (Print Only) -->
-	<div class="print-sheet-table" aria-hidden="true">
-		<table class="studio-paper-table">
-			<thead>
-				<tr>
-					<th scope="col" class="paper-col-combo">Hardware Keys</th>
-					<th scope="col" class="paper-col-action">Action & Purpose</th>
-					<th scope="col" class="paper-col-note">Hardware Note / Caveat</th>
-				</tr>
-			</thead>
-			<tbody>
-				{#each filteredTips as tip (tip.id)}
-					<tr>
-						<td class="paper-cell-combo">
-							<span class="paper-combo-text">{tip.combo.join(' + ')}</span>
-						</td>
-						<td class="paper-cell-action">
-							<div class="paper-action-title">{tip.action}</div>
-							<div class="paper-action-goal">{tip.goal}</div>
-						</td>
-						<td class="paper-cell-note">
-							{#if tip.caveat}
-								<div class="paper-note-text">
-									<strong>NOTE:</strong>
-									{tip.caveat}
-								</div>
-							{:else}
-								<span class="paper-note-empty">—</span>
-							{/if}
-						</td>
-					</tr>
-				{/each}
-			</tbody>
-		</table>
-	</div>
-
-	<!-- Workspace Split: Interactive Faceplate + Shortcut Cards (Web View) -->
-	<div class="workspace" class:workspace--with-panel={uiStore.showFaceplate}>
-		{#if uiStore.showFaceplate}
-			<aside class="workspace__panel" aria-label="SP-404MKII Hardware Controller Filter">
-				<Faceplate
-					{activeButtons}
-					{selectedTip}
-					matchCount={filteredTips.length}
-					onToggleButton={toggleHardwareButton}
-					onClearButtons={() => (activeButtons = [])}
-					onClearSelectedTip={() => (selectedTipId = null)}
-				/>
-				<div class="mobile-panel-bar">
-					<a href="#results-heading" class="mobile-jump-link">
-						View {filteredTips.length}
-						{filteredTips.length === 1 ? 'Shortcut' : 'Shortcuts'} ↓
-					</a>
+				{#each CATEGORIES as cat (cat)}
 					<button
 						type="button"
-						class="mobile-hide-btn"
-						onclick={() => (uiStore.showFaceplate = false)}
+						class="cat-pill"
+						class:cat-pill--active={selectedCategory === cat}
+						aria-pressed={selectedCategory === cat}
+						onclick={() => (selectedCategory = selectedCategory === cat ? 'ALL' : cat)}
 					>
-						Hide Faceplate
+						{cat}
 					</button>
-				</div>
-			</aside>
-		{/if}
-
-		<section class="workspace__results" aria-labelledby="results-heading">
-			<div class="results-header">
-				<h2 id="results-heading" class="results-title">
-					{#if isPinnedView}
-						My Pinned Cheat Sheet ({filteredTips.length})
-					{:else if selectedCategory !== 'ALL'}
-						{selectedCategory} ({filteredTips.length})
-					{:else if hasActiveFilters}
-						Matching Shortcuts ({filteredTips.length})
-					{:else}
-						All Workflows ({filteredTips.length} shortcuts)
-					{/if}
-				</h2>
-
-				<div class="results-header__controls">
-					<div class="tier-segmented" role="group" aria-label="Filter by shortcut depth">
-						<button
-							type="button"
-							class="tier-seg-btn"
-							class:tier-seg-btn--active={selectedTier === 'ALL'}
-							aria-pressed={selectedTier === 'ALL'}
-							onclick={() => (selectedTier = 'ALL')}
-						>
-							All
-						</button>
-						<button
-							type="button"
-							class="tier-seg-btn"
-							class:tier-seg-btn--active={selectedTier === 'essential'}
-							aria-pressed={selectedTier === 'essential'}
-							onclick={() => (selectedTier = 'essential')}
-						>
-							Essentials
-						</button>
-						<button
-							type="button"
-							class="tier-seg-btn"
-							class:tier-seg-btn--active={selectedTier === 'deep-dive'}
-							aria-pressed={selectedTier === 'deep-dive'}
-							onclick={() => (selectedTier = 'deep-dive')}
-						>
-							Deep Dive
-						</button>
-					</div>
-
-					{#if isPinnedView && pinnedStore.ids.length > 0}
-						<button type="button" class="unpin-all-btn" onclick={handleClearPinned}>
-							Clear Pinned
-						</button>
-					{/if}
-				</div>
+				{/each}
 			</div>
 
-			{#if filteredTips.length === 0}
-				{#if isPinnedView && availableUnpinnedTips.length > 0}
-					<div class="empty-pinned-notice">
-						<p>
-							None of your currently pinned shortcuts match this filter. Showing <strong
-								>{availableUnpinnedTips.length}</strong
-							>
-							available shortcuts below from the master library that you can add:
-						</p>
+			<!-- Active Hardware Button Filter Bar -->
+			{#if activeButtons.length > 0}
+				<div class="active-hw-bar">
+					<span class="active-hw-bar__label">Hardware filter:</span>
+					<div class="active-hw-bar__chips">
+						{#each activeButtons as btn (btn)}
+							<Keycap label="{btn} ✕" active={true} onclick={() => toggleHardwareButton(btn)} />
+						{/each}
 					</div>
-				{:else if isPinnedView && pinnedStore.ids.length === 0}
-					<div class="empty-state empty-state--mysheet">
-						<div class="starter-badge">
-							<Sparkles size={20} class="starter-badge-icon" />
-						</div>
-						<h3>Your Custom Studio Sheet is Empty</h3>
-						<p>
-							Build your personal desk reference. Search any workflow above (e.g. <em>"stems"</em>,
-							<em>"resample"</em>, <em>"vinyl sim"</em>) to add shortcuts, or pick a starter kit:
-						</p>
-						<div class="starter-kits-row">
-							<button
-								type="button"
-								class="starter-kit-btn"
-								onclick={() => addStarterPack('essentials')}
-							>
-								<Plus size={14} />
-								<span>Add 12 Essentials</span>
-							</button>
-							<button type="button" class="starter-kit-btn" onclick={() => addStarterPack('chop')}>
-								<Plus size={14} />
-								<span>Sample Edit & Chop (6)</span>
-							</button>
-							<button type="button" class="starter-kit-btn" onclick={() => addStarterPack('fx')}>
-								<Plus size={14} />
-								<span>FX & Routing (8)</span>
-							</button>
-						</div>
-						<div class="starter-browse-row">
-							<button
-								type="button"
-								class="starter-browse-btn"
-								onclick={() => uiStore.setViewMode('all')}
-							>
-								<Layers size={14} />
-								<span>Browse All 101 Shortcuts</span>
-							</button>
-						</div>
-					</div>
+					<button type="button" class="clear-hw-link" onclick={() => (activeButtons = [])}>
+						Clear buttons
+					</button>
+				</div>
+			{/if}
+		</search>
+
+		<!-- Dedicated Print-Only Sheet Header -->
+		<div class="print-sheet-header" aria-hidden="true">
+			<h1 class="print-sheet-header__title">
+				{#if isPinnedView}
+					ROLAND SP-404MKII — CUSTOM STUDIO CHEAT SHEET
+				{:else if selectedCategory !== 'ALL'}
+					ROLAND SP-404MKII — {selectedCategory} CHEAT SHEET
 				{:else}
-					<div class="empty-state">
-						<h3>No matching shortcuts found</h3>
-						<p>
-							Try removing one of the selected faceplate buttons or broadening your search term.
-						</p>
-						<button type="button" class="tool-btn" onclick={clearAllFilters}>
-							Reset Filters
+					ROLAND SP-404MKII — MASTER WORKFLOW CHEAT SHEET
+				{/if}
+			</h1>
+			<div class="print-sheet-header__meta">
+				<span>Firmware v5.50</span>
+				<span>•</span>
+				<span>{filteredTips.length} Shortcuts</span>
+				<span>•</span>
+				<span>Verified Roland Hardware Spec</span>
+				<span>•</span>
+				<span>frstudios.co.ke</span>
+			</div>
+		</div>
+
+		<!-- Dedicated Studio Paper Quick Reference Table (Print Only) -->
+		<div class="print-sheet-table" aria-hidden="true">
+			<table class="studio-paper-table">
+				<thead>
+					<tr>
+						<th scope="col" class="paper-col-combo">Hardware Keys</th>
+						<th scope="col" class="paper-col-action">Action & Purpose</th>
+						<th scope="col" class="paper-col-note">Hardware Note / Caveat</th>
+					</tr>
+				</thead>
+				<tbody>
+					{#each filteredTips as tip (tip.id)}
+						<tr>
+							<td class="paper-cell-combo">
+								<span class="paper-combo-text">{tip.combo.join(' + ')}</span>
+							</td>
+							<td class="paper-cell-action">
+								<div class="paper-action-title">{tip.action}</div>
+								<div class="paper-action-goal">{tip.goal}</div>
+							</td>
+							<td class="paper-cell-note">
+								{#if tip.caveat}
+									<div class="paper-note-text">
+										<strong>NOTE:</strong>
+										{tip.caveat}
+									</div>
+								{:else}
+									<span class="paper-note-empty">—</span>
+								{/if}
+							</td>
+						</tr>
+					{/each}
+				</tbody>
+			</table>
+		</div>
+
+		<!-- Workspace Split: Interactive Faceplate + Shortcut Cards (Web View) -->
+		<div class="workspace" class:workspace--with-panel={uiStore.showFaceplate}>
+			{#if uiStore.showFaceplate}
+				<aside class="workspace__panel" aria-label="SP-404MKII Hardware Controller Filter">
+					<Faceplate
+						{activeButtons}
+						{selectedTip}
+						matchCount={filteredTips.length}
+						onToggleButton={toggleHardwareButton}
+						onClearButtons={() => (activeButtons = [])}
+						onClearSelectedTip={() => (selectedTipId = null)}
+					/>
+					<div class="mobile-panel-bar">
+						<a href="#results-heading" class="mobile-jump-link">
+							View {filteredTips.length}
+							{filteredTips.length === 1 ? 'Shortcut' : 'Shortcuts'} ↓
+						</a>
+						<button
+							type="button"
+							class="mobile-hide-btn"
+							onclick={() => (uiStore.showFaceplate = false)}
+						>
+							Hide Faceplate
 						</button>
 					</div>
-				{/if}
-			{:else if isGroupedByCategory}
-				<div class="category-sections">
-					{#each groupedSections as section (section.category)}
-						<section class="category-group" aria-labelledby="cat-{section.category}">
-							<div class="category-group__header">
-								<h3 id="cat-{section.category}" class="category-group__title">
-									{section.category}
-								</h3>
-								<span class="category-group__count">{section.items.length}</span>
-							</div>
-							<ul class="tips-grid" role="list">
-								{#each section.items as tip (tip.id)}
-									<li>
-										<TipCard
-											{tip}
-											isPinned={pinnedStore.has(tip.id)}
-											isSelected={selectedTipId === tip.id}
-											{activeButtons}
-											hideCategoryBadge={true}
-											onTogglePin={(id) => pinnedStore.toggle(id)}
-											onSelectTip={toggleSelectTip}
-											onSelectCategory={(cat) => {
-												selectedCategory = selectedCategory === cat ? 'ALL' : cat;
-											}}
-										/>
-									</li>
-								{/each}
-							</ul>
-						</section>
-					{/each}
-				</div>
-			{:else}
-				<ul class="tips-grid" role="list">
-					{#each filteredTips as tip (tip.id)}
-						<li>
-							<TipCard
-								{tip}
-								isPinned={pinnedStore.has(tip.id)}
-								isSelected={selectedTipId === tip.id}
-								{activeButtons}
-								hideCategoryBadge={selectedCategory !== 'ALL'}
-								onTogglePin={(id) => pinnedStore.toggle(id)}
-								onSelectTip={toggleSelectTip}
-								onSelectCategory={(cat) => {
-									selectedCategory = selectedCategory === cat ? 'ALL' : cat;
-								}}
-							/>
-						</li>
-					{/each}
-				</ul>
+				</aside>
 			{/if}
 
-			{#if isPinnedView && availableUnpinnedTips.length > 0}
-				<section class="unpinned-section" aria-label="Available shortcuts from master library">
-					<div class="unpinned-section__header">
-						<div class="unpinned-title-group">
-							<Plus size={16} class="unpinned-icon" />
-							<div>
-								<h3 class="unpinned-title">
-									Available in Master Library ({availableUnpinnedTips.length})
-								</h3>
-								<p class="unpinned-subtitle">
-									Matching shortcuts not yet in your sheet. Click the <strong>Star</strong> on any card
-									to add it.
-								</p>
+			<section class="workspace__results" aria-labelledby="results-heading">
+				<div class="results-header">
+					<h2 id="results-heading" class="results-title">
+						{#if isPinnedView}
+							My Pinned Cheat Sheet ({filteredTips.length})
+						{:else if selectedCategory !== 'ALL'}
+							{selectedCategory} ({filteredTips.length})
+						{:else if hasActiveFilters}
+							Matching Shortcuts ({filteredTips.length})
+						{:else}
+							All Workflows ({filteredTips.length} shortcuts)
+						{/if}
+					</h2>
+
+					<div class="results-header__controls">
+						<div class="tier-segmented" role="group" aria-label="Filter by shortcut depth">
+							<button
+								type="button"
+								class="tier-seg-btn"
+								class:tier-seg-btn--active={selectedTier === 'ALL'}
+								aria-pressed={selectedTier === 'ALL'}
+								onclick={() => (selectedTier = 'ALL')}
+							>
+								All
+							</button>
+							<button
+								type="button"
+								class="tier-seg-btn"
+								class:tier-seg-btn--active={selectedTier === 'essential'}
+								aria-pressed={selectedTier === 'essential'}
+								onclick={() => (selectedTier = 'essential')}
+							>
+								Essentials
+							</button>
+							<button
+								type="button"
+								class="tier-seg-btn"
+								class:tier-seg-btn--active={selectedTier === 'deep-dive'}
+								aria-pressed={selectedTier === 'deep-dive'}
+								onclick={() => (selectedTier = 'deep-dive')}
+							>
+								Deep Dive
+							</button>
+						</div>
+
+						{#if isPinnedView && pinnedStore.ids.length > 0}
+							<button type="button" class="unpin-all-btn" onclick={handleClearPinned}>
+								Clear Pinned
+							</button>
+						{/if}
+					</div>
+				</div>
+
+				{#if filteredTips.length === 0}
+					{#if isPinnedView && availableUnpinnedTips.length > 0}
+						<div class="empty-pinned-notice">
+							<p>
+								None of your currently pinned shortcuts match this filter. Showing <strong
+									>{availableUnpinnedTips.length}</strong
+								>
+								available shortcuts below from the master library that you can add:
+							</p>
+						</div>
+					{:else if isPinnedView && pinnedStore.ids.length === 0}
+						<div class="empty-state empty-state--mysheet">
+							<div class="starter-badge">
+								<Sparkles size={20} class="starter-badge-icon" />
+							</div>
+							<h3>Your Custom Studio Sheet is Empty</h3>
+							<p>
+								Build your personal desk reference. Search any workflow above (e.g. <em>"stems"</em
+								>,
+								<em>"resample"</em>, <em>"vinyl sim"</em>) to add shortcuts, or pick a starter kit:
+							</p>
+							<div class="starter-kits-row">
+								<button
+									type="button"
+									class="starter-kit-btn"
+									onclick={() => addStarterPack('essentials')}
+								>
+									<Plus size={14} />
+									<span>Add 12 Essentials</span>
+								</button>
+								<button
+									type="button"
+									class="starter-kit-btn"
+									onclick={() => addStarterPack('chop')}
+								>
+									<Plus size={14} />
+									<span>Sample Edit & Chop (6)</span>
+								</button>
+								<button type="button" class="starter-kit-btn" onclick={() => addStarterPack('fx')}>
+									<Plus size={14} />
+									<span>FX & Routing (8)</span>
+								</button>
+							</div>
+							<div class="starter-browse-row">
+								<button
+									type="button"
+									class="starter-browse-btn"
+									onclick={() => uiStore.setViewMode('all')}
+								>
+									<Layers size={14} />
+									<span>Browse All 101 Shortcuts</span>
+								</button>
 							</div>
 						</div>
+					{:else}
+						<div class="empty-state">
+							<h3>No matching shortcuts found</h3>
+							<p>
+								Try removing one of the selected faceplate buttons or broadening your search term.
+							</p>
+							<button type="button" class="tool-btn" onclick={clearAllFilters}>
+								Reset Filters
+							</button>
+						</div>
+					{/if}
+				{:else if isGroupedByCategory}
+					<div class="category-sections">
+						{#each groupedSections as section (section.category)}
+							<section class="category-group" aria-labelledby="cat-{section.category}">
+								<div class="category-group__header">
+									<h3 id="cat-{section.category}" class="category-group__title">
+										{section.category}
+									</h3>
+									<span class="category-group__count">{section.items.length}</span>
+								</div>
+								<ul class="tips-grid" role="list">
+									{#each section.items as tip (tip.id)}
+										<li>
+											<TipCard
+												{tip}
+												isPinned={pinnedStore.has(tip.id)}
+												isSelected={selectedTipId === tip.id}
+												{activeButtons}
+												hideCategoryBadge={true}
+												onTogglePin={(id) => pinnedStore.toggle(id)}
+												onSelectTip={toggleSelectTip}
+												onSelectCategory={(cat) => {
+													selectedCategory = selectedCategory === cat ? 'ALL' : cat;
+												}}
+											/>
+										</li>
+									{/each}
+								</ul>
+							</section>
+						{/each}
 					</div>
-
+				{:else}
 					<ul class="tips-grid" role="list">
-						{#each availableUnpinnedTips as tip (tip.id)}
+						{#each filteredTips as tip (tip.id)}
 							<li>
 								<TipCard
 									{tip}
 									isPinned={pinnedStore.has(tip.id)}
 									isSelected={selectedTipId === tip.id}
 									{activeButtons}
-									hideCategoryBadge={false}
+									hideCategoryBadge={selectedCategory !== 'ALL'}
 									onTogglePin={(id) => pinnedStore.toggle(id)}
 									onSelectTip={toggleSelectTip}
 									onSelectCategory={(cat) => {
@@ -662,11 +634,49 @@
 							</li>
 						{/each}
 					</ul>
-				</section>
-			{/if}
-		</section>
-	</div>
-</main>
+				{/if}
+
+				{#if isPinnedView && availableUnpinnedTips.length > 0}
+					<section class="unpinned-section" aria-label="Available shortcuts from master library">
+						<div class="unpinned-section__header">
+							<div class="unpinned-title-group">
+								<Plus size={16} class="unpinned-icon" />
+								<div>
+									<h3 class="unpinned-title">
+										Available in Master Library ({availableUnpinnedTips.length})
+									</h3>
+									<p class="unpinned-subtitle">
+										Matching shortcuts not yet in your sheet. Click the <strong>Star</strong> on any card
+										to add it.
+									</p>
+								</div>
+							</div>
+						</div>
+
+						<ul class="tips-grid" role="list">
+							{#each availableUnpinnedTips as tip (tip.id)}
+								<li>
+									<TipCard
+										{tip}
+										isPinned={pinnedStore.has(tip.id)}
+										isSelected={selectedTipId === tip.id}
+										{activeButtons}
+										hideCategoryBadge={false}
+										onTogglePin={(id) => pinnedStore.toggle(id)}
+										onSelectTip={toggleSelectTip}
+										onSelectCategory={(cat) => {
+											selectedCategory = selectedCategory === cat ? 'ALL' : cat;
+										}}
+									/>
+								</li>
+							{/each}
+						</ul>
+					</section>
+				{/if}
+			</section>
+		</div>
+	</main>
+{/if}
 
 {#if uiStore.showPrintModal}
 	<div

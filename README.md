@@ -2,7 +2,7 @@
 
 A fast, visual shortcut finder and hardware companion for the **Roland SP-404MKII** (Firmware v5.50), built with SvelteKit and TypeScript.
 
-🔗 **Live Tool:** [SP-404MKII Cheat Sheet](https://cntrvsy.github.io/sp404mk2cheatsheet/) &nbsp;|&nbsp; <a href="https://0rwx.com/"><img src="./static/AI-W-light.svg" alt="AI Usage Disclosed via 0rwx" height="18" align="center" /></a>
+🔗 **Live Tool:** [SP-404MKII Cheat Sheet](https://gustavares.github.io/sp404mk2cheatsheet/) &nbsp;|&nbsp; <a href="https://0rwx.com/"><img src="./static/AI-W-light.svg" alt="AI Usage Disclosed via 0rwx" height="18" align="center" /></a>
 
 ---
 
@@ -12,7 +12,8 @@ A fast, visual shortcut finder and hardware companion for the **Roland SP-404MKI
 - **Physical Muscle-Memory Layout:** Preserves 1:1 hardware geometry across mobile and desktop, with a thumb-zoom toggle for touch targets.
 - **Cross-Gear DAW / Slang Search:** Search using MPC, Ableton, FL Studio, or community terms (_"choke group"_, _"one shot"_, _"16 levels"_, _"lazy chop"_, _"resample bounce"_) via [`src/lib/data/aliases.json`](./src/lib/data/aliases.json).
 - **Curated Studio Sheet & PDF:** Pin go-to shortcuts into a custom sheet and export a high-density, ink-friendly 1–2 page reference table.
-- **Strict Verification:** 101 shortcuts with verbatim citations checked against the official Roland Reference Manual on every build.
+- **Lessons:** A guided, hands-on path for a first DJ-mode set. Each step lights the matching controls on the faceplate, says what to press, and says what to listen for. Progress is saved in the browser. There is no streak and no score.
+- **Strict Verification:** 101 shortcuts with verbatim citations checked against the official Roland Reference Manual on every build. Lesson steps cite the same v5.50 manual (and the committed Ver.5.52 firmware notes) and are checked by `npm run validate:lessons`.
 
 ---
 
@@ -44,6 +45,30 @@ The engine is modular and can be adapted for any hardware device:
 
 ---
 
+## Lessons
+
+Lessons live in [`src/lib/data/lessons.json`](./src/lib/data/lessons.json). Add another one by appending an object with a kebab-case `id`, a short `blurb`, what to `bring`, and at least three `steps`. Each step needs:
+
+- `action` and `listen` — what to press, and what the ears should notice
+- `highlight` — faceplate control ids (`REC`, `PAD 13`, `CTRL 1`, `PAD` for any pad, …)
+- `screen` — the short line shown on the round display
+- `citations` — a verbatim quote from a file in [`docs/reference/`](./docs/reference/). Manual quotes also need the `page` number that matches a `<!-- [Page N] -->` anchor
+
+Optional fields: `note`, `offPanel` (a jack or switch the top-panel drawing does not include), `showShiftLabels`, `showDjLabels`, and `unverified` (say so when a claim is not in the manual). `npm run validate:lessons` rejects unknown button ids and quotes that are not on the cited page.
+
+The current set is nine sessions, in beginner order: banks and buses, sampling, trimming, gate/loop/reverse, a pattern, bus effects, resampling, DJ mode, then a short set with an external input.
+
+## GitHub Pages
+
+This fork is published by [`.github/workflows/deploy.yml`](./.github/workflows/deploy.yml), which builds with `BASE_PATH` set to the repository name (`/sp404mk2cheatsheet`) and deploys to `https://gustavares.github.io/sp404mk2cheatsheet/`.
+
+On a fresh fork, GitHub will not run that workflow until both of these are turned on:
+
+1. **Actions** — open the Actions tab and, if GitHub shows that workflows are disabled on the fork, choose **I understand my workflows, go ahead and enable them**.
+2. **Pages** — **Settings → Pages → Build and deployment → Source: GitHub Actions**. Do not use “Deploy from a branch”; the workflow uploads the built site itself.
+
+The workflow runs on every push to `main`, and it can also be started by hand from the Actions tab.
+
 ## Development
 
 ```sh
@@ -73,13 +98,14 @@ npm run build
   </a>
 </p>
 
-This project complies with the **[0rwx](https://0rwx.com/)** open AI disclosure specification. AI coding assistants were utilized for interactive architecture, citation validation tooling, and documentation formatting, paired with manual verification against the official Roland SP-404MKII v5.50 Reference Manual.
+This project complies with the **[0rwx](https://0rwx.com/)** open AI disclosure specification. AI coding assistants were utilized for interactive architecture, citation validation tooling, documentation formatting, and the lesson copy, paired with checks against the official Roland SP-404MKII v5.50 Reference Manual and Roland’s Ver.5.52 system-program notes. Lesson steps that could not be confirmed are marked in the lesson data.
 
 ---
 
 ## License & Attribution
 
 - Built with ❤️ by **[frstudios](https://frstudios.co.ke)**
-- Repository: **[github.com/cntrvsy/sp404mk2cheatsheet](https://github.com/cntrvsy/sp404mk2cheatsheet)**
-- Licensed under the **[MIT License](./LICENSE)**
+- Original repository: **[github.com/cntrvsy/sp404mk2cheatsheet](https://github.com/cntrvsy/sp404mk2cheatsheet)**
+- This fork: **[github.com/gustavares/sp404mk2cheatsheet](https://github.com/gustavares/sp404mk2cheatsheet)**
+- Licensed under the **[MIT License](./LICENSE)** (copyright remains with frstudios)
 - _Disclaimer:_ Roland and SP-404MKII are registered trademarks of Roland Corporation. This project is an independent educational tool.
