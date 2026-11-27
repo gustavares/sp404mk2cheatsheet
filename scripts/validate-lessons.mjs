@@ -9,7 +9,10 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-const LESSONS_PATH = path.resolve('src/lib/data/lessons.json');
+const LESSON_FILES = [
+	path.resolve('src/lib/data/lessons.json'),
+	path.resolve('src/lib/data/more-lessons.json')
+];
 
 const VALID_BUTTON_IDS = new Set([
 	'VOLUME',
@@ -81,13 +84,17 @@ function getPageText(docRelPath, pageNum) {
 	return normalizeWhitespace(slice);
 }
 
-if (!fs.existsSync(LESSONS_PATH)) {
-	console.error('❌ lessons.json not found at src/lib/data/lessons.json.');
-	process.exit(1);
-}
-
-const lessons = JSON.parse(fs.readFileSync(LESSONS_PATH, 'utf8'));
+const lessons = [];
 const errors = [];
+for (const file of LESSON_FILES) {
+	if (!fs.existsSync(file)) {
+		errors.push(`Missing ${path.relative('.', file)}.`);
+		continue;
+	}
+	const parsed = JSON.parse(fs.readFileSync(file, 'utf8'));
+	if (!Array.isArray(parsed)) errors.push(`${path.relative('.', file)} must be an array.`);
+	else lessons.push(...parsed);
+}
 
 if (!Array.isArray(lessons) || lessons.length < 8) {
 	errors.push('lessons.json must contain at least 8 lessons.');
@@ -106,10 +113,27 @@ for (const [lessonIndex, lesson] of lessons.entries()) {
 		lessonIds.add(lesson.id);
 	}
 
-	for (const field of ['title', 'blurb', 'bring']) {
-		if (typeof lesson[field] !== 'string' || lesson[field].trim().length < 8) {
-			errors.push(`${prefix}: "${field}" must be a string of at least 8 characters.`);
+	for (const field of ['title', 'blurb', 'bring', 'chapter']) {
+		if (typeof lesson[field] !== 'string' || lesson[field].trim().length < 3) {
+			errors.push(`${prefix}: "${field}" must be a string.`);
 		}
+	}
+
+	if (!Array.isArray(lesson.tracks) || lesson.tracks.length === 0) {
+		errors.push(`${prefix}: "tracks" must list normal and/or dj.`);
+	} else if (lesson.tracks.some((track) => track !== 'normal' && track !== 'dj')) {
+		errors.push(`${prefix}: "tracks" may only contain "normal" or "dj".`);
+	}
+
+	if (lesson.role !== 'core' && lesson.role !== 'side') {
+		errors.push(`${prefix}: "role" must be core or side.`);
+	}
+
+	if (lesson.role === 'side' && (typeof lesson.parentId !== 'string' || !lesson.parentId)) {
+		errors.push(`${prefix}: side lessons need a parentId.`);
+	}
+	if (lesson.role === 'core' && lesson.parentId) {
+		errors.push(`${prefix}: core lessons do not take a parentId.`);
 	}
 
 	if (!Array.isArray(lesson.steps) || lesson.steps.length < 3) {
@@ -143,7 +167,9 @@ for (const [lessonIndex, lesson] of lessons.entries()) {
 			'dj-play',
 			'dj-sync',
 			'dj-cue',
-			'dj-xfade'
+			'dj-xfade',
+			'dj-bend',
+			'dj-bpm'
 		]);
 		if (step.sense === 'manual') {
 			if (step.listenFor) errors.push(`${stepPrefix}: manual steps do not take listenFor.`);
@@ -237,6 +263,29 @@ for (const [lessonIndex, lesson] of lessons.entries()) {
 		}
 	}
 }
+
+const byId = new Map(lessons.map((lesson) => [lesson.id, lesson]));
+for (const lesson of lessons) {
+	if (lesson.role !== 'side') continue;
+	const parent = byId.get(lesson.parentId);
+	if (!parent) {
+		errors.push(`Lesson (${lesson.id}): parent "${lesson.parentId}" does not exist.`);
+		continue;
+	}
+	if (parent.role !== 'core') {
+		errors.push(`Lesson (${lesson.id}): parent "${lesson.parentId}" must be a core lesson.`);
+	}
+	if (!lesson.tracks.every((track) => parent.tracks.includes(track))) {
+		errors.push(`Lesson (${lesson.id}): its tracks must also be on the parent.`);
+	}
+}
+
+const normalCore = lessons.filter(
+	(lesson) => lesson.role === 'core' && lesson.tracks.includes('normal')
+);
+const djCore = lessons.filter((lesson) => lesson.role === 'core' && lesson.tracks.includes('dj'));
+if (normalCore.length < 7) errors.push('Normal mode needs at least 7 core lessons.');
+if (djCore.length < 2) errors.push('DJ mode needs at least 2 core lessons.');
 
 if (errors.length > 0) {
 	console.error(`❌ Lesson validation failed with ${errors.length} error(s):\n`);

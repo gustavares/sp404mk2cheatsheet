@@ -47,7 +47,7 @@ The engine is modular and can be adapted for any hardware device:
 
 ## Lessons
 
-Lessons live in [`src/lib/data/lessons.json`](./src/lib/data/lessons.json). Add another one by appending an object with a kebab-case `id`, a short `blurb`, what to `bring`, and at least three `steps`. Each step needs:
+Lessons live in [`src/lib/data/lessons.json`](./src/lib/data/lessons.json) and [`src/lib/data/more-lessons.json`](./src/lib/data/more-lessons.json). Add another one by appending an object with a kebab-case `id`, a `tracks` list (`normal` and/or `dj`), a `role` of `core` or `side`, a `chapter`, an `order`, a `parentId` when it is a side lesson, a short `blurb`, what to `bring`, and at least three `steps`. Each step needs:
 
 - `action` and `listen` — what to press, and what the ears should notice
 - `highlight` — faceplate control ids (`REC`, `PAD 13`, `CTRL 1`, `PAD` for any pad, …)
@@ -56,7 +56,7 @@ Lessons live in [`src/lib/data/lessons.json`](./src/lib/data/lessons.json). Add 
 
 Optional fields: `note`, `offPanel` (a jack or switch the top-panel drawing does not include), `showShiftLabels`, `showDjLabels`, and `unverified` (say so when a claim is not in the manual). `npm run validate:lessons` rejects unknown button ids and quotes that are not on the cited page.
 
-The current set is nine sessions, in beginner order: banks and buses, sampling, trimming, gate/loop/reverse, a pattern, bus effects, resampling, DJ mode, then a short set with an external input.
+There are two paths. **Normal mode** is a short core for making a track, with optional side lessons for the rest of the v5.50 manual. **DJ mode** is a short core for playing a first set, with side lessons for the rest of the DJ chapter. Side lessons never block the core.
 
 Each step has a `sense`:
 

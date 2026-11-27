@@ -195,7 +195,11 @@
 				],
 				"sense": "manual"
 			}
-		]
+		],
+		"tracks": ["normal", "dj"],
+		"role": "core",
+		"chapter": "Panel",
+		"order": 1
 	},
 	{
 		"id": "catch-a-sound",
@@ -357,7 +361,11 @@
 					"type": "any-pad"
 				}
 			}
-		]
+		],
+		"tracks": ["normal"],
+		"role": "core",
+		"chapter": "Sampling",
+		"order": 2
 	},
 	{
 		"id": "trim-the-edges",
@@ -470,7 +478,11 @@
 				],
 				"sense": "manual"
 			}
-		]
+		],
+		"tracks": ["normal"],
+		"role": "core",
+		"chapter": "Sample edit",
+		"order": 3
 	},
 	{
 		"id": "gate-loop-reverse",
@@ -594,7 +606,11 @@
 				],
 				"sense": "manual"
 			}
-		]
+		],
+		"tracks": ["normal"],
+		"role": "core",
+		"chapter": "Playback",
+		"order": 4
 	},
 	{
 		"id": "nod-loop",
@@ -745,7 +761,11 @@
 					"sustainMs": 700
 				}
 			}
-		]
+		],
+		"tracks": ["normal"],
+		"role": "core",
+		"chapter": "Patterns",
+		"order": 5
 	},
 	{
 		"id": "bus-knobs",
@@ -884,7 +904,11 @@
 				],
 				"sense": "manual"
 			}
-		]
+		],
+		"tracks": ["normal"],
+		"role": "core",
+		"chapter": "Effects",
+		"order": 6
 	},
 	{
 		"id": "print-the-loop",
@@ -997,7 +1021,11 @@
 					"type": "any-pad"
 				}
 			}
-		]
+		],
+		"tracks": ["normal"],
+		"role": "core",
+		"chapter": "Sampling",
+		"order": 7
 	},
 	{
 		"id": "two-decks",
@@ -1191,7 +1219,11 @@
 					"type": "dj-cue"
 				}
 			}
-		]
+		],
+		"tracks": ["dj"],
+		"role": "core",
+		"chapter": "DJ mode",
+		"order": 2
 	},
 	{
 		"id": "little-set",
@@ -1349,7 +1381,7 @@
 				"title": "Play four minutes, then stop",
 				"action": "With CH1 running, ride [CTRL 3] as X-FADE (press [START/END] if it is still CUE MIX) and bring CH2 in for a bit, then back. Play the S-1 over it. If you want a one-shot under the mix, press [HOLD] to flip into pad mode, tap a pad that is not blinking orange, then press [HOLD] again to return to the decks. When you are finished, press [EXT SOURCE] so it goes dark, and pause pad [13] and pad [15].",
 				"listen": "A bed, a second loop, and your hands on a synth. That is the set. Blinking orange pads are already in use by DJ mode, so they will not play as extra one-shots. There is nothing to score. Do it again whenever it sounds like a room you like.",
-				"note": "Skip-back sampling inside DJ pad mode was added in system 5.00. The v5.50 DJ chapter in this repo does not walk through that procedure, so this lesson does not teach it.",
+				"note": "Pad mode is how you tap an extra sample while the decks run. Skip-back from that pad mode is its own side lesson. The v5.50 DJ chapter does not list the skip-back buttons.",
 				"highlight": ["CTRL 3", "START/END", "HOLD", "PAD", "EXT SOURCE", "PAD 13", "PAD 15"],
 				"screen": "Crossfade, play, pause",
 				"showDjLabels": true,
@@ -1379,6 +1411,10 @@
 				],
 				"sense": "manual"
 			}
-		]
+		],
+		"tracks": ["dj"],
+		"role": "core",
+		"chapter": "DJ mode",
+		"order": 3
 	}
 ]
