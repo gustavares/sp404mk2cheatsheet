@@ -11,7 +11,8 @@
 		"docs:ingest": "node scripts/ingest-pdf.mjs",
 		"validate:tips": "node scripts/validate-tips.mjs",
 		"validate:lessons": "node scripts/validate-lessons.mjs",
-		"check": "npm run validate:tips && npm run validate:lessons && svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check:sense": "node --experimental-strip-types scripts/check-sense.ts",
+		"check": "npm run validate:tips && npm run validate:lessons && npm run check:sense && svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "prettier --check . && eslint .",
 		"format": "prettier --write ."

@@ -135,6 +135,40 @@ for (const [lessonIndex, lesson] of lessons.entries()) {
 			}
 		}
 
+		const midiTypes = new Set([
+			'any-pad',
+			'pad',
+			'note',
+			'knob',
+			'dj-play',
+			'dj-sync',
+			'dj-cue',
+			'dj-xfade'
+		]);
+		if (step.sense === 'manual') {
+			if (step.listenFor) errors.push(`${stepPrefix}: manual steps do not take listenFor.`);
+		} else if (step.sense === 'midi') {
+			if (!step.listenFor || !midiTypes.has(step.listenFor.type)) {
+				errors.push(`${stepPrefix}: midi steps need a listenFor type the chart can match.`);
+			}
+			if (step.listenFor?.type === 'pad' && (step.listenFor.pad < 1 || step.listenFor.pad > 16)) {
+				errors.push(`${stepPrefix}: pad listenFor must be 1–16.`);
+			}
+			if (
+				step.listenFor?.type === 'dj-play' &&
+				step.listenFor.channel !== 1 &&
+				step.listenFor.channel !== 2
+			) {
+				errors.push(`${stepPrefix}: dj-play channel must be 1 or 2.`);
+			}
+		} else if (step.sense === 'audio') {
+			if (!step.listenFor || step.listenFor.type !== 'sound') {
+				errors.push(`${stepPrefix}: audio steps need listenFor type "sound".`);
+			}
+		} else {
+			errors.push(`${stepPrefix}: "sense" must be midi, audio, or manual.`);
+		}
+
 		if (!Array.isArray(step.highlight) || step.highlight.length === 0) {
 			errors.push(`${stepPrefix}: "highlight" must list at least one control.`);
 		} else {

@@ -1,8 +1,12 @@
 /**
  * Lesson data contract. Add a lesson by appending an object to
  * `src/lib/data/lessons.json`. `scripts/validate-lessons.mjs` checks button
- * ids and verbatim manual quotes on `npm run check`.
+ * ids, the sense of each step, and verbatim manual quotes on `npm run check`.
  */
+import type { ListenFor } from '#lib/sense/decode.js';
+
+/** How a step can notice that it happened. Manual steps always use Done / Next. */
+export type LessonSense = 'midi' | 'audio' | 'manual';
 
 export interface LessonCitation {
 	/** Path under docs/reference/. Manual chapters use a page anchor; firmware notes may omit page. */
@@ -30,6 +34,14 @@ export interface LessonStep {
 	offPanel?: string;
 	/** Claims we could not confirm in the v5.50 manual or the firmware notes. */
 	unverified?: string[];
+	/**
+	 * midi: a documented message can complete the step.
+	 * audio: sustained input level can complete it.
+	 * manual: the control does not report itself; Done / Next is the way through.
+	 */
+	sense: LessonSense;
+	/** Required for midi and audio. Omitted for manual. */
+	listenFor?: ListenFor;
 	citations: LessonCitation[];
 }
 

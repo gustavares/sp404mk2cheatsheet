@@ -38,7 +38,8 @@
 						"doc": "docs/reference/roland-sp404mk2-sys-5.52.md",
 						"quote": "The version number has been updated due to management-related circumstances. Product specifications are unaffected."
 					}
-				]
+				],
+				"sense": "manual"
 			},
 			{
 				"id": "sample-mode",
@@ -68,7 +69,11 @@
 						"page": 19,
 						"quote": "The corresponding samples play back."
 					}
-				]
+				],
+				"sense": "midi",
+				"listenFor": {
+					"type": "any-pad"
+				}
 			},
 			{
 				"id": "banks",
@@ -98,7 +103,8 @@
 						"page": 12,
 						"quote": "Samples can be assigned to pads [1]–[16] and played back"
 					}
-				]
+				],
+				"sense": "manual"
 			},
 			{
 				"id": "project",
@@ -134,7 +140,8 @@
 						"page": 7,
 						"quote": "Press this to return to the previous screen or to undo an operation."
 					}
-				]
+				],
+				"sense": "manual"
 			},
 			{
 				"id": "bus-fx",
@@ -154,7 +161,8 @@
 						"page": 31,
 						"quote": "When the button is lit orange, BUS 1 is selected; and when the button is blinking orange, BUS 2 is selected."
 					}
-				]
+				],
+				"sense": "manual"
 			},
 			{
 				"id": "pad-routing",
@@ -184,7 +192,8 @@
 						"page": 34,
 						"quote": "When using the factory settings, orange indicates BUS 1, green indicates BUS 2, and white indicates output to DRY."
 					}
-				]
+				],
+				"sense": "manual"
 			}
 		]
 	},
@@ -229,7 +238,8 @@
 						"page": 10,
 						"quote": "Connect your headphones or earphones here."
 					}
-				]
+				],
+				"sense": "manual"
 			},
 			{
 				"id": "standby",
@@ -254,7 +264,8 @@
 						"page": 37,
 						"quote": "Empty pads to which samples haven’t been assigned blink red."
 					}
-				]
+				],
+				"sense": "manual"
 			},
 			{
 				"id": "routing",
@@ -288,7 +299,8 @@
 						"page": 10,
 						"quote": "Adjusts the input level of the device connected to the INPUT jack."
 					}
-				]
+				],
+				"sense": "manual"
 			},
 			{
 				"id": "record",
@@ -323,7 +335,8 @@
 						"page": 165,
 						"quote": "Protected! The function can’t be executed"
 					}
-				]
+				],
+				"sense": "manual"
 			},
 			{
 				"id": "playback",
@@ -338,7 +351,11 @@
 						"page": 19,
 						"quote": "The corresponding samples play back."
 					}
-				]
+				],
+				"sense": "midi",
+				"listenFor": {
+					"type": "any-pad"
+				}
 			}
 		]
 	},
@@ -376,7 +393,8 @@
 						"page": 48,
 						"quote": "Press pads [1]–[16] to select the sample you want to edit."
 					}
-				]
+				],
+				"sense": "manual"
 			},
 			{
 				"id": "move-points",
@@ -406,7 +424,8 @@
 						"page": 48,
 						"quote": "Initializes the start and end point positions."
 					}
-				]
+				],
+				"sense": "manual"
 			},
 			{
 				"id": "preview",
@@ -421,7 +440,8 @@
 						"page": 48,
 						"quote": "While this button is pressed, you can preview the sound several seconds before the end point."
 					}
-				]
+				],
+				"sense": "manual"
 			},
 			{
 				"id": "truncate-or-leave",
@@ -447,7 +467,8 @@
 						"page": 49,
 						"quote": "Once you’ve confirmed the start/end point, press the [EXIT] button."
 					}
-				]
+				],
+				"sense": "manual"
 			}
 		]
 	},
@@ -480,7 +501,8 @@
 						"page": 20,
 						"quote": "Press the [GATE] button to switch the function on (the button is lit) and off (the button goes dark)."
 					}
-				]
+				],
+				"sense": "manual"
 			},
 			{
 				"id": "hold",
@@ -500,7 +522,8 @@
 						"page": 21,
 						"quote": "Press the [HOLD] button while holding down pads [1]–[16]."
 					}
-				]
+				],
+				"sense": "manual"
 			},
 			{
 				"id": "loop",
@@ -520,7 +543,8 @@
 						"page": 21,
 						"quote": "Press the [LOOP] button to turn the loop on (the button lights up)."
 					}
-				]
+				],
+				"sense": "manual"
 			},
 			{
 				"id": "ping-pong",
@@ -541,7 +565,8 @@
 						"page": 22,
 						"quote": "The [LOOP] button blinks. The loop alternately plays back forwards and then in reverse."
 					}
-				]
+				],
+				"sense": "manual"
 			},
 			{
 				"id": "reverse",
@@ -566,7 +591,8 @@
 						"page": 22,
 						"quote": "Press the [REVERSE] button to turn reverse playback on (the button lights up)."
 					}
-				]
+				],
+				"sense": "manual"
 			}
 		]
 	},
@@ -599,7 +625,8 @@
 						"page": 64,
 						"quote": "To stop the pattern playback, press the pad that’s playing back (pads [1]–[16]; lit white) or press the [EXIT] button."
 					}
-				]
+				],
+				"sense": "manual"
 			},
 			{
 				"id": "arm",
@@ -634,7 +661,8 @@
 						"page": 65,
 						"quote": "The [REMAIN] button blinks at this time."
 					}
-				]
+				],
+				"sense": "manual"
 			},
 			{
 				"id": "tempo-length",
@@ -665,7 +693,8 @@
 						"page": 65,
 						"quote": "Quantization is a function that automatically corrects these inconsistencies in timing when you record a pattern."
 					}
-				]
+				],
+				"sense": "manual"
 			},
 			{
 				"id": "overdub",
@@ -685,7 +714,8 @@
 						"page": 66,
 						"quote": "While the pattern is recording, press the [PATTERN SELECT] button while holding down the [SHIFT] button to undo the data you just inputted (recorded)."
 					}
-				]
+				],
+				"sense": "manual"
 			},
 			{
 				"id": "keep-it",
@@ -708,7 +738,12 @@
 						"page": 19,
 						"quote": "There are many preset samples available on this unit by factory default."
 					}
-				]
+				],
+				"sense": "audio",
+				"listenFor": {
+					"type": "sound",
+					"sustainMs": 700
+				}
 			}
 		]
 	},
@@ -736,7 +771,8 @@
 						"page": 34,
 						"quote": "The BUS 1 and BUS 2 effects are not applied to samples that are assigned to DRY."
 					}
-				]
+				],
+				"sense": "manual"
 			},
 			{
 				"id": "filter",
@@ -770,7 +806,11 @@
 						"page": 31,
 						"quote": "Use the [CTRL 1]–[CTRL 3] knobs to operate the effect parameters for the selected bus."
 					}
-				]
+				],
+				"sense": "midi",
+				"listenFor": {
+					"type": "knob"
+				}
 			},
 			{
 				"id": "vinyl",
@@ -793,7 +833,8 @@
 						"page": 148,
 						"quote": "This effect models the Vinyl Sim effect of the SP-404SX. The effect simulates the sound of an analog record playing."
 					}
-				]
+				],
+				"sense": "manual"
 			},
 			{
 				"id": "grab",
@@ -813,7 +854,8 @@
 						"page": 32,
 						"quote": "The effect turns on only while you’re pressing the effect button."
 					}
-				]
+				],
+				"sense": "manual"
 			},
 			{
 				"id": "mute-bus",
@@ -839,7 +881,8 @@
 						"page": 34,
 						"quote": "Hold down the [SHIFT] button and press the [BUS FX] button."
 					}
-				]
+				],
+				"sense": "manual"
 			}
 		]
 	},
@@ -877,7 +920,8 @@
 						"page": 72,
 						"quote": "No sound is heard while the sample is being converted."
 					}
-				]
+				],
+				"sense": "manual"
 			},
 			{
 				"id": "mix-routing",
@@ -901,7 +945,8 @@
 						"doc": "docs/reference/roland-sp404mk2-sys-5.52.md",
 						"quote": "The current settings (how to start resampling) are now shown when resampling."
 					}
-				]
+				],
+				"sense": "manual"
 			},
 			{
 				"id": "print",
@@ -921,7 +966,12 @@
 						"page": 73,
 						"quote": "Sampling begins when the pattern starts playing back."
 					}
-				]
+				],
+				"sense": "audio",
+				"listenFor": {
+					"type": "sound",
+					"sustainMs": 700
+				}
 			},
 			{
 				"id": "stop-and-play",
@@ -941,7 +991,11 @@
 						"page": 19,
 						"quote": "When you turn on the SP-404MK2, the pads light up orange and the unit enters sample mode."
 					}
-				]
+				],
+				"sense": "midi",
+				"listenFor": {
+					"type": "any-pad"
+				}
 			}
 		]
 	},
@@ -979,7 +1033,8 @@
 						"doc": "docs/reference/roland-sp404mk2-sys-5.52.md",
 						"quote": "You can now operate the Serato DJ from the SP-404MKII."
 					}
-				]
+				],
+				"sense": "manual"
 			},
 			{
 				"id": "assign",
@@ -1015,7 +1070,8 @@
 						"page": 93,
 						"quote": "Adjusts the volume of CH2."
 					}
-				]
+				],
+				"sense": "manual"
 			},
 			{
 				"id": "play",
@@ -1031,7 +1087,12 @@
 						"page": 94,
 						"quote": "Switches between play/pause."
 					}
-				]
+				],
+				"sense": "midi",
+				"listenFor": {
+					"type": "dj-play",
+					"channel": 1
+				}
 			},
 			{
 				"id": "crossfade",
@@ -1055,7 +1116,11 @@
 						"page": 94,
 						"quote": "Crossfades between CH1 and CH2."
 					}
-				]
+				],
+				"sense": "midi",
+				"listenFor": {
+					"type": "dj-xfade"
+				}
 			},
 			{
 				"id": "sync",
@@ -1084,7 +1149,11 @@
 						"page": 20,
 						"quote": "To use BPM SYNC, you must first set the accurate tempo data for each sample."
 					}
-				]
+				],
+				"sense": "midi",
+				"listenFor": {
+					"type": "dj-sync"
+				}
 			},
 			{
 				"id": "cue",
@@ -1116,7 +1185,11 @@
 						"page": 10,
 						"quote": "Connect your headphones or earphones here."
 					}
-				]
+				],
+				"sense": "midi",
+				"listenFor": {
+					"type": "dj-cue"
+				}
 			}
 		]
 	},
@@ -1146,7 +1219,12 @@
 						"page": 94,
 						"quote": "Switches between play/pause."
 					}
-				]
+				],
+				"sense": "midi",
+				"listenFor": {
+					"type": "dj-play",
+					"channel": 1
+				}
 			},
 			{
 				"id": "synth-in",
@@ -1183,7 +1261,8 @@
 						"page": 102,
 						"quote": "Turn the [CTRL 3] knob to adjust the volume of the audio input."
 					}
-				]
+				],
+				"sense": "manual"
 			},
 			{
 				"id": "guitar-later",
@@ -1213,7 +1292,8 @@
 						"page": 10,
 						"quote": "flip the switch to the right (towards the INPUT jack)."
 					}
-				]
+				],
+				"sense": "manual"
 			},
 			{
 				"id": "latch",
@@ -1234,7 +1314,8 @@
 						"page": 20,
 						"quote": "When the [GATE] button is turned on, the sound from the external device is output only while you are pressing the [EXT SOURCE] button."
 					}
-				]
+				],
+				"sense": "manual"
 			},
 			{
 				"id": "synth-bus",
@@ -1260,7 +1341,8 @@
 						"page": 31,
 						"quote": "When the button is lit orange, BUS 1 is selected; and when the button is blinking orange, BUS 2 is selected."
 					}
-				]
+				],
+				"sense": "manual"
 			},
 			{
 				"id": "play-the-set",
@@ -1294,7 +1376,8 @@
 						"doc": "docs/reference/roland-sp404mk2-sys-5.52.md",
 						"quote": "SKIP BACK SAMPLING can now be used in DJ MODE (PAD Mode)."
 					}
-				]
+				],
+				"sense": "manual"
 			}
 		]
 	}

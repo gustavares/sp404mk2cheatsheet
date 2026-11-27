@@ -58,6 +58,14 @@ Optional fields: `note`, `offPanel` (a jack or switch the top-panel drawing does
 
 The current set is nine sessions, in beginner order: banks and buses, sampling, trimming, gate/loop/reverse, a pattern, bus effects, resampling, DJ mode, then a short set with an external input.
 
+Each step has a `sense`:
+
+- `midi` — an opt-in **Connect SP-404** button (Web MIDI, Chrome or Edge) can hear a documented message and move the step on. The port whose name looks like the SP-404 is selected on its own. Pads light on the drawing as they are hit. Done / Next still works.
+- `audio` — an opt-in **Listen to the SP** button opens the input with echo cancellation, noise suppression, and auto gain off, into an analyser that is not connected to the speakers. A step completes when the level stays up, and only if it rose after the step opened. A steady onset pattern can show a rough BPM; a wobbly one stays quiet.
+- `manual` — the control does not transmit (menus, REC, most buttons, DJ mode entry). The highlight is hatched. Done / Next is the way through.
+
+What the SP transmits is taken from the v5.50 MIDI implementation chart in [`docs/reference/roland-v550/12-appendix-specs-midi.md`](./docs/reference/roland-v550/12-appendix-specs-midi.md). Program change is not transmitted, so it is ignored. Note-off is not transmitted. MIDI clock counts only as a hint, and only when Sync Out is on.
+
 ## GitHub Pages
 
 This fork is published by [`.github/workflows/deploy.yml`](./.github/workflows/deploy.yml), which builds with `BASE_PATH` set to the repository name (`/sp404mk2cheatsheet`) and deploys to `https://gustavares.github.io/sp404mk2cheatsheet/`.

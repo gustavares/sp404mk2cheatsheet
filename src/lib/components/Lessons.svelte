@@ -1,8 +1,13 @@
 <script lang="ts">
+	import { untrack } from 'svelte';
 	import rawLessons from '#lib/data/lessons.json';
 	import type { Lesson, LessonCitation } from '#lib/lessons/types.js';
+	import { matchesListen } from '#lib/sense/decode.js';
 	import { lessonProgress } from '#lib/stores/lessons.svelte.js';
+	import { midiStore } from '#lib/stores/midi.svelte.js';
+	import { audioStore } from '#lib/stores/audio.svelte.js';
 	import Faceplate from '#lib/components/Faceplate.svelte';
+	import LessonLink from '#lib/components/LessonLink.svelte';
 	import {
 		BookOpen,
 		Check,
@@ -18,6 +23,12 @@
 	let stepIndex = $state(0);
 	let phase = $state<'step' | 'finished'>('step');
 	let syncedLessonId = $state<string | null>(null);
+	let openedAt = $state(0);
+	let heard = $state('');
+	let audioMark = 0;
+	let advanceTimer: ReturnType<typeof setTimeout> | null = null;
+
+	const liveButtons = $derived(Object.keys(midiStore.flashing));
 
 	const openLesson = $derived(
 		lessons.find((lesson) => lesson.id === lessonProgress.openLessonId) ?? null
@@ -63,8 +74,15 @@
 		lessonProgress.setStep(openLesson.id, stepIndex);
 	}
 
+	function clearAdvance() {
+		if (advanceTimer) clearTimeout(advanceTimer);
+		advanceTimer = null;
+	}
+
 	function doneNext() {
 		if (!openLesson || !step) return;
+		clearAdvance();
+		heard = '';
 		lessonProgress.markDone(openLesson.id, step.id);
 		if (stepIndex < openLesson.steps.length - 1) {
 			stepIndex += 1;
@@ -94,6 +112,52 @@
 		phase = 'step';
 		stepIndex = 0;
 	}
+
+	function scheduleAdvance(label: string) {
+		if (!step || advanceTimer) return;
+		heard = label;
+		const stepId = step.id;
+		advanceTimer = setTimeout(() => {
+			advanceTimer = null;
+			if (step?.id === stepId) doneNext();
+		}, 700);
+	}
+
+	$effect(() => {
+		const id = step?.id;
+		const sense = step?.sense;
+		if (!id || !step) return;
+		clearAdvance();
+		heard = '';
+		openedAt = performance.now();
+		audioMark = untrack(() => audioStore.confirmSerial);
+		if (sense === 'audio' && step.listenFor?.type === 'sound') {
+			audioStore.arm(step.listenFor.sustainMs ?? 700);
+		}
+	});
+
+	$effect(() => {
+		const serial = midiStore.serial;
+		const confirm = audioStore.confirmSerial;
+		const current = step;
+		if (!current || phase !== 'step' || advanceTimer) return;
+		if (current.sense === 'midi' && current.listenFor && midiStore.isConnected) {
+			const hit = midiStore.lastHit;
+			if (!hit || serial === 0 || midiStore.lastHitAt < openedAt) return;
+			if (!matchesListen(current.listenFor, hit)) return;
+			scheduleAdvance(hit.label);
+			return;
+		}
+		if (
+			current.sense === 'audio' &&
+			audioStore.isRunning &&
+			confirm > audioMark &&
+			audioStore.hot
+		) {
+			const bpm = audioStore.tempoBpm;
+			scheduleAdvance(bpm ? `the loop, about ${bpm} BPM` : 'the SP playing');
+		}
+	});
 
 	function nextLesson(): Lesson | null {
 		if (!openLesson) return null;
@@ -138,6 +202,8 @@
 				</p>
 			</div>
 		</header>
+
+		<LessonLink />
 
 		<ol class="lesson-list">
 			{#each lessons as lesson, index (lesson.id)}
@@ -198,6 +264,7 @@
 					</div>
 					<h2>{lesson.title}</h2>
 					<p class="player__bring">{lesson.bring}</p>
+					<LessonLink />
 
 					{#if phase === 'finished'}
 						<section class="finish-card" aria-labelledby="lesson-finished-title">
@@ -238,6 +305,21 @@
 								Step {stepIndex + 1} of {lesson.steps.length}
 							</p>
 							<h3>{step.title}</h3>
+							<p class="sense-line">
+								{#if step.sense === 'midi'}
+									The SP can check this one in. Hit it, and the step moves on. Done / Next still
+									works if it stays quiet.
+								{:else if step.sense === 'audio'}
+									If Listen to the SP is on, a steady signal moves this step on. A loop that is
+									already playing does not count.
+								{:else}
+									This control doesn't report itself. The hatching means it's on you. Done / Next
+									when you've done it.
+								{/if}
+							</p>
+							{#if heard}
+								<p class="heard">Heard it. {heard}</p>
+							{/if}
 
 							<div class="callout callout--do">
 								<p class="callout__label">Press this</p>
@@ -308,6 +390,8 @@
 						guideLock={true}
 						showShiftLabels={step.showShiftLabels === true}
 						showDjLabels={step.showDjLabels === true}
+						{liveButtons}
+						hatchHighlights={step.sense === 'manual'}
 						lessonCue={{
 							kicker: `STEP ${stepIndex + 1}/${lesson.steps.length}`,
 							headline: step.screen,
@@ -628,6 +712,24 @@
 		letter-spacing: 0.06em;
 		text-transform: uppercase;
 		color: #fdba74;
+	}
+
+	.sense-line {
+		margin: 0;
+		font-size: 0.8rem;
+		line-height: 1.45;
+		color: #94a3b8;
+	}
+
+	.heard {
+		margin: 0;
+		padding: 0.45rem 0.65rem;
+		border-radius: 0.45rem;
+		background: rgba(56, 189, 248, 0.12);
+		border: 1px solid rgba(56, 189, 248, 0.4);
+		color: #e0f2fe;
+		font-size: 0.82rem;
+		font-weight: 700;
 	}
 
 	.callout {

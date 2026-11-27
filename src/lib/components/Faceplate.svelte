@@ -40,6 +40,10 @@
 		guideLock?: boolean;
 		showShiftLabels?: boolean;
 		showDjLabels?: boolean;
+		/** Controls the SP just played, lit on top of the step highlight. */
+		liveButtons?: string[];
+		/** Manual steps: the highlighted controls don't report themselves over MIDI. */
+		hatchHighlights?: boolean;
 	}
 
 	let {
@@ -52,7 +56,9 @@
 		lessonCue = null,
 		guideLock = false,
 		showShiftLabels = false,
-		showDjLabels = false
+		showDjLabels = false,
+		liveButtons = [],
+		hatchHighlights = false
 	}: Props = $props();
 
 	const highlightedButtons = $derived(selectedTip ? selectedTip.buttons : activeButtons);
@@ -71,6 +77,13 @@
 	function press(id: string) {
 		if (guideLock) return;
 		onToggleButton(id);
+	}
+
+	function isLive(id: string): boolean {
+		return (
+			liveButtons.includes(id) ||
+			(id !== 'PAD' && liveButtons.includes('PAD') && id.startsWith('PAD '))
+		);
 	}
 
 	$effect(() => {
@@ -223,6 +236,8 @@
 				class="hw-knob"
 				data-hw={knob.id}
 				class:hw-knob--active={isSelected(knob.id)}
+				class:hw-knob--live={isLive(knob.id)}
+				class:hw-knob--hatch={hatchHighlights && isSelected(knob.id)}
 				aria-pressed={isSelected(knob.id)}
 				onclick={() => press(knob.id)}
 			>
@@ -246,6 +261,8 @@
 					class="hw-btn hw-btn--fx hw-btn--fx-{btn.pos}"
 					data-hw={btn.id}
 					class:hw-btn--active={isSelected(btn.id)}
+					class:hw-btn--live={isLive(btn.id)}
+					class:hw-btn--hatch={hatchHighlights && isSelected(btn.id)}
 					aria-pressed={isSelected(btn.id)}
 					onclick={() => press(btn.id)}
 				>
@@ -314,6 +331,8 @@
 					class="hw-btn hw-btn--fx hw-btn--fx-{btn.pos}"
 					data-hw={btn.id}
 					class:hw-btn--active={isSelected(btn.id)}
+					class:hw-btn--live={isLive(btn.id)}
+					class:hw-btn--hatch={hatchHighlights && isSelected(btn.id)}
 					aria-pressed={isSelected(btn.id)}
 					onclick={() => press(btn.id)}
 				>
@@ -337,6 +356,8 @@
 							class="hw-btn hw-btn--rect"
 							data-hw={btn.id}
 							class:hw-btn--active={isSelected(btn.id)}
+							class:hw-btn--live={isLive(btn.id)}
+							class:hw-btn--hatch={hatchHighlights && isSelected(btn.id)}
 							aria-pressed={isSelected(btn.id)}
 							onclick={() => press(btn.id)}
 						>
@@ -358,6 +379,8 @@
 							class="hw-btn hw-btn--rect"
 							data-hw={btn.id}
 							class:hw-btn--active={isSelected(btn.id)}
+							class:hw-btn--live={isLive(btn.id)}
+							class:hw-btn--hatch={hatchHighlights && isSelected(btn.id)}
 							aria-pressed={isSelected(btn.id)}
 							onclick={() => press(btn.id)}
 						>
@@ -378,6 +401,8 @@
 					class="hw-knob hw-knob--encoder"
 					data-hw="VALUE"
 					class:hw-knob--active={isSelected('VALUE')}
+					class:hw-knob--live={isLive('VALUE')}
+					class:hw-knob--hatch={hatchHighlights && isSelected('VALUE')}
 					aria-pressed={isSelected('VALUE')}
 					onclick={() => press('VALUE')}
 				>
@@ -405,6 +430,8 @@
 							class="hw-btn hw-btn--rect"
 							data-hw={btn.id}
 							class:hw-btn--active={isSelected(btn.id)}
+							class:hw-btn--live={isLive(btn.id)}
+							class:hw-btn--hatch={hatchHighlights && isSelected(btn.id)}
 							aria-pressed={isSelected(btn.id)}
 							onclick={() => press(btn.id)}
 						>
@@ -426,6 +453,8 @@
 							class="hw-btn hw-btn--rect"
 							data-hw={btn.id}
 							class:hw-btn--active={isSelected(btn.id)}
+							class:hw-btn--live={isLive(btn.id)}
+							class:hw-btn--hatch={hatchHighlights && isSelected(btn.id)}
 							aria-pressed={isSelected(btn.id)}
 							onclick={() => press(btn.id)}
 						>
@@ -450,6 +479,8 @@
 							class="hw-btn hw-btn--rect"
 							data-hw={btn.id}
 							class:hw-btn--active={isSelected(btn.id)}
+							class:hw-btn--live={isLive(btn.id)}
+							class:hw-btn--hatch={hatchHighlights && isSelected(btn.id)}
 							aria-pressed={isSelected(btn.id)}
 							onclick={() => press(btn.id)}
 						>
@@ -476,6 +507,8 @@
 							class="hw-btn hw-btn--rect hw-btn--bank"
 							data-hw={bank.id}
 							class:hw-btn--active={isSelected(bank.id)}
+							class:hw-btn--live={isLive(bank.id)}
+							class:hw-btn--hatch={hatchHighlights && isSelected(bank.id)}
 							aria-pressed={isSelected(bank.id)}
 							aria-label="Bank {bank.label}"
 							onclick={() => press(bank.id)}
@@ -490,6 +523,8 @@
 						class="hw-btn hw-btn--rect hw-btn--shift-key"
 						data-hw="SHIFT"
 						class:hw-btn--active={isSelected('SHIFT')}
+						class:hw-btn--live={isLive('SHIFT')}
+						class:hw-btn--hatch={hatchHighlights && isSelected('SHIFT')}
 						aria-pressed={isSelected('SHIFT')}
 						onclick={() => press('SHIFT')}
 					>
@@ -527,6 +562,8 @@
 					class="hw-pad"
 					data-hw={pad.id}
 					class:hw-pad--active={isSelected(pad.id)}
+					class:hw-pad--live={isLive(pad.id)}
+					class:hw-pad--hatch={hatchHighlights && isSelected(pad.id)}
 					class:hw-pad--any-active={isAnyPadActive && !isSelected(pad.id)}
 					aria-pressed={isSelected(pad.id)}
 					onclick={() => press(pad.id)}
@@ -548,6 +585,8 @@
 					class="hw-btn hw-btn--side"
 					data-hw={btn.id}
 					class:hw-btn--active={isSelected(btn.id)}
+					class:hw-btn--live={isLive(btn.id)}
+					class:hw-btn--hatch={hatchHighlights && isSelected(btn.id)}
 					aria-pressed={isSelected(btn.id)}
 					onclick={() => press(btn.id)}
 				>
@@ -1278,10 +1317,33 @@
 		scroll-margin-bottom: 5.75rem;
 	}
 
-	.faceplate--guide .hw-btn:not(.hw-btn--active),
-	.faceplate--guide .hw-pad:not(.hw-pad--active):not(.hw-pad--any-active),
-	.faceplate--guide .hw-knob:not(.hw-knob--active) {
+	.faceplate--guide .hw-btn:not(.hw-btn--active):not(.hw-btn--live),
+	.faceplate--guide .hw-pad:not(.hw-pad--active):not(.hw-pad--any-active):not(.hw-pad--live),
+	.faceplate--guide .hw-knob:not(.hw-knob--active):not(.hw-knob--live) {
 		opacity: 0.38;
+	}
+
+	.faceplate--guide .hw-btn--live,
+	.faceplate--guide .hw-pad--live,
+	.faceplate--guide .hw-knob--live {
+		opacity: 1;
+		outline: 2px solid #fff7ed;
+		outline-offset: 2px;
+		background: #f97316 !important;
+		color: #fff !important;
+	}
+
+	.faceplate--guide .hw-btn--hatch.hw-btn--active,
+	.faceplate--guide .hw-pad--hatch.hw-pad--active,
+	.faceplate--guide .hw-knob--hatch.hw-knob--active {
+		animation: none;
+		background-color: #9a3412 !important;
+		background-image: repeating-linear-gradient(
+			-45deg,
+			rgba(255, 237, 213, 0.18) 0 3px,
+			transparent 3px 7px
+		) !important;
+		outline-style: dashed;
 	}
 
 	.faceplate--guide button {
